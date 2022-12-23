@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+
+   <title>Trang quản trị nhân viên| DTNsBike</title>
+
+</head>
+
+<body>
+
+   <!-- Content  -->
+   <main>
+      <!-- Trigger the modal with a button -->
+      <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+      <div class="modal" th:classappend="${message} ? show : hiden" id="message" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onChangeModal()">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body" th:text="${message}">
+
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                     onclick="onChangeModal()">Đóng</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Tạo mật khẩu mới cho tài khoản</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a th:href="@{/admin/account-list.html}" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Xem danh sách nhân viên</strong>
+                  </a>
+                  <!-- Button effect -->
+
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <form class="card-body" method="post" th:object="${userResetpassModel}">
+                  <div class="row">
+                     <div>
+                        <label for="username" class="form-label font-weight">Tên đăng nhập</label>
+                        <div class="input-group">
+                           <input type="text" class="form-control"
+                              aria-label="Dollar amount (with dot and two decimal places)" th:field="*{username}">
+                           <div class="input-group-append">
+                              <button class="input-group-text btn btn-success"
+                                 th:formaction="@{/admin/account/form/resetpass}">Tìm Tài
+                                 Khoản</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row alert alert-success mt-5" role="alert" th:if="${session.myAccount!=null}"
+                     th:object="${session.myAccount}">
+                     <div class="col-12">
+                        <div class="row">
+                           <h3 class="col-12 alert-heading alert-link text-center">Thông Tin Tài Khoản</h3>
+                        </div>
+                        <div class="row">
+                           <div class="col-2">
+                              <div class="row"
+                                 th:with="imgUrl=(*{photo == null}? '/admin/images/default.jpg' : '/rest/upload/accounts_img/'+*{photo})">
+                                 <img class="img-fluid w-100 h-100" th:src="@{${imgUrl}}">
+                              </div>
+                              <div class="row">
+                                 <div class="col-12 alert-link text-center mt-1">Ảnh đại diện</div>
+                              </div>
+                           </div>
+                           <div class="col-10">
+                              <div class="row">
+                                 <div class="col-12">
+                                    <div class="row">
+                                       <div class="col-3 alert-link">Họ và tên: </div>
+                                       <div class="col-9" th:if="*{middlename != null}"
+                                          th:text="*{lastname}+' '+*{middlename}+' '+*{firstname}"></div>
+                                       <div class="col-9" th:unless="*{middlename != null}"
+                                          th:text="*{firstname}+' ' +*{lastname}"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Tên đăng nhập: </div>
+                                       <div class="col-9" th:text="*{username}"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Email: </div>
+                                       <div class="col-9" th:text="*{email}"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Số điện thoại: </div>
+                                       <div class="col-9" th:text="*{phone}"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Giới tính: </div>
+                                       <div class="col-9" th:if="*{gender == '1'}" th:text="'Nam'"></div>
+                                       <div class="col-9" th:if="*{gender == '2'}" th:text="'Nữ'"></div>
+                                       <div class="col-9" th:if="*{gender == '3'}" th:text="'Khác'"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Ngày sinh: </div>
+                                       <div class="col-9" th:text="*{#dates.format(birthday, 'dd/MM/yyyy')}">30/09/2002
+                                       </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Vai trò: </div>
+                                       <div class="col-9" th:if="${myRoleAccount == null}"
+                                          th:text="'Tài khoản chưa được cấp quyền'"></div>
+                                       <div class="col-9" th:unless="${myRoleAccount == null}"
+                                          th:text="${myRoleAccount}"></div>
+                                    </div>
+                                    <div class="row mt-1">
+                                       <div class="col-3 alert-link">Trạng thái hoạt động: </div>
+                                       <div class="col-9" th:text="*{active?'Đang hoạt động':'Ngưng hoạt động'}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <button class="col-12 btn btn-success"
+                              th:formaction="@{/admin/account/form/reset/pass/{id}(id=${session.myAccount.username})}">Làm mới
+                              mật khẩu</button>
+                        </div>
+                     </div>
+                  </div>
+                  <script type="text/javascript">
+                     function oWhichSubmit() {
+                        document.getElementById('save').submit()
+                     }
+                     function onChangeModal() {
+                        document.getElementById('message').classList.add('hiden');
+                        document.getElementById('message').classList.remove('show');
+                     }
+                  </script>
+               </form>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

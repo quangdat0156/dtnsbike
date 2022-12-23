@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Dịch vụ</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                        <span class="breadcrumb-item active">Dịch vụ bảo trì - bảo dưỡng cho xe đạp</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+
+        <!-- Shop Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5 ml-1 mr-1">
+                <!-- Service page start :)) -->
+                <div class="col-3 bg-light pt-4 pb-4">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                            role="tab" aria-controls="v-pills-home" aria-selected="true">GIỚI THIỆU DỊCH VỤ BẢO TRÌ -
+                            BẢO DƯỠNG TẠI DTNsBike</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                            role="tab" aria-controls="v-pills-profile" aria-selected="false">GÓI DỊCH VỤ BẢO TRÌ - BẢO
+                            DƯỠNG TẠI CỬA HÀNG</a>
+                    </div>
+                </div>
+                <div class="col-9 bg-light pt-4 pb-4">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                            aria-labelledby="v-pills-home-tab">
+                            <ul style="list-style: none;">
+                                <li>Bảo trì – bảo dưỡng thường xuyên cho xe đạp, giúp duy trì xe trong tình trạng hoạt
+                                    động tốt để đảm
+                                    bảo
+                                    an
+                                    toàn, tiết kiệm chi phí trong thời gian sử dụng.</li>
+                                <li><strong>1. LỢI ÍCH CỦA BẢO TRÌ – BẢO DƯỠNG THƯỜNG XUYÊN</strong>
+                                    <br>
+                                    Đảm bảo hoạt động tốt nhất cho các bộ phận của xe.<br>
+                                    Giúp ngăn chặn sớm những hư hỏng và kéo dài tuổi thọ của xe.<br>
+                                    Tiết kiệm chi phí và an toàn khi sử dụng.<br>
+                                    Đáp ứng các điều kiện bảo hành.
+                                </li>
+                                <li><strong>2. BẤT LỢI NẾU KHÔNG BẢO TRÌ – BẢO DƯỠNG THƯỜNG XUYÊN</strong><br>
+                                    Không đảm bảo an toàn khi sử dụng <br>
+                                    Giảm thời gian sử dụng.
+                                </li>
+                                <li><strong>3. CÁC GÓI BẢO TRÌ BẢO DƯỠNG TẠI DTNsBike</strong>
+                                    <br>
+                                    DTNsBike cung cấp 2 gói dịch vụ bảo trì – bảo dưỡng: <br>
+
+                                    <strong>Bảo dưỡng tại cửa hàng:</strong> Áp dụng cho tất cả các khách hàng sử dụng
+                                    xe đạp, có nhu cầu
+                                    sửa chữa, bảo
+                                    dưỡng, kiểm tra xe đạp của mình.
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
+                            <h3>5 GÓI DỊCH VỤ BẢO TRÌ – BẢO DƯỠNG XE ĐẠP TẠI CỬA HÀNG.</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">GÓI DỊCH VỤ</th>
+                                        <th scope="col">MIỄN PHÍ</th>
+                                        <th scope="col">99.000VNĐ</th>
+                                        <th scope="col">199.000VNĐ</th>
+                                        <th scope="col">199.000VNĐ</th>
+                                        <th scope="col">399.000VNĐ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">CHI PHÍ</th>
+                                        <td>MIỄN PHÍ</td>
+                                        <td>99.000VNĐ</td>
+                                        <td>199.000VNĐ</td>
+                                        <td>199.000VNĐ</td>
+                                        <td>399.000VNĐ</td>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="4">
+                                            GỒM
+                                            CÁC
+                                            DỊCH
+                                            VỤ</th>
+                                        <td>– Kiểm tra xe định kì theo thời hạn bảo hành.</td>
+                                        <td>– Kiểm tra hệ thống lái.</td>
+                                        <td>– Cân chỉnh và thiết lập bộ truyền động cơ và điện.</td>
+                                        <td>– Lắp ráp hệ thống phanh thắng dầu trước và sau.</td>
+                                        <td>– Dịch vụ đóng thùng xe để vận chuyển.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>– Hỗ trợ thay vỏ, ruột xe.</td>
+                                        <td>– Hỗ trợ thay thế vỏ không ruột. </td>
+                                        <td>– Lắp ráp hệ thống phanh thắng dầu (một thắng).</td>
+                                        <td>– Dịch vụ lắp ráp xe (Những dòng xe thông thường).</td>
+                                        <td>– Vệ sinh chi tiết và cân chỉnh toàn bộ xe.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>– Cân chỉnh đề líp.</td>
+                                        <td>– Hỗ trợ thay thế vỏ Tubular.</td>
+                                        <td>– Dịch vụ vệ sinh và bảo dưỡng cho trục giữa /BB.</td>
+                                        <td>– Vệ sinh và bảo dưỡng cơ bản.</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td>
+                                            <a href="shop.html" class="btn btn-primary pt-2">
+                                                <h6 class="text-white">Mua ngay</h6>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="shop.html" class="btn btn-primary pt-2">
+                                                <h6 class="text-white">Mua ngay</h6>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="shop.html" class="btn btn-primary pt-2">
+                                                <h6 class="text-white">Mua ngay</h6>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="shop.html" class="btn btn-primary pt-2">
+                                                <h6 class="text-white">Mua ngay</h6>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="shop.html" class="btn btn-primary pt-2">
+                                                <h6 class="text-white">Mua ngay</h6>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>
+                                <strong>Lưu ý:</strong>
+                                <br>
+                                – Gói bảo dưỡng miễn phí, chỉ áp dụng cho khách hàng đã mua xe đạp tại hệ thống của
+                                <strong>DTNsBike</strong> <br>
+                                – Các gói bảo dưỡng khác, áp dụng cho tất cả các khách hàng có nhu kiểm tra, bảo dưỡng,
+                                sữa chữa xe đạp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service page end -->
+            </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

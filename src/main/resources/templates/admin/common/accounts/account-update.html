@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <title>Trang quản trị nhân viên| DTNsBike</title>
+</head>
+<body>
+   <main>
+      <div class="modal" th:classappend="${message} ? show : hiden" id="message" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onChangeModal()">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body" th:text="${message}">
+
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                     onclick="onChangeModal()">Đóng</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid">
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2 th:if="${editUserID==null}">Thêm tài khoản</h2>
+                  <h2 th:unless="${editUserID==null}" th:text="|Đang cập nhật tài khoản ${editUserID}|"></h2>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <a th:href="@{/admin/account-list.html}" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách tài khoản</strong>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <div class="row" >
+                     <form class="row" th:object="${accountModel}" th:method="POST" id="save"
+                        th:action="@{(${editUserID}) ? '/admin/accounts/upload/img/'+${editUserID} : '/admin/accounts/upload/imgaccountinsert'}"
+                        enctype="multipart/form-data">
+                        <div class="col-9 p-3">
+                           <div class="row">
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="lastname" class="form-label h6"><span class="text-danger">*</span> Họ:</label>
+                                 <input type="text" class="form-control" th:field="*{lastname}" placeholder="Nhập họ...">
+                                 <span class="hasErrors" th:text="${errLastnameModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="middlename" class="form-label h6"><span class="text-danger">*</span> Tên Đệm:</label>
+                                 <input type="text" class="form-control" th:field="*{middlename}" placeholder="Nhập tên đệm...">
+                                 <span class="hasErrors" th:text="${errMiddlenameModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="firstname" class="form-label h6"><span class="text-danger">*</span> Tên:</label>
+                                 <input type="text" class="form-control" th:field="*{firstname}" placeholder="Nhập tên...">
+                                 <span class="hasErrors" th:text="${errFirstnameModel}"></span>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="mb-3 col-md-4 col-12" th:unless="${editUserID == null}">
+                                 <label for="username" class="form-label font-weight h6"><span class="text-danger">*</span> Tên đăng nhập:</label>
+                                 <input type="text" class="form-control" th:field="*{username}" readonly>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12" th:if="${editUserID == null}">
+                                 <label for="username" class="form-label font-weight h6"><span class="text-danger">*</span> Tên đăng nhập:</label>
+                                 <input type="text" class="form-control" th:field="*{username}" placeholder="Nhập tên đăng nhập...">
+                                 <span class="hasErrors" th:text="${errUsernameModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="phone" class="form-label font-weight h6"><span class="text-danger">*</span>  Số điện thoại:</label>
+                                 <input type="tel" class="form-control" th:field="*{phone}" placeholder="Nhập số điện thoại...">
+                                 <span class="hasErrors" th:text="${errPhoneModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="email" class="form-label font-weight h6"><span class="text-danger">*</span> Email:</label>
+                                 <input type="text" class="form-control" th:field="*{email}" placeholder="Nhập email...">
+                                 <span class="hasErrors" th:text="${errEmailModel}"></span>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="birthday" class="h6"><span class="text-danger">*</span> Ngày Sinh:</label>
+                                 <input type="date" class="form-control" th:field="*{birthday}" th:value="*{birthday}">
+                                 <span class="hasErrors" th:text="${errBirthdayModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label class="h6"><span class="text-danger">*</span> Giới tính:</label>
+                                 <div class="form-inline mt-2">
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" id="option1" value="1"
+                                          th:field="*{gender}">
+                                       <label class="form-check-label" for="option1">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" id="option2" value="2"
+                                          th:field="*{gender}">
+                                       <label class="form-check-label" for="option2">Nữ</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" id="option3" value="3"
+                                          th:field="*{gender}">
+                                       <label class="form-check-label" for="option3">Khác</label>
+                                    </div>
+                                 </div>
+                                 <span class="hasErrors mt-2" th:text="${errGenderModel}"></span>
+                              </div>
+                              <div class="mb-3 col-md-4 col-12">
+                                 <label for="phone" class="h6"><span class="text-danger">*</span>  Vai trò:</label>
+                                 <div class="form-inline mt-2" th:if="${editUserID}==${accountProfile.username}">
+                                    <div class="form-check form-check-inline" th:each="list:${listRoles}">
+                                       <input class="form-check-input" type="checkbox" th:id="${list.id}"
+                                          th:value="${list.id}" th:field="*{role}" disabled>
+                                       <label class="form-check-label" th:for="${list.id}"
+                                          th:text="${list.id} + ' (' + ${list.name} + ')'"></label>
+                                    </div>
+                                 </div>
+                                 <div class="form-inline mt-2" th:unless="${editUserID}==${accountProfile.username}">
+                                    <div class="form-check form-check-inline" th:each="list:${listRoles}">
+                                       <input class="form-check-input" type="checkbox" th:id="${list.id}"
+                                          th:value="${list.id}" th:field="*{role}">
+                                       <label class="form-check-label" th:for="${list.id}"
+                                          th:text="${list.id} + ' (' + ${list.name} + ')'"></label>
+                                    </div>
+                                 </div>
+                                 <span class="hasErrors" th:text="${errRoleModel}"></span>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="mb-3 col-12">
+                                 <label class="h6"><span class="text-danger">*</span>  Trạng thái tài khoản:</label>
+                                 <div class="mt-2" th:if="${editUserID}==${accountProfile.username}">
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" id="active1" type="radio" th:field="*{active}"
+                                          value="1" disabled>
+                                       <label class="form-check-label" for="active1">Hoạt động</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" id="active2" type="radio" th:field="*{active}"
+                                          value="0" disabled>
+                                       <label class="form-check-label" for="active2">Ngưng hoạt động</label>
+                                    </div>
+                                 </div>
+                                 <div class="mt-2" th:unless="${editUserID}==${accountProfile.username}">
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" id="active1" type="radio" th:field="*{active}"
+                                          value="1">
+                                       <label class="form-check-label" for="active1">Hoạt động</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" id="active2" type="radio" th:field="*{active}"
+                                          value="0">
+                                       <label class="form-check-label" for="active2">Ngưng hoạt động</label>
+                                    </div>
+                                 </div>
+                                 <span class="hasErrors" th:text="${errActiveModel}"></span>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-12" th:if="${editUserID!=null}">
+                                 <button class="btn btn-success"
+                                    th:formaction="@{/admin/account/form/update/{id}(id=*{username})}">Cập Nhật Tài
+                                    Khoản</button>
+                                 <button class="btn btn-danger" th:formaction="@{/admin/account/form/cancel}">Hủy
+                                    bỏ</button>
+                                 <button class="btn btn-warning" th:formaction="@{/admin/account/form/reset}">Làm
+                                    Mới</button>
+                                 <span th:text="${saveMessage}"></span>
+                              </div>
+                              <div class="col-12" th:unless="${editUserID!=null}">
+                                 <button class="btn btn-success" th:formaction="@{/admin/account/form/add}">Lưu
+                                    Tài Khoản</button>
+                                 <button class="btn btn-warning" th:formaction="@{/admin/account/form/reset}">Làm
+                                    Mới</button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-3 p-3">
+                           <div class="form-label h6 text-center"><span class="text-danger"></span> Ảnh
+                              đại diện</div>
+                           <div th:with="imgUrl=(${imgs == null}? '/admin/images/default.jpg' : '/rest/upload/accounts_img/'+${imgs})">
+                              <img th:src="@{${imgUrl}}" class="img-fluid w-100 h-100">
+                              <div class="text-center" th:classappend="${#strings.equals(param.error,'File size exceeds the allowed limit')}?'hasErrors':''">Dung lượng file tối đa 2MB</div>
+                              <div class="text-center" th:classappend="${#strings.equals(param.error, 'Wrong image format')}?'hasErrors':''">Định dạng: JPG, PNG, JPEG</div>
+                           </div>
+                           <label class="btn btn-dark mt-2 w-100">
+                              <i class="fa fa-upload"></i> Tải ảnh lên
+                              <input type="file" name="file" hidden multiple="multiple" onchange="oWhichSubmit()" accept=".png,.jpg,.jpge">
+                           </label>
+                           <script type="text/javascript">
+                              function oWhichSubmit() {
+                                 document.getElementById('save').submit()
+                              }
+                              function onChangeModal() {
+                                 document.getElementById('message').classList.add('hiden');
+                                 document.getElementById('message').classList.remove('show');
+                              }
+                           </script>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </main>
+</body>
+</html>

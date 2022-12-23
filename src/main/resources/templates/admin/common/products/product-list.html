@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý sản phẩm | DTNsBike</title>
+
+</head>
+
+<body>
+   <main>
+      <div class="container-fluid">
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Danh Sách Sản Phẩm</h2>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <div class="row">
+                     <a th:each="items:${session.listTypes}" th:href="@{/admin/product/form/reset(types=${items.id})}" class="btn btn-success btn-rounded mb-1 mr-1">
+                        <i class="fa fa-plus-circle"></i>
+                        <strong class="mt-1 ms-1" th:text="|Thêm ${items.name}|"></strong>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <div class="card-header row border-0" style="background-color: white;">
+                     <div class="col-md-2">
+                        <div class="input-group mb-3">
+                           <div class="input-group-prepend">
+                              <label class="input-group-text bg-light border-0" for="inputGroupSelect01">Hiển
+                                 thị: </label>
+                           </div>
+                           <form>
+                              <select class="custom-select" id="inputGroupSelect01" th:name="size" onchange='namexxx()'>
+                                 <option value="5" th:selected="${size==5}">5</option>
+                                 <option value="10" th:selected="${size==10}">10</option>
+                                 <option value="15" th:selected="${size==15}">15</option>
+                                 <option value="20" th:selected="${size==20}">20</option>
+                              </select>
+                           </form>
+                        </div>
+                     </div>
+                     <div class="col-md-10 mb-1">
+                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                           placeholder="Tìm kiếm...">
+                        <!-- <datalist id="datalistOptions">
+                           <option value="Xe đạp địa hình">
+                           <option value="Xe đạp lạ lùng">
+                        </datalist> -->
+                     </div>
+                     <!-- <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>Sắp xếp theo</option>
+                           <option value="1">Họ tên</option>
+                           <option value="2">Năm sinh</option>
+                           <option value="3">Email</option>
+                           <option value="4">Vai trò</option>
+                        </select>
+                     </div>
+                     <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>Thứ tự</option>
+                           <option value="1">Tăng dần</option>
+                           <option value="2">Giảm dần</option>
+                        </select>
+                     </div> -->
+                  </div>
+                  <div class="table-responsive">
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr class="text-center text-uppercase" style="background-color:  rgba(5, 168, 68, 0.877);">
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    ID Sản Phẩm
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Tên Sản Phẩm
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Danh Mục
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Thương Hiệu
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Xuất Xứ
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Trạng Thái
+                                 </a>
+                              </th>
+                              <th class="align-middle text-white">Chỉnh sửa</th>
+                           </tr>
+                        </thead>
+                       <tfoot>
+                           <tr class="text-center text-uppercase" style="background-color:  rgba(5, 168, 68, 0.877);">
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    ID Sản Phẩm
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Tên Sản Phẩm
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Danh Mục
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Thương Hiệu
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Xuất Xứ
+                                 </a>
+                              </th>
+                              <th class="align-middle">
+                                 <a class="text-white" href="#" style="text-decoration: none;">
+                                    Trạng Thái
+                                 </a>
+                              </th>
+                              <th class="align-middle text-white">Chỉnh sửa</th>
+                           </tr>
+                        </tfoot>
+                        <tbody>
+                           <tr th:each="list : ${listPro}" th:object="${list}" class="text-center h6">
+                              <td class="align-middle h6 text-dark" th:text="*{'#SP'+id}"></td>
+                              <td class="align-middle h6 text-left text-wrap text-dark" th:text="*{name}" style="width: 300px;"></td>
+                              <td class="align-middle h6" th:text="*{catePro.name}"></td>
+                              <td class="align-middle h6" th:text="*{brandPro.brand}"></td>
+                              <td class="align-middle h6" th:text="*{originid.madein}"></td>
+                              <td class="align-middle h6">
+                                 <!-- Trạng thái -->
+                                 <strong class="text-success" th:classappend="*{avaliable?'text-primary':'text-danger'}">
+                                    <span class="online_animation" th:classappend="*{avaliable?'bg-success':'bg-danger'}"></span>
+                                    [[*{avaliable?' Đang Kinh Doanh':' Ngừng Kinh Doanh'}]]
+                                 </strong>
+                              </td>
+                              <td class="text-center align-middle h6">
+                                 <a th:href="@{/admin/product/form/edit/{id}(id=*{id},types=*{catePro.typeId.id})}"
+                                    class="btn btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                 </a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="card-footer row mt-2 border-0" style="background-color: white;">
+                     <nav aria-label="..." class="col-4">
+                        <ul class="pagination">
+                           <li class="page-item" th:classappend ="${#numbers.formatInteger(page,0)} <= 1?'disabled':''">
+                             <a class="page-link" th:href="@{/admin/product-list.html(page=1,size=${size})}" aria-label="Previous">
+                               <span aria-hidden="true">&laquo;</span>
+                             </a>
+                           </li>
+                           <li class="page-item disabled" th:if="${page == null}">
+                              <a class="page-link" th:href="@{/admin/product-list.html(page=1,size=${size})}">Back</a>
+                           </li>
+                           <li class="page-item" th:unless="${page == null}" th:classappend ="${#numbers.formatInteger(page,0)} <= 1?'disabled':''">
+                              <a th:if="${#numbers.formatInteger(page,0)} > 1" class="page-link" th:with="p=${#numbers.formatInteger(page,0)}-1" th:href="@{/admin/product-list.html(page=${p},size=${size})}">Back</a>
+                              <a th:unless="${#numbers.formatInteger(page,0)} > 1 " class="page-link" th:href="@{/admin/product-list.html(page=1,size=${size})}">Back</a>
+                           </li>
+                           <th:block th:each="listPage:${listPage}">
+                              <li class="page-item" th:classappend="${#lists.contains(listPage, page)} ? active : ''">
+                                 <a class="page-link"
+                                    th:href="@{/admin/product-list.html(page=${listPage},size=${size})}"
+                                    th:text="${listPage}"></a>
+                              </li>
+                           </th:block>
+                           <li class="page-item" th:if="${page == null}">
+                              <a class="page-link" th:href="@{/admin/product-list.html(page=2,size=${size})}">Next</a>
+                           </li>
+                           <li class="page-item" th:unless="${page == null}" th:classappend ="${#numbers.formatInteger(page,0)} >= ${totalPage}?'disabled':''">
+                              <a th:if="${#numbers.formatInteger(page,0)} <= ${totalPage}" class="page-link" th:with="p=${#numbers.formatInteger(page,0)}+1" th:href="@{/admin/product-list.html(page=${p},size=${size})}">Next</a>
+                              <a th:unless="${#numbers.formatInteger(page,0)} <= ${totalPage}" class="page-link" th:href="@{/admin/product-list.html(page=${#numbers.formatInteger(totalPage,0)},size=${size})}">Next</a>
+                           </li>
+                           <li class="page-item" th:classappend ="${#numbers.formatInteger(page,0)} >= ${totalPage}?'disabled':''">
+                             <a class="page-link" th:href="@{/admin/product-list.html(page=${totalPage},size=${size})}" aria-label="Next">
+                               <span aria-hidden="true">&raquo;</span>
+                             </a>
+                           </li>
+                        </ul>
+                     </nav>
+                     <div class="col-2"></div>
+                     <div class="col-6 text-right text-dark">
+                        <p th:with="ttp=${#numbers.formatInteger(size,0)}+${pageableItems.getOffset()}">Đang xem [[${pageableItems.getOffset()}+1]] đến [[${ttp > totalItems}?${totalItems}:${#numbers.formatInteger(size,0)}+${pageableItems.getOffset()}]] trong tổng số [[${totalItems}]] mục.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+		function namexxx() {
+	 		var url_string = "http://localhost:8080/DTNsBike/admin/product-list.html?page=[[${page}]]&size=15"; 
+	 		var url = new URL(url_string);
+      	 	var c = url.searchParams.get("page");
+           	var page = /*[[${page}]]*/null;
+           	var e =  document.getElementById("inputGroupSelect01");
+           	var sizes = e.value;
+           	var size = e.options[e.selectedIndex].text;
+           	var url = "/DTNsBike/admin/product-list.html?page="+c+"&size="+size;
+			window.location=url;
+ 		}
+	</script>
+   </main>
+</body>
+
+</html>

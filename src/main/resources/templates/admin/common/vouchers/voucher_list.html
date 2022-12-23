@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý mã giảm giá| DTNsBike</title>
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Danh sách mã giảm giá</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="voucher-update/reset" class="btn btn-success btn-rounded text-white mb-1">
+                     <i class="fa fa-plus-circle"></i>
+                     <strong class="mt-1 ms-1">Thêm mã giảm giá</strong>
+                  </a>
+                  <!-- Button effect -->
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <div class="card-header row border-0" style="background-color: white;">
+                     <div class="col-md-2">
+                        <div class="input-group mb-3">
+                           <div class="input-group-prepend">
+                              <label class="input-group-text bg-light border-0" for="inputGroupSelect01">Hiển
+                                 thị: </label>
+                           </div>
+                           <select class="custom-select" id="inputGroupSelect01" th:name="size" onchange='namexxx()'>
+                              <option value="5" th:selected="${size==5}">5</option>
+                              <option value="10" th:selected="${size==10}">10</option>
+                              <option value="15" th:selected="${size==15}">15</option>
+                              <option value="20" th:selected="${size==20}">20</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-10 mb-1">
+                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                           placeholder="Tìm kiếm...">
+                        <!-- <datalist id="datalistOptions">
+                           <option value="Xe đạp địa hình">
+                           <option value="Xe đạp lạ lùng">
+                        </datalist> -->
+                     </div>
+                     <!-- <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>---Sắp xếp theo---</option>
+                           <option value="1">Ngày Tạo</option>
+                           <option value="2">Giá Trị</option>
+                           <option value="3">Hạn Sử dụng</option>
+                        </select>
+                     </div>
+                     <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>---Thứ tự---</option>
+                           <option value="1">Tăng dần</option>
+                           <option value="2">Giảm dần</option>
+                        </select>
+                     </div> -->
+                  </div>
+                  <div class="table-responsive">
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr class="text-center text-uppercase" style="background-color:  rgba(5, 168, 68, 0.877);">
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Mã Giảm giá
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Ngày Tạo
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Giảm Giá
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Số Lượng
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Hạn Sử Dụng
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Trạng Thái
+
+                                 </a>
+                              </th>
+                              <th class="text-white">Action</th>
+                           </tr>
+                        </thead>
+
+                        <tfoot>
+                           <tr class="text-center text-uppercase" style="background-color:  rgba(5, 168, 68, 0.877);">
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Mã Giảm giá
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Ngày Tạo
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Giảm Giá
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Số Lượng
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Hạn Sử Dụng
+
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" class="text-white" style="text-decoration: none;">
+
+                                    Trạng Thái
+
+                                 </a>
+                              </th>
+                              <th class="text-white">Action</th>
+                           </tr>
+                        </tfoot>
+
+                        <tbody>
+                           <tr th:if="${listSales.isEmpty()}">
+                              <td>Không có dữ liệu...</td>
+                           </tr>
+                           <tr th:each="list:${listSales}" th:object="${list}" class="text-center">
+                              <td class="align-middle h6 text-dark" th:text="*{'#'+id}"></td>
+                              <td class="align-middle h6 text-dark" th:text="*{#dates.format(createDate,'dd-MM-yyyy')}"></td>
+                              <td class="align-middle h6 text-dark" th:text="*{value+'%'}"></td>
+                              <td class="align-middle h6 text-dark" th:text="*{amount}"></td>
+                              <td class="align-middle h6 text-dark">
+                                 Từ ngày [[*{#dates.format(startdate,'dd-MM-yyyy')}]] đến
+                                 [[*{#dates.format(enddate,'dd-MM-yyyy')}]]
+                              </td>
+                              <td class="align-middle h6">
+                                 <p class="badge p-2 pl-3 pr-3 mt-2" th:classappend="*{active?'badge-info':'badge-danger'}">
+                                    [[*{active?'Có Hiệu Lực':'Không Hiệu Lực'}]]
+                                 </p>
+                              </td>
+                              <td class="align-middle h6">
+                                 <a th:href="@{/admin/voucher-update/edit(id=*{id})}" class="btn btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                 </a>
+                                 <a class="btn btn-outline-danger" href="#" th:attr="onclick=|remove('*{id}')|">
+                                    <i class="fa fa-trash"></i>
+                                 </a>
+                              </td>
+                           </tr>
+                           <script th:inline="javascript">
+                              // Check delete
+                              function remove(id) {
+                                 Swal.fire({
+                                    title: 'Thông báo!',
+                                    text: 'Bạn chắc chắn muốn xóa mã giảm giá ' + id + ' này!',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Xóa !',
+                                    cancelButtonText: 'Hủy bỏ !'
+                                 }).then((result) => {
+                                    if (result.isConfirmed) {
+                                       window.location = "http://localhost:8080/DTNsBike/admin/voucher-update/delete/" + id;
+                                    }
+                                 })
+                              }
+                              var checks = /*[[${session.remove}]]*/'';
+                              var checks2 = /*[[${session.checks2}]]*/'';
+                              var names = /*[[${session.nameVoucher}]]*/'';
+                              if (checks == true) {
+                                 Swal.fire(
+                                    'Lỗi không thể xóa !',
+                                    'Mã giảm giá <b>' + names + '</b> này không thể xóa.',
+                                    'error'
+                                 )
+                              }
+                              if (checks2 == true) {
+                                 Swal.fire(
+                                    'Xóa thành công!',
+                                    'Đã xóa giảm giá <b>' + names + '</b>.',
+                                    'success'
+                                 )
+                              }
+                           </script>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!-- List content footer -->
+                  <div class="card-footer row mt-2 border-0" style="background-color: white;">
+                     <nav aria-label="..." class="col-4">
+                        <ul class="pagination">
+                           <li class="page-item" th:classappend ="${#numbers.formatInteger(page,0)} <= 1?'disabled':''">
+                             <a class="page-link" th:href="@{/admin/voucher-list.html(page=1,size=${size})}" aria-label="Previous">
+                               <span aria-hidden="true">&laquo;</span>
+                             </a>
+                           </li>
+                           <li class="page-item disabled" th:if="${page == null}">
+                              <a class="page-link" th:href="@{/admin/voucher-list.html(page=1,size=${size})}">Back</a>
+                           </li>
+                           <li class="page-item" th:unless="${page == null}" th:classappend ="${#numbers.formatInteger(page,0)} <= 1?'disabled':''">
+                              <a th:if="${#numbers.formatInteger(page,0)} > 1" class="page-link" th:with="p=${#numbers.formatInteger(page,0)}-1" th:href="@{/admin/voucher-list.html(page=${p},size=${size})}">Back</a>
+                              <a th:unless="${#numbers.formatInteger(page,0)} > 1 " class="page-link" th:href="@{/admin/voucher-list.html(page=1,size=${size})}">Back</a>
+                           </li>
+                           <th:block th:each="listPage:${listPage}">
+                              <li class="page-item" th:classappend="${#lists.contains(listPage, page)} ? active : ''">
+                                 <a class="page-link"
+                                    th:href="@{/admin/voucher-list.html(page=${listPage},size=${size})}"
+                                    th:text="${listPage}"></a>
+                              </li>
+                           </th:block>
+                           <li class="page-item" th:if="${page == null}">
+                              <a class="page-link" th:href="@{/admin/voucher-list.html(page=2,size=${size})}">Next</a>
+                           </li>
+                           <li class="page-item" th:unless="${page == null}" th:classappend ="${#numbers.formatInteger(page,0)} >= ${totalPage}?'disabled':''">
+                              <a th:if="${#numbers.formatInteger(page,0)} <= ${totalPage}" class="page-link" th:with="p=${#numbers.formatInteger(page,0)}+1" th:href="@{/admin/voucher-list.html(page=${p},size=${size})}">Next</a>
+                              <a th:unless="${#numbers.formatInteger(page,0)} <= ${totalPage}" class="page-link" th:href="@{/admin/voucher-list.html(page=${#numbers.formatInteger(totalPage,0)},size=${size})}">Next</a>
+                           </li>
+                           <li class="page-item" th:classappend ="${#numbers.formatInteger(page,0)} >= ${totalPage}?'disabled':''">
+                             <a class="page-link" th:href="@{/admin/voucher-list.html(page=${totalPage},size=${size})}" aria-label="Next">
+                               <span aria-hidden="true">&raquo;</span>
+                             </a>
+                           </li>
+                        </ul>
+                     </nav>
+                     <div class="col-2"></div>
+                     <div class="col-6 text-right text-dark">
+                        <p th:with="ttp=${#numbers.formatInteger(size,0)}+${pageableItems.getOffset()}">Đang xem [[${pageableItems.getOffset()}+1]] đến [[${ttp > totalItems}?${totalItems}:${#numbers.formatInteger(size,0)}+${pageableItems.getOffset()}]] trong tổng số [[${totalItems}]] mục.</p>
+                     </div>
+                  </div>
+                  <!-- List content footer end -->
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+      <script>
+         function namexxx() {
+            var url_string = "http://localhost:8080/DTNsBike/admin/voucher-list.html?page=[[${page}]]&size=15";
+            var url = new URL(url_string);
+            var c = url.searchParams.get("page");
+            var page = /*[[${page}]]*/null;
+            var e = document.getElementById("inputGroupSelect01");
+            var sizes = e.value;
+            var size = e.options[e.selectedIndex].text;
+            var url = "/DTNsBike/admin/voucher-list.html?page=" + c + "&size=" + size;
+            window.location = url;
+         }
+      </script>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

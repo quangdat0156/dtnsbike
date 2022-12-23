@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Quản lý đơn hàng</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Trang chủ </a>
+                    <a class="breadcrumb-item text-dark" href="#">Quản lí đơn hàng</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Start -->
+    <div class="container-fluid mt-3">
+        <div class="row px-xl-5">
+            <div class="col-md-12">
+                <nav class="bg-white mb-3">
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all"
+                            role="tab" aria-controls="nav-all" aria-selected="true">Tất cả</a>
+                        <a class="nav-item nav-link" id="nav-confirm-tab" data-toggle="tab" href="#nav-confirm"
+                            role="tab" aria-controls="nav-confirm" aria-selected="false">Chờ xác nhận</a>
+                        <a class="nav-item nav-link" id="nav-receive-tab" data-toggle="tab" href="#nav-receive"
+                            role="tab" aria-controls="nav-receive" aria-selected="false">Chờ lấy hàng</a>
+                        <a class="nav-item nav-link" id="nav-deliver-tab" data-toggle="tab" href="#nav-deliver"
+                            role="tab" aria-controls="nav-deliver" aria-selected="false">Đang giao</a>
+                        <a class="nav-item nav-link" id="nav-delivered-tab" data-toggle="tab" href="#nav-delivered"
+                            role="tab" aria-controls="nav-delivered" aria-selected="false">Đã giao</a>
+                        <a class="nav-item nav-link" id="nav-cancel-tab" data-toggle="tab" href="#nav-cancel" role="tab"
+                            aria-controls="nav-cancel" aria-selected="false">Đã hủy</a>
+                    </div>
+                </nav>
+                <div class="input-group mb-3 search">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text bg-light border-0 ">
+                            <span class="fa fa-search form-control-feedback "></span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-0 px-0 " placeholder="Tìm kiếm">
+                </div>
+                <div class="tab-content " id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                       <!-- tất cả đơn hàng -->
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!order.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end-->
+                            <a class="card mb-4 text-decoration-none text-dark" th:each="o: ${order}" th:href="@{|/order_details.html?id=${o.id}|}">
+                                <div class="card-body p-4">
+                                    <div class="row ">
+                                        <div class="col-md-6 d-flex justify-content-start ">
+                                            HD00[[${o.id}]]
+                                        </div>
+                                        <div class="col-md-6 d-flex justify-content-end ">
+                                            <span class="lead fw-normal mb-0">Trạng thái : 
+                                                <strong class="text-primary">[[${o.statusId.name}]]</strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row align-items-center" th:each="os: ${o.orderdetail}">
+                                        <div class="col-md-2">
+                                            <img width="50%" th:src="@{|/upload/product_single_img/${os.productsId.productid.img}|}" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-8 d-flex justify-content-center">
+                                            <div>
+                                                <p class="lead fw-normal mb-0">[[${os.productsId.productid.name}]]</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-end">
+                                            <div>
+                                                <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((os.price+(os.price*os.vat/100))*os.amount,3,'COMMA')}]]</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row ">
+                                        <div class="col-md-12 d-flex justify-content-end ">
+                                            <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(o.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3 d-flex justify-content-start ">
+                                            <small class="text-muted font-weight-bold align-middle">Ngày đặt hàng:
+                                                <i>[[${#dates.format(o.date,"dd-MM-yyyy")}]]</i></small>
+                                        </div>
+                                        <div class="col-md-9 d-flex justify-content-end ">
+                                            <button class="btn btn-outline-primary shadow-none mr-1">Đã nhận hàng</button>
+                                            <button class="btn btn-outline-dark shadow-none ">Liên hệ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        <!-- tất cả đơn hàng end-->
+                    </div>
+                        <!-- chờ xác nhận -->
+                    <div class="tab-pane fade show" id="nav-confirm" role="tabpanel" aria-labelledby="nav-confirm-tab">
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!xacnhan.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end -->
+                        <div class="card mb-4 text-decoration-none text-dark" th:each="tp,p: ${xacnhan}">
+                            <div class="card-body p-4">
+                                <div class="row ">
+                                    <div class="col-md-6 d-flex justify-content-start ">
+                                        HD00[[${tp.id}]]
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Trạng thái :
+                                            <strong class="text-primary">[[${tp.statusId.name}]]</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row align-items-center" th:each="tpdt: ${tp.orderdetail}">
+                                    <a class="row align-items-center text-decoration-none text-dark" th:href="@{|/order_details.html?id=${tp.id}|}">
+                                    <div class="col-md-2">
+                                        <img th:src="@{|/upload/product_single_img/${tpdt.productsId.productid.img}|}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 d-flex justify-content-center">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${tpdt.productsId.productid.name}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-end">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((tpdt.price+(tpdt.price*tpdt.vat/100))*tpdt.amount,3,'COMMA')}]]</p>
+                                        </div>
+                                    </div>
+                                    </a>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(tp.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3 d-flex justify-content-start ">
+                                        <small class="text-muted font-weight-bold align-middle">Nhận và thanh toán trước
+                                            <i>[[${#dates.format(tp.date,"dd-MM-yyyy")}]]</i></small>
+                                    </div>
+                                    <div class="col-md-9 d-flex justify-content-end ">
+                                        <button class="btn btn-outline-danger shadow-none mr-1" data-toggle="modal" th:attr="data-target='#exampleModal'+${p.index}">Hủy hàng</button>
+                                        <button class="btn btn-outline-dark shadow-none ">Liên hệ</button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:attr="id='exampleModal'+${p.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn chắc chắn muốn hủy đơn hàng?
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <a th:href="@{|/orders.html/huy/${tp.id}|}" class="btn btn-primary">Hủy hàng</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- chờ xác nhận end-->
+                    <!-- chờ lấy hàng -->
+                    <div class="tab-pane fade show" id="nav-receive" role="tabpanel" aria-labelledby="nav-receive-tab">
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!layhang.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end -->
+                        <div class="card mb-4 text-decoration-none text-dark" th:each="ts,i: ${layhang}" >
+                            <div class="card-body p-4">
+                                <div class="row ">
+                                    <div class="col-md-6 d-flex justify-content-start ">
+                                        HD00[[${ts.id}]]
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Trạng thái :
+                                            <strong class="text-primary">[[${ts.statusId.name}]]</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row align-items-center" th:each="tsdt: ${ts.orderdetail}">
+                                    <a class="row align-items-center text-decoration-none text-dark" th:href="@{|/order_details.html?id=${ts.id}|}">
+                                    <div class="col-md-2">
+                                        <img th:src="@{|/upload/product_single_img/${tsdt.productsId.productid.img}|}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 d-flex justify-content-center">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${tsdt.productsId.productid.name}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-end">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((tsdt.price+(tsdt.price*tsdt.vat/100))*tsdt.amount,3,'COMMA')}]]</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(ts.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3 d-flex justify-content-start ">
+                                        <small class="text-muted font-weight-bold align-middle">Nhận và thanh toán trước
+                                            <i>[[${#dates.format(ts.date,"dd-MM-yyyy")}]]</i></small>
+                                    </div>
+                                    <div class="col-md-9 d-flex justify-content-end ">
+                                        <button type="button" class="btn btn-outline-danger shadow-none mr-1" data-toggle="modal" th:attr="data-target='#exampleModal'+${i.index}" >Hủy hàng</button>
+                                        <button class="btn btn-outline-dark shadow-none ">Liên hệ</button>
+
+                                         <!-- Modal -->
+                                        <div class="modal fade" th:attr="id='exampleModal'+${i.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn chắc chắn muốn hủy đơn hàng?
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <a th:href="@{|/orders.html/huy/${ts.id}|}" class="btn btn-primary">Hủy hàng</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Chờ lấy hàng end -->
+                    <!-- Đang giao -->
+                    <div class="tab-pane fade show" id="nav-deliver" role="tabpanel" aria-labelledby="nav-deliver-tab">
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!danggiao.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end-->
+                        <a class="card mb-4 text-decoration-none text-dark" th:each="re: ${danggiao}" th:href="@{|/order_details.html?id=${re.id}|}">
+                            <div class="card-body p-4">
+                                <div class="row ">
+                                    <div class="col-md-6 d-flex justify-content-start ">
+                                        HD00[[${re.id}]]
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Trạng thái :
+                                            <strong class="text-primary">[[${re.statusId.name}]]</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row align-items-center" th:each="redt: ${re.orderdetail}">
+                                    <div class="col-md-2">
+                                        <img th:src="@{|/upload/product_single_img/${redt.productsId.productid.img}|}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 d-flex justify-content-center">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${redt.productsId.productid.name}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-end">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((redt.price+(redt.price*redt.vat/100))*redt.amount,3,'COMMA')}]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(re.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3 d-flex justify-content-start ">
+                                        <small class="text-muted font-weight-bold align-middle">Nhận và thanh toán trước
+                                            <i>[[${#dates.format(re.date,"dd-MM-yyyy")}]]</i></small>
+                                    </div>
+                                    <div class="col-md-9 d-flex justify-content-end ">
+                                        <button class="btn btn-outline-primary shadow-none mr-1">Đã nhận hàng</button>
+                                        <button class="btn btn-outline-dark shadow-none ">Liên hệ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Đang giao end -->
+                    <!-- Đã giao -->
+                    <div class="tab-pane fade show" id="nav-delivered" role="tabpanel"
+                        aria-labelledby="nav-delivered-tab">
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!dagiao.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end-->
+                        <a class="card mb-4 text-decoration-none text-dark" th:each="dg: ${dagiao}" th:href="@{|/order_details.html?id=${dg.id}|}">
+                            <div class="card-body p-4">
+                                <div class="row ">
+                                    <div class="col-md-6 d-flex justify-content-start ">
+                                        HD00[[${dg.id}]]
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Trạng thái : 
+                                            <strong class="text-primary">[[${dg.statusId.name}]]</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row align-items-center" th:each="dgdt: ${dg.orderdetail}">
+                                    <div class="col-md-2">
+                                        <img th:src="@{|/upload/product_single_img/${dgdt.productsId.productid.img}|}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 d-flex justify-content-center">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${dgdt.productsId.productid.name}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-end">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((dgdt.price+(dgdt.price*dgdt.vat/100))*dgdt.amount,3,'COMMA')}]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(dg.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3 d-flex justify-content-start ">
+                                        <small class="text-muted font-weight-bold align-middle">Nhận và thanh toán trước
+                                            <i>[[${#dates.format(dg.date,"dd-MM-yyyy")}]]</i></small>
+                                    </div>
+                                    <div class="col-md-9 d-flex justify-content-end ">
+                                        <button class="btn btn-outline-primary shadow-none mr-1 ">Đánh giá</button>
+                                        <button class="btn btn-outline-dark shadow-none  mr-1">Liên hệ</button>
+                                        <button class="btn btn-outline-dark shadow-none ">Mua Lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Đã giao end-->
+                    <!-- Đã hủy -->
+                    <div class="tab-pane fade show" id="nav-cancel" role="tabpanel" aria-labelledby="nav-cancel-tab">
+                        <!-- chưa có đơn hàng -->
+                        <div class="card mb-4" th:hidden="${!dahuy.isEmpty()}">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4 m-auto col-12 text-center ">
+                                        <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid" alt="Không có đơn hàng nào" >
+                                        <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chưa có đơn hàng end-->
+                        <a class="card mb-4 text-decoration-none text-dark" th:each="ca: ${dahuy}" th:href="@{|/order_details.html?id=${ca.id}|}">
+                            <div class="card-body p-4">
+                                <div class="row ">
+                                    <div class="col-md-6 d-flex justify-content-start ">
+                                        HD00[[${ca.id}]]
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Trạng thái :
+                                            <strong class="text-primary">[[${ca.statusId.name}]]</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row align-items-center" th:each="cancel: ${ca.orderdetail}">
+                                    <div class="col-md-2">
+                                        <img th:src="@{|/upload/product_single_img/${cancel.productsId.productid.img}|}" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 d-flex justify-content-center">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${cancel.productsId.productid.name}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-end">
+                                        <div>
+                                            <p class="lead fw-normal mb-0">[[${#numbers.formatInteger((cancel.price+(cancel.price*cancel.vat/100))*cancel.amount,3,'COMMA')}]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <span class="lead fw-normal mb-0">Tổng tiền : [[${#numbers.formatInteger(#aggregates.sum(ca.orderdetail.![(price+(price*vat/100))*amount]),3,'COMMA')}]]</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3  d-flex justify-content-start ">
+                                        <small class="text-muted font-weight-bold align-middle">Nhận và thanh toán trước
+                                            <i>[[${#dates.format(ca.date,"dd-MM-yyyy")}]]</i></small>
+                                    </div>
+                                    <div class="col-md-9  d-flex justify-content-end ">
+                                        <button class="btn btn-outline-primary shadow-none mr-1 ">Mua Lại</button>
+                                        <button class="btn btn-outline-dark shadow-none  mr-1">Liên hệ</button>
+                                        <button class="btn btn-outline-dark shadow-none " th:href="@{|/order_details.html?id=${ca.id}|}">Chi tiết đơn hủy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Đã hủy end -->
+                </div>
+            </div>
+        </div>
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

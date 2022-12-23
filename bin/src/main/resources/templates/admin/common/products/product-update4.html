@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý sản phẩm | DTNsBike</title>
+   <!-- ckeditor -->
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật thông tin sản phẩm</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="product-list.html" class="btn btn-primary btn-rounded text-white mb-1"> <i
+                        class="fa fa-list"></i> <strong class="mt-1 ms-1">Danh
+                        sách sản phẩm</strong>
+                  </a>
+                  <!-- Button effect -->
+                  <!-- Button effect -->
+                  <a href="category-update.html" class="btn btn-success btn-rounded text-white mb-1"> <i
+                        class="fa fa-plus-circle"></i> <strong class="mt-1 ms-1">Thêm
+                        danh mục</strong>
+                  </a>
+                  <!-- Button effect -->
+                  <!-- Button effect -->
+                  <a href="brand-update.html" class="btn btn-dark btn-rounded text-white mb-1"> <i
+                        class="fa fa-plus-circle"></i> <strong class="mt-1 ms-1">Thêm
+                        thương hiệu</strong>
+                  </a>
+                  <!-- Button effect -->
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <form class="row p-3" th:object="${productModel}" method="post" enctype="multipart/form-data">
+                     <div class="col-9 row">
+                        <!-- Tên SP -->
+                        <div class="mb-3 col-8">
+                           <label for="name" class="form-label h6">Tên sản phẩm</label> <input type="text"
+                              class="form-control" th:field="*{name}">
+                        </div>
+
+                        <!-- Trạng thái -->
+                        <div class="mb-3 col-4">
+                           <label for="avaliable" class="form-label h6">Trạng thái</label>
+                           <select class="custom-select" th:field="*{avaliable}">
+                              <option value="true">Đang kinh doanh</option>
+                              <option value="false">Ngừng kinh doanh</option>
+                           </select>
+                        </div>
+
+                        <!-- Loại sp -->
+                        <div class="mb-3 col-4">
+                           <label for="categoriesID" class="form-label h6">Loại
+                              sản phẩm</label> <select class="custom-select" th:field="*{categoriesID}">
+                              <option value="''" selected="selected" th:text="'[Chọn loại sản phẩm]'"></option>
+                              <option th:each="items : ${listCategories}" th:value="${items.id}"
+                                 th:text="${items.name}"></option>
+                           </select>
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="brandsID" class="form-label h6">Thương hiệu</label>
+                           <select class="custom-select" th:field="*{brandsID}">
+                              <option value="''" selected="selected" th:text="'[Chọn thương hiệu]'"></option>
+                              <option th:each="items : ${listBrands}" th:value="${items.brandid}"
+                                 th:text="${items.brand}"></option>
+                           </select>
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="originsID" class="form-label h6">Xuất xứ</label> <select class="custom-select"
+                              th:field="*{originsID}">
+                              <option value="''" selected="selected" th:text="'[Chọn xuất xứ]'"></option>
+                              <option th:each="items : ${listOrigins}" th:value="${items.id}" th:text="${items.madein}">
+                              </option>
+                           </select>
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="price" class="form-label h6">Giá bán</label> <input type="number"
+                              class="form-control" min="0" th:field="*{price}">
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="vat" class="form-label h6">Thuế (VAT)</label> <input type="number"
+                              class="form-control" min="0" max="99999999" th:field="*{vat}">
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="discountsID" class="form-label h6">Giảm giá</label>
+                           <select class="custom-select" th:field="*{discountsID}">
+                              <option th:each="items:${listDiscounts}" th:value="${items.id}"
+                                 th:text="${items.value == 0}?'[Không giảm giá]': 'Giảm '+${T(Math).round(items.value) == items.value ? #numbers.formatDecimal(items.value, 0,0) : items.value}+'%'">
+                              </option>
+                           </select>
+                        </div>
+
+                        <!-- Form item input -->
+                        <div class="mb-3 col-12">
+                           <label for="description" class="form-label h6">Mô tả sản phẩm</label>
+                           <textarea class="form-control" th:field="*{description}" rows="5"></textarea>
+                        </div>
+                        <label for="description" class="form-label h6 col-12">Chi tiết sản phẩm (Màu/Size/Số Lượng Size)</label>
+                        <div class="mb-3 col-12" style="height: 250px; overflow: auto;" id="style-16">
+                           <div class="row">
+                              <hr>
+                              <th:block th:each="items, target : ${listColors}">
+                                 <div class="pretty p-icon p-smooth ml-3 mt-3 col-8">
+                                    <input type="checkbox" th:id="'objectcolor'+${items.id}" th:value="${items.id}"
+                                       th:field="*{colorID}" data-toggle="collapse"
+                                       th:attr="onclick='hey('+|'${items.id}'|+')'" aria-expanded="false"
+                                       aria-controls="collapseExample"/>
+                                    <div class="state p-success"style="margin-top:-1.9px; ">
+                                       <i class="icon fa fa-check"></i> <label> <span class="border" th:attr="style='background-color:#'+|${items.id}|+'; color:#'+|${items.id}|+';'">.</span>Màu [[${items.name}]]</label>
+                                    </div>
+                                 </div>
+                                 <div>
+                                    <div class="collapse width col-12 mt-3" th:id="'collapse'+${items.id}">
+                                       <div class="card card-body">
+                                          <div class="row">
+                                             <div class="mb-3 col-4" th:each="listSize:${listSizes}" th:with="a=${items.id},b='err_'+${a}+'_'+${listSize.id},idspan='err_span_'+${a}+'_'+${listSize.id},idinput='err_input_'+${a}+'_'+${listSize.id}">
+                                                <label th:for="|${items.id}_${listSize.id}|" class="form-label h6" th:text="'Số Lượng Size '+${listSize.id}"></label> 
+                                                <input type="text" class="form-control number" th:name="|${items.id}_${listSize.id}|" th:id="|${items.id}_${listSize.id}|">
+                                                <span class="hasErrors" th:id="|err_span_${items.id}_${listSize.id}|"></span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th:block>
+                           </div>
+                        </div>
+                        <div class="row mt-2">
+                           <div class="col-12" th:unless="${editUserID!=null}">
+                                 <button class="btn btn-success" th:formaction="@{/admin/product/form/add}">Lưu Sản Phẩm</button>
+                                 <button class="btn btn-warning" th:formaction="@{/admin/product/form/reset}">Làm Mới</button>
+                              </div>
+                        </div>
+                        <!-- Form item input -->
+
+                     </div>
+
+                     <!-- Form item input -->
+                     <div class="mb-3 col-3">
+                        <div class="form-label h6 text-center">
+                        <label for="price" class="form-label h6">Ảnh đại diện sản phẩm</label>
+                        </div>
+                        <div>
+                           <img th:src="@{/admin/images/default.jpg}" class="img-fluid w-100 h-100">
+                        </div>
+                        <label class="btn btn-dark mt-2 w-100"> <i class="fa fa-upload"></i> Tải ảnh lên <input
+                              type="file" name="file" hidden>
+                        </label>
+
+                        <div class="form-label h6 text-center mt-5">
+                           <label for="price" class="form-label h6">Ảnh sản phẩm bổ sung</label>
+                        </div>
+                        <div class="row">
+                           <label class="mt-2 col-4"> <img th:src="@{/admin/images/img-add.png}" class="img-thumbnail">
+                              <input type="file" name="file" hidden>
+                           </label> <img th:src="@{/admin/images/default.jpg}" class="col-4 img-fluid w-50 h-50"> <img
+                              th:src="@{/admin/images/default.jpg}" class="col-4 img-fluid w-50 h-50"> <img
+                              th:src="@{/admin/images/default.jpg}" class="col-4 img-fluid w-50 h-50"> <img
+                              th:src="@{/admin/images/default.jpg}" class="col-4 img-fluid w-50 h-50"> <img
+                              th:src="@{/admin/images/default.jpg}" class="col-4 img-fluid w-50 h-50">
+                        </div>
+                        <div class="text-center">Dung lượng file tối đa 2MB</div>
+                        <div class="text-center">Định dạng: JPG, PNG, JPEG</div>
+                     </div>
+                     <!-- Form item input -->
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+      <!-- ckeditor -->
+      <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
+      <script>
+         window.onload = function () {
+            var okl = $("input:checkbox:checked");
+            for (var i = 0; i < okl.length; i++) {
+               var coll = String(okl[i].id);
+               var name = coll.replace("objectcolor", "collapse");
+               $("#" + name).show();
+            }
+
+         };
+
+         function hey(i) {
+            console.log(i);
+            var check = $("#objectcolor" + i);
+            if ($("#objectcolor" + i + ":checkbox:checked").length > 0) {
+               $("#collapse" + i).show();
+            } else {
+               $("#collapse" + i).hide();
+            }
+         }
+      </script>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

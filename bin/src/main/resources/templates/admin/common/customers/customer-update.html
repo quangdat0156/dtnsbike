@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý khách hàng| DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật thông tin khách hàng</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="customer-list.html" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách khách hàng</strong>
+                  </a>
+                  <!-- Button effect -->
+
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <form class="row p-3">
+                     <div class="col-9 row">
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputID" class="form-label h6"><span class="text-danger">*</span>
+                              ID Khách hàng</label>
+                           <input type="text" class="form-control" id="exampleInputID"
+                              aria-describedby="emailHelp" placeholder="Nhập id khách hàng...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputName" class="form-label h6"><span
+                                 class="text-danger">*</span> Họ và tên</label>
+                           <input type="text" class="form-control" id="exampleInputName"
+                              aria-describedby="emailHelp" placeholder="Nhập họ tên...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputEmail" class="form-label h6"><span
+                                 class="text-danger">*</span> Địa chỉ Email</label>
+                           <input type="text" class="form-control" id="exampleInputEmail"
+                              aria-describedby="emailHelp" placeholder="Nhập email...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputAddress" class="form-label h6"><span
+                                 class="text-danger">*</span> Địa chỉ thường trú</label>
+                           <input type="text" class="form-control" id="exampleInputAddress"
+                              aria-describedby="emailHelp" placeholder="Nhập địa chỉ thường trú...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputPhone" class="form-label h6"><span
+                                 class="text-danger">*</span> Số điện thoại</label>
+                           <input type="number" class="form-control" id="exampleInputPhone"
+                              aria-describedby="emailHelp" placeholder="Nhập số điện thoại...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputBirth" class="form-label h6"><span
+                                 class="text-danger">*</span> Ngày sinh</label>
+                           <input type="date" class="form-control" id="exampleInputBirth"
+                              aria-describedby="emailHelp">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputBirth" class="form-label h6"><span
+                                 class="text-danger">*</span> Giới tính</label>
+                           <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>--Chọn giới tính--</option>
+                              <option value="1">Nam</option>
+                              <option value="2">Nữ</option>
+                           </select>
+                        </div>
+                        <!-- Form item input -->
+                          <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputBirth" class="form-label h6"><span
+                                 class="text-danger">*</span> Trạng thái</label>
+                           <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>--Chọn trạng thái--</option>
+                              <option value="1">Hoạt động</option>
+                              <option value="2">Ngừng hoạt động</option>
+                           </select>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputPass" class="form-label h6"><span
+                                 class="text-danger">*</span> Mật khẩu</label>
+                           <input type="password" class="form-control" id="exampleInputPass"
+                              aria-describedby="emailHelp" placeholder="Nhập mật khẩu...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-6">
+                           <label for="exampleInputConfirmPass" class="form-label h6"><span
+                                 class="text-danger">*</span>Nhập lại mật khẩu</label>
+                           <input type="password" class="form-control" id="exampleInputConfirmPass"
+                              aria-describedby="emailHelp" placeholder="Nhập lại mật khẩu...">
+                        </div>
+                        <!-- Form item input -->
+                     </div>
+
+
+
+                     <!-- Form item input -->
+                     <div class="mb-3 col-3">
+                        <div for="exampleInputConfirmPass" class="form-label h6"><span
+                              class="text-danger">*</span> Hình ảnh khách hàng</div>
+                        <div>
+                           <img th:src="@{/admin/images/default.png}"
+                              class="img-fluid w-100 h-100">
+                        </div>
+                        <label class="btn btn-dark mt-2 w-100">
+                           <i class="fa fa-upload"></i> Tải ảnh lên
+                           <input type="file" name="file" hidden>
+                        </label>
+                     </div>
+                     <!-- Form item input -->
+
+                     <div class="col-12">
+                        <button type="submit" class="btn btn-success">
+                           <i class="fa fa-save"></i>
+                        Lưu lại
+                     </button>
+                        <button class="btn btn-danger" formaction="customer-list.html">
+                             <i class="fa fa-cancel"></i>
+                        Hủy bỏ</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

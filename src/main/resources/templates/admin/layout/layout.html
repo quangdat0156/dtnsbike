@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="dynamic(title,view)">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+   <meta content="Free HTML Templates" name="keywords">
+   <meta content="Free HTML Templates" name="description">
+   <title th:replace="${title}"></title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" th:href="@{/admin/logo/icon2.png}" type="image/png" />
+   <!-- bootstrap css -->
+   <link rel="stylesheet" th:href="@{/admin/css/font-awesome.min.css}" />
+   <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}" />
+   <!-- site css -->
+   <link rel="stylesheet" th:href="@{/admin/css/style.css}" />
+   <!-- responsive css -->
+   <link rel="stylesheet" th:href="@{/admin/css/responsive.css}" />
+   <!-- color css -->
+   <link rel="stylesheet" th:href="@{/admin/css/color_2.css}" />
+   <!-- select bootstrap -->
+   <link rel="stylesheet" th:href="@{/admin/css/bootstrap-select.css}" />
+   <!-- checkbox -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+   <!-- Sweett Alert :)) -->
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <style>
+      .editor2 .ck-editor__editable_inline {
+         min-height: 300px;
+      }
+
+      .ck-editor__editable_inline {
+         min-height: 300px;
+      }
+   </style>
+   <!-- scrollbar css -->
+   <link rel="stylesheet" th:href="@{/admin/css/perfect-scrollbar.css}" />
+   <!-- custom css -->
+   <link rel="stylesheet" th:href="@{/admin/css/custom.css}" />
+   <!-- checkbox -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+</head>
+
+<body class="dashboard dashboard_2">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+         <nav id="sidebar">
+            <!-- Header top -->
+            <div th:insert="~{/admin/fragment/header-top::header-top}"></div>
+            <!-- Header top -->
+
+            <!-- Header menu -->
+            <div th:insert="~{/admin/fragment/header-menu::header-menu}"></div>
+            <!-- Header menu -->
+         </nav>
+         <!-- end sidebar -->
+         <!-- right content -->
+         <div id="content">
+            <!-- topbar -->
+            <div th:insert="~{/admin/fragment/topbar::top-bar}"></div>
+            <!-- end topbar -->
+
+            <!-- dashboard inner -->
+            <div class="midde_cont">
+               <!-- content -->
+               <main th:replace="${view}"></main>
+               <!-- content -->
+
+               <!-- footer -->
+               <footer th:insert="~{/admin/fragment/footer::footers}"></footer>
+               <!-- footer -->
+            </div>
+            <!-- end dashboard inner -->
+         </div>
+      </div>
+   </div>
+   <!-- jQuery -->
+   <script th:src="@{/admin/js/jquery.min.js}"></script>
+   <script th:src="@{/admin/js/popper.min.js}"></script>
+   <script th:src="@{/admin/js/bootstrap.min.js}"></script>
+   <!-- wow animation -->
+   <script th:src="@{/admin/js/animate.js}"></script>
+   <!-- select country -->
+   <script th:src="@{/admin/js/bootstrap-select.js}"></script>
+   <!-- owl carousel -->
+   <script th:src="@{/admin/js/owl.carousel.js}"></script>
+   <!-- chart js -->
+   <script th:src="@{/admin/js/Chart.min.js}"></script>
+   <script th:src="@{/admin/js/Chart.bundle.min.js}"></script>
+   <script th:src="@{/admin/js/utils.js}"></script>
+   <script th:src="@{/admin/js/analyser.js}"></script>
+   <!-- nice scrollbar -->
+   <script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+   <script>
+      var ps = new PerfectScrollbar('#sidebar');
+   </script>
+   <!-- custom js -->
+   <script th:src="@{/admin/js/custom.js}"></script>
+   <script th:src="@{/admin/js/custom_chart.js}"></script>
+   <script th:src="@{/admin/js/chart_custom_style2.js}"></script>
+    <script type="text/javascript">
+    (function ($) {
+        $.fn.inputFilter = function (callback, errMsg) {
+            return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function (e) {
+                if (callback(this.value)) {
+                    // Accepted value
+                    if (["keydown", "mousedown", "focusout"].indexOf(e.type) >= 0) {
+                        $(this).removeClass("input-error");
+                        this.setCustomValidity("");
+                    }
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    // Rejected value - nothing to restore
+                    this.value = "";
+                }
+            });
+        };
+    }(jQuery));
+    $(".number").inputFilter(function (value) {
+        return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+    });
+    </script>
+   <script th:src="@{/admin/js/custom_chart.js}" th:inline="javascript"></script>
+   <script th:src="@{/admin/js/chart_custom_style2.js}" th:inline="javascript"></script>
+   
+</body>
+
+</html>

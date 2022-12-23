@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Đăng nhập</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                        <a class="breadcrumb-item active" href="#">Đăng nhập</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+
+        <!-- Shop Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <!-- LogIn Page Start -->
+                <!-- Returning Customer Start -->
+                <div class="col-3"></div>
+                <div class="col-md-6 bg-light p-5">
+                    <div class="well">
+                        <div class="return-customer">
+                            <center>
+                                <h3 class="mb-10 custom-title">ĐĂNG NHẬP</h3>
+                            </center>
+                            <div th:if="${#strings.equals(param.err, '123')}" class="alert alert-danger"
+									role="alert">
+									Tài khoản và mật khẩu chưa chính xác!
+								</div>
+								<th:block th:switch="${message}">
+									<div th:case="'123'" class="alert alert-danger" role="alert">
+										Đăng nhập thất bại!
+									</div>
+									<div th:case="'456'" class="alert alert-success" role="alert">
+										Đăng nhập thành công!
+									</div>
+									<div th:case="'789'" class="alert alert-warning" role="alert">
+										Tài khoản đã bị khóa!
+									</div>
+									<div th:case="'1011'" class="alert alert-danger" role="alert">
+										Tài khoản và mật khẩu chưa chính xác!
+									</div>
+								</th:block>
+                            <form th:action="@{/login.html}" method="post" th:object="${loginForm}" class="form-login">
+                                <div class="form-group">
+                                    <label th:utext="|${#fields.hasErrors('pass')?'<b>Tên đăng nhập: </b>':'<b>Tên đăng nhập</b>'}|"><span class="require">*</span> Tên đăng nhập</label>
+                                    <span class="erros_mess" th:errors="*{username}"></span>
+                                    <input type="text" th:field="*{username}" placeholder="Tên đăng nhập" id="input-email"
+                                        class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label th:utext="|${#fields.hasErrors('pass')?'<b>Mật khẩu: </b>':'<b>Mật khẩu</b>'}|"><span class="require">*</span> Mật khẩu</label>
+                                    <span class="erros_mess" th:errors="*{pass}"></span>
+                                    <input type="password" th:field="*{pass}" placeholder="Mật khẩu" id="input-password"
+                                        class="form-control">
+                                </div>
+                                <div class="row">
+                                    <a href="forgot_pass.html" class="col-9">Quên mật khẩu?</a>
+                                    <a href="register.html" class="col-3 text-right">Tạo tài khoản</a>
+                                </div>
+
+                                <button class="btn btn-primary w-100 btn-sm mt-3">
+                                    <h6 class="text-white pt-2 text-uppercase">Đăng nhập</h6>
+                                </button>
+                                <hr>
+                                <button class="btn btn-danger w-100 btn-sm mt-3">
+                                    <h6 class="text-white pt-2 text-uppercase">Đăng nhập với tài khoản Google
+                                        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                            class="ml-2 img-fluid rounded-circle"
+                                            style="width:25px;background-color: white;">
+                                    </h6>
+                                </button>
+                                <button class="btn btn-dark w-100 btn-sm mt-1" style="background-color:blue;">
+                                    <h6 class="text-white pt-2 text-uppercase">Đăng nhập với tài khoản Facebook
+                                        <i class="fab fa-facebook h5 text-white ml-1"></i>
+                                    </h6>
+                                </button>
+                            </form>
+                            <script th:inline="javascript">
+									var myData = /*[[${loginForm.pass}]]*/ 'default';
+									document.getElementById("input-passwords").value = myData;
+							</script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Returning Customer End -->
+            </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý kích thước| DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <style>
+         .erros_mess {
+            color: red;
+         }
+      </style>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật kích thước sản phẩm</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="size-list.html" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách kích thước</strong>
+                  </a>
+                  <!-- Button effect -->
+
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body row">
+                  <form class=" col-12 row p-3" th:object="${sizeModel}" th:method="POST">
+                     <div class="col-12">
+                        <!-- Form item input -->
+                        <div class="col-12 mb-0" th:if="${editSizeId==null}">
+                           <label for="exampleInputEmail1" class="form-label h6"><span class="text-danger">*</span> Mã kích thước: </label>
+                           <input th:field="*{id}" type="text" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" placeholder="Nhập mã kích thước...">
+                           <span class="erros_mess" th:if="${session.errorSize!=null && session.size_mess == null}"
+                              th:text="${session.errorSize!=null?session.errorSize.getFieldError('id').getDefaultMessage():''}"></span>
+                           <span class="erros_mess" th:if="${session.size_mess!=null}"
+                              th:text="${session.size_mess}"></span>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="col-12 mb-2">
+                           <label for="mota" class="form-label h6"><span class="text-danger">*</span>Tên kích thước: </label>
+                           <textarea style="height: 200px;" class="form-control" id="mota" th:field="*{name}"
+                              placeholder="Nhập tên kích thước ...."></textarea>
+                              <span class="erros_mess" th:if="${session.errorSize!=null}"
+                              th:text="${session.errorSize!=null?session.errorSize.getFieldError('name').getDefaultMessage():''}"></span>
+                        </div>
+                     </div>
+
+                     <div class="col-12 text-right">
+                        <button th:if="${editSizeId!=null}" class="btn btn-primary"
+                           th:formaction="@{/admin/size-update/update}">
+                           <i class="fa fa-save"></i>
+                           Cập Nhật
+                        </button>
+
+                        <button th:unless="${editSizeId!=null}" class="btn btn-success"
+                           th:formaction="@{/admin/size-update/add}">
+                           <i class="fa fa-save"></i>
+                           Thêm mới
+                        </button>
+                        <button class="btn btn-danger" th:formaction="@{/admin/size-update/reset}">
+                           <i class="fa fa-refresh"></i>
+                           Làm Mới
+                        </button>
+                        <script th:inline="javascript">
+                           // Check add
+                           var check2 = /*[[${ session.checks2 }]]*/'';
+                           if (check2 == true) {
+                              Swal.fire(
+                                 'Thông báo !',
+                                 'Đã thêm kích thước thành công!',
+                                 'success'
+                              )
+                           }
+                           // Check update
+                           var check = /*[[${ session.checks }]]*/'';
+                           var name = /*[[${ session.sizeModel != null ? session.sizeModel.id : '' }]]*/'';
+                           if (check == true) {
+                              Swal.fire(
+                                 'Thông báo !',
+                                 'Cập nhật kích thước <b>' + name + '</b> thành công!',
+                                 'success'
+                              )
+                           }
+                        </script>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

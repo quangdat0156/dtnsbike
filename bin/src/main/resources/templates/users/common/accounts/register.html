@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Đăng ký</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Shop Start -->
+        <style>
+            .erros_mess {
+                color: red;
+                font-size: 13px;
+            }
+        </style>
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="container bg-white p-5">
+                    <!-- Register Account Start -->
+                    <div class="col-sm-12">
+                        <h3 class="mb-10">ĐĂNG KÝ TÀI KHOẢN</h3>
+                        <p class="mb-10">Nếu bạn đã có tài khoản với chúng tôi, vui lòng đăng nhập tại trang <a
+                                href="login.html" class="agree"><b>đăng nhập.</b></a></p>
+                    </div>
+                    <!-- Row End -->
+                    <div class="col-sm-12">
+                        <form class="form-register" th:action="@{/register.html}" th:object="${registerForm}"
+                            th:method="post">
+                            <fieldset>
+                                <span class="h6 text-uppercase">Thông tin cá nhân của bạn</span>
+                                <hr>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="f-name"><span class="require">* </span>
+                                        Tên đăng nhập</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{username}" type="text" class="form-control" id="f-name"
+                                            placeholder="Tên đăng nhập...">
+                                        <span class="erros_mess" th:errors="*{username}"></span>
+                                        <span class="erros_mess">[[${mess_user}]]</span>
+                                    </div>
+                                </div>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="email"><span class="require">*</span> Họ
+                                        và Tên</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{fullname}" type="text" class="form-control"
+                                            placeholder="Họ và tên...">
+                                        <span class="erros_mess" th:errors="*{fullname}"></span>
+                                        <span class="erros_mess">[[${erros_ten}]]</span>
+                                    </div>
+                                </div>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="email"><span class="require">*</span>
+                                        Email</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{email}" type="email" class="form-control" id="email"
+                                            placeholder="Email...">
+                                        <span class="erros_mess" th:errors="*{email}"></span>
+                                        <span class="erros_mess">[[${mess_email}]]</span>
+                                    </div>
+                                </div>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="number"><span class="require">*</span> Số
+                                        điện thoại</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{phone}" type="text" class="form-control" id="number"
+                                            placeholder="Số điện thoại...">
+                                        <span class="erros_mess" th:errors="*{phone}"></span>
+                                        <span class="erros_mess">[[${mess_phone}]]</span>
+                                        <span class="erros_mess">[[${erros_phone}]]</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <span class="h6 text-uppercase">Mật khẩu của bạn</span>
+                                <hr>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="pwd"><span class="require">*</span> Mật
+                                        khẩu:</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{password}" type="password" class="form-control" id="pwd"
+                                            placeholder="Mật khẩu...">
+                                        <span class="erros_mess" th:errors="*{password}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group d-md-flex align-items-md-center">
+                                    <label class="control-label col-md-2" for="pwd-confirm"><span
+                                            class="require">*</span> Xác nhận mật khẩu</label>
+                                    <div class="col-md-10">
+                                        <input th:field="*{repassword}" type="password" class="form-control"
+                                            id="pwd-confirm" placeholder="Xác nhận mật khẩu...">
+                                        <span class="erros_mess" th:errors="*{repassword}"></span>
+                                        <span class="erros_mess">[[${erros_pass}]]</span>
+                                        <p th:if="${sucess != null}" class="alert alert-success" role="alert">[[${sucess}]]</p>
+                                        
+                                        <!-- <span class="text-danger">[[${failure}]]</span> -->
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            <div class="float-md-right">
+                                <span>Tôi đã đọc và đồng ý với <a href="#" class="agree"><b>Chính sách bảo
+                                            mật</b></a></span>
+                                <input type="checkbox" name="agree" value="1"> &nbsp;
+                                <button class="btn btn-primary mr-3" type="submit">
+                                    <h6 class="text-white pt-2 text-uppercase" >Đăng ký</h6>
+                                </button>
+                            </div>
+
+                            <!-- Button trigger modal -->
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                Kích hoạt tài khoảng
+                            </button>
+
+                            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Xác nhận tài khoảng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <p>Nhập mã xác nhận được gửi đến Email của bạn</p>
+                                    <div class="modal-body">                                        
+                                    <input type="text" name="code">
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Gửi</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div> -->
+                        </form>
+                    </div>
+                    <!-- Row End -->
+
+                </div>
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Register Account End -->
+
+        </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

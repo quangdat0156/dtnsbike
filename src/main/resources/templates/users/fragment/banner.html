@@ -1,0 +1,148 @@
+<html xmlns="https://www.thymeleaf.org">
+	<div th:fragment="banner">
+		<!-- Carousel Start -->
+    <div class="container-fluid mb-3">
+        <div class="row ">
+            <div class="col-lg-12">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#header-carousel" data-slide-to="1"></li>
+                        <li data-target="#header-carousel" data-slide-to="2"></li>
+                        <li data-target="#header-carousel" data-slide-to="3"></li>
+                        <li data-target="#header-carousel" data-slide-to="4"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <!-- Slide item start :)) -->
+                        <div class="carousel-item position-relative active" style="height: 600px;">
+                            <img class="position-absolute w-100 h-100" th:src="@{/users/img/carousel-2.jpg}"
+                                style="object-fit: cover;">
+                            <div
+                                class="carousel-caption d-flex flex-column align-items-end justify-content-center text-right">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">XE ĐẠP
+                                        ĐƯỜNG PHỐ</h1>
+                                    <p class="mx-md-5 animate__animated animate__bounceIn">SỐNG GIÀU TRẢI NGHIỆM HƠN</p>
+                                    <a class="btn btn-outline-light  mt-3 animate__animated animate__fadeInUp" th:href="@{/shop.html}"
+                                        style="width: 500px;">
+                                        <i class="fas fa-door-open"></i>
+                                        Mua Ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide item end -->
+                        <!-- Slide item start :)) -->
+                        <div class="carousel-item position-relative" style="height: 600px;">
+                            <img class="position-absolute w-100 h-100" th:src="@{/users/img/carousel-1.jpg}"
+                                style="object-fit: cover;">
+                            <div
+                                class="carousel-caption d-flex flex-column align-items-end justify-content-center text-right">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">XE ĐẠP
+                                        ĐUA</h1>
+                                    <p class="mx-md-5 animate__animated animate__bounceIn">KHẲNG ĐỊNH CÁ TÍNH CỦA RIÊNG
+                                        BẠN</p>
+                                    <a class="btn btn-outline-light  mt-3 animate__animated animate__fadeInUp" th:href="@{/shop.html}"
+                                        style="width: 500px;">
+                                        <i class="fas fa-door-open"></i>
+                                        Mua Ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide item end -->
+                        <!-- Slide item start :)) -->
+                        <div class="carousel-item position-relative" style="height: 600px;">
+                            <img class="position-absolute w-100 h-100" th:src="@{/users/img/carousel-3.jpg}"
+                                style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">THÁNG 9
+                                        SIÊU ƯU ĐÃI</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">MUA LÀ SALE</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    th:href="@{/shop.html}">
+                                        <i class="fas fa-door-open"></i>
+                                        Mua Ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide item end -->
+                        <div class="carousel-item position-relative" style="height: 600px;">
+                            <img class="position-absolute w-100 h-100" th:src="@{/users/img/carousel-4.jpg}"
+                                style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">THÁNG 9
+                                        SIÊU ƯU ĐÃI</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">MUA LÀ SALE</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    th:href="@{/shop.html}">
+                                        <i class="fas fa-door-open"></i>
+                                        Mua Ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide item end -->
+                        <!-- Slide item end -->
+                        <div class="carousel-item position-relative" style="height: 600px;">
+                            <img class="position-absolute w-100 h-100" th:src="@{/users/img/banner-3.jpeg}"
+                                style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">THÁNG 9
+                                        SIÊU ƯU ĐÃI</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">MUA LÀ SALE</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    th:href="@{/shop.html}">
+                                        <i class="fas fa-door-open"></i>
+                                        Mua Ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide item end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- BANNER SẢN PHẨM :)) -->
+    <!-- Offer Start -->
+    <div class="container-fluid pt-1 pb-1">
+        <div class="row px-xl-5">
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 300px;">
+                    <img class="img-fluid" th:src="@{/users/img/offer-1.jpg}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">GIẢM GIÁ 10%</h6>
+                        <h3 class="text-white mb-3">ƯU ĐÃI ĐẶC BIỆT</h3>
+                        <a th:href="@{/shop.html}" class="btn btn-primary">Mua Ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 300px;">
+                    <img class="img-fluid" th:src="@{/users/img/offer-2.jpg}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">GIẢM GIÁ 20%</h6>
+                        <h3 class="text-white mb-3">ƯU ĐÃI ĐẶC BIỆT</h3>
+                        <a th:href="@{/shop.html}" class="btn btn-primary">Mua Ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 300px;">
+                    <img class="img-fluid" th:src="@{/users/img/offer-3.jpg}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">GIẢM GIÁ 30%</h6>
+                        <h3 class="text-white mb-3">ƯU ĐÃI ĐẶC BIỆT</h3>
+                        <a th:href="@{/shop.html}" class="btn btn-primary">Mua Ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Offer End -->
+	</div>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Mặt hàng yêu thích</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                        <a class="breadcrumb-item text-dark" href="shop.html">Sản phẩm</a>
+                        <span class="breadcrumb-item active">Mặt hàng yêu thích</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <!-- Shop Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-lg-12 table-responsive mb-5">
+                    <table class="table table-light table-borderless table-hover text-center mb-0">
+                        <thead class="bg-danger text-white">
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Lượt thích</th>
+                                <th>Mua hàng</th>
+                                <th>Bỏ thích</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            <!-- Danh sách trống start -->
+                            <tr th:if="${favs.isEmpty()}">
+                                <td class="p-4" colspan="5">
+                                    <p style="font-size: 20px;">Bạn chưa có mặt hàng yêu thích nào</p>
+                                    <a href="shop.html" class="btn btn-danger">Mua hàng ngay</a>
+                                </td>
+                            </tr>
+                            <!-- Danh sách trống end -->
+
+                            <!-- Danh sách mặt hàng yêu thích -->
+                            <tr th:each="fav : ${favs}">
+
+                                <td class="align-middle">
+                                    <a th:href="@{|/detail.html?id=${fav.productsId.id}|}" class="text-decoration-none text-dark">
+                                        <img th:src="@{|/upload/product_single_img/${fav.productsId.img==null?'default.jpg':fav.productsId.img}|}"
+                                            alt="" style="width: 50px;">
+                                        [[${fav.productsId.name}]]
+                                    </a>
+                                </td>
+                                <td class="align-middle" th:if="${fav.productsId.discountid != null}">
+                                    [[${#numbers.formatInteger(fav.productsId.price+(fav.productsId.price*fav.productsId.vat/100)-((fav.productsId.price+(fav.productsId.price*fav.productsId.vat/100))*fav.productsId.discountid.value/100),1,'COMMA')}]]
+                                    VND</td>
+                                <td class="align-middle" th:if="${fav.productsId.discountid == null}">
+                                    [[${#numbers.formatInteger(fav.productsId.price+(fav.productsId.price*fav.productsId.vat/100),1,'COMMA')}]]
+                                    VND</td>
+                                <td class="align-middle">
+                                    [[${fav.productsId.favorites.size()}]] <i class="fa fa-heart"></i>
+                                </td>
+                                <td class="align-middle">
+                                    <a th:href="@{|/detail.html?id=${fav.productsId.id}|}" class="btn btn-danger text-white">XEM SẢN PHẨM</a>
+                                </td>
+                                <td class="align-middle">
+                                    <a th:href="@{|/favorite.html?removeid=${fav.id}|}" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-times"></i></a>
+                                </td>
+
+                            </tr>
+                            <!-- Danh sách mặt hàng yêu thích -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

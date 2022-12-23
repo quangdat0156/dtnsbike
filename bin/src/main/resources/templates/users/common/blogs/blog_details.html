@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Tin tức mới nhất</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main th:object="${blog}">
+        <!-- main item start -->
+            <!-- Content Start :))_ -->
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid mt-3">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                    <a class="breadcrumb-item text-dark" href="blogs.html">Tin tức</a>
+                    <span class="breadcrumb-item active text-dark h6">[[*{title}]]</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- TIN TỨC HOT :)) -->
+    <!-- Products Start -->
+    <div class="container-fluid">
+        <!-- <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">TIN TỨC
+                MỚI NHẤT</span></h2> -->
+        <div class="row px-xl-5">
+            <div class="col-lg-8 col-md-10 col-sm-12 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="text-center">
+                        <img class="img-fluid w-50" th:src="@{|/upload/blogs_img/*{images==null?'default.jpg':images}|}" alt="">
+                    </div>
+                    <div class="pl-2 pb-2 pt-4 card border-0">
+                        <div class="card-header bg-light border border-0">
+                            <a class="h6 text-decoration-none" href="blog_details.html">
+                                <h3>[[*{title}]]</h3>
+                            </a>
+                            <span class="mr-2">
+                                <i class="fa fa-clock"></i> [[*{#dates.format(createdate,'dd-MM-yyyy')}]]
+                            </span>
+
+                            <span class="mr-2">
+                                <i class="fa fa-eye"></i> [[*{views==null?'0':views}]] lượt xem
+                            </span>
+
+                            <span class="mr-2">
+                                <strong>Đăng bởi:</strong> [[*{accounts.username}]]
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <p>[[*{description}]]</p>
+                            <div class="row">
+                                [(*{content})]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 pb-1">
+                <div class="row bg-dark pt-2">
+                    <div class="col-12">
+                        <h6 class="text-white">TIN TỨC NỔI BẬT</h6>
+                    </div>
+                </div>
+                <!-- Blog item :)) -->
+                <div class="row bg-white mt-2 pb-3" th:each="b: ${blogs}">
+                    <a th:href="|blog_details.html?id=${b.blogid}|"
+                        class="col-8 bg-white pt-3 text-decoration-none">
+                        <h5 class="text-primary text-truncate" style="max-width: 300px;">
+                            [[${b.title}]]
+                        </h5>
+                        <span class="text-right text-dark">
+                            <i class="fa fa-eye"></i> [[${b.views==null?'0':b.views}]] lượt xem
+                            <!-- <br> -->
+                            <strong>Ngày đăng:</strong> [[${#dates.format(b.createdate,'dd-MM-yyyy')}]]
+                            <!-- <br>
+                            <strong>Đăng bởi:</strong> [[${b.accounts.username}]] -->
+                        </span>
+                    </a>
+                    <div class="col-4 pt-3">
+                        <img class="img-fluid w-100"
+                            th:src="@{|/upload/blogs_img/${b.images==null?'default.jpg':b.images}|}" alt="">
+                    </div>
+                </div>
+                <!-- Blog item :)) -->
+            </div>
+        </div>
+        <!-- Products End -->
+
+        <!-- TIN TỨC MỚI NHẤT :)) -->
+        <!-- Products Start -->
+        <div class="container-fluid pb-3">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">TIN
+                    TỨC
+                    MỚI NHẤT</span></h2>
+            <div class="row px-xl-5">
+                <div class="col-lg-12 pb-1" th:each="bl:${blogss}">
+                    <div class="row product-item bg-light mb-4 text-left">
+                        <a th:href="@{|/blog_details.html?id=${bl.blogid}|}" class="col-3 mt-4 text-center">
+                            <img class="img-fluid" th:src="@{|/upload/blogs_img/${bl.images==null?'default.jpg':bl.images}|}" alt="" style="width: 200px;">
+                        </a>
+
+                        <div class="col-9 pt-4 pl-2 pb-2 pr-4 float-right">
+                            <a class="h6 text-decoration-none" th:href="@{|/blog_details.html?id=${bl.blogid}|}">
+                                <h5>[[${bl.title}]]</h5>
+                            </a>
+                            <p class="text-dark">
+                                <span>
+                                    <i class="fa fa-eye"></i> [[${bl.views}]] lượt xem
+                                </span>
+                            </p>
+                            <div>
+                                <p>[[${bl.description}]]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <a th:href="@{/blogs.html}" class="btn btn-info">Xem thêm...</a>
+            </div>
+        </div>
+        <!-- Products End -->
+
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

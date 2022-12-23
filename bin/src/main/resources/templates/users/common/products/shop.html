@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Sản phẩm</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                        <a class="breadcrumb-item active" href="#">Sản Phẩm</a>
+                        <!--  <span class="breadcrumb-item active">Xe đạp abc</span> -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+
+        <!-- Shop Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <!-- Shop Sidebar Start -->
+                <div class="col-lg-3 col-md-4">
+                    <!-- Category Start -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Danh
+                            mục sản phẩm</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form action="" method="post">
+                            <!-- Filter Type Category -->
+                            <div class="accordion" id="accordionExample">
+                                <div class="card border-0 bg-light" th:each="ty: ${types}">
+                                    <div class="card-header order-0 bg-light" th:attr="id='catetype1'+${ty.id}">
+                                        <div
+                                            class="mb-0 custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                            <input type="checkbox" class="custom-control-input" data-toggle="collapse"
+                                                th:attr="data-target='#collapse'+${ty.id}, id='cate'+${ty.id},value=${cateid!=null?'/DTNsBike/shop.html':''},onchange=${cateid!=null?'if (this.value) window.location.href=this.value':''}"
+                                                aria-expanded="true" aria-controls="collapseOne"
+                                                th:checked="${cateid != null?cateid.typeId.id == ty.id:'false'}">
+                                            <label class="custom-control-label"
+                                                th:attr="for='cate'+${ty.id}">[[${ty.name}]]</label>
+                                            <span
+                                                class="badge border font-weight-normal">[[${count.getCount(ty)}]]</span>
+                                        </div>
+                                    </div>
+                                    <!-- Filter Type Category -->
+                                    <div class="collapse"
+                                        th:classappend="${cateid != null?cateid.typeId.id == ty.id?'show':'':''}"
+                                        th:attr="aria-labelledby='catetype1'+${ty.id},  id='collapse'+${ty.id}"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body pb-0" th:each="cat : ${ty.categorie}">
+                                            <div
+                                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                                                <input th:if="${cateid==null}" type="checkbox"
+                                                    class="custom-control-input"
+                                                    th:attr="id='catetype'+${cat.id},value='?cateid='+${cat.id}"
+                                                    onchange="if (this.value) window.location.href=this.value"
+                                                    >
+                                                    
+                                                <input th:if="${cateid!=null}" type="checkbox"
+                                                    class="custom-control-input"
+                                                    th:attr="id='catetype'+${cat.id},value=${cateid.id == cat.id?'/DTNsBike/shop.html':'?cateid='+cat.id}"
+                                                    onchange="if (this.value) window.location.href=this.value"
+                                                    th:checked="${cateid!=null?cateid.id == cat.id:'false'}">
+                                                <label class="custom-control-label"
+                                                    th:attr="for='catetype'+${cat.id}">[[${cat.name}]]</label>
+                                                <span
+                                                    class="badge border font-weight-normal">[[${cat.products.size()}]]</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Filter Type Category item -->
+                                </div>
+
+                            </div>
+                            <!-- Filter Type Category -->
+                        </form>
+                    </div>
+                    <!-- Category End -->
+                    <!-- Color Start -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc
+                            theo
+                            màu sắc</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form>
+                            <!-- Filter Type Color -->
+                            <div th:each="cls:${colors}"
+                                class="mb-0 custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3 pl-0">
+
+                                <input th:if="${colorid == null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='color'+${cls.id},value='?colorid='+${cls.id}"
+                                    th:checked="${colorid != null?colorid == cls.id:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+                                <input th:if="${colorid != null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='color'+${cls.id},value=${colorid == cls.id?'/DTNsBike/shop.html':'?colorid='+cls.id}"
+                                    th:checked="${colorid != null?colorid == cls.id:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+
+                                <label class="" th:attr="for='color'+${cls.id}">
+                                    <span th:if="${colorid == null || colorid != cls.id}" class="border border-light btn mb-1 p-2"
+                                        th:style="|background-color:#${cls.id}|"></span>
+
+                                    <span th:if="${colorid == cls.id}" class="btn mb-1 p-2"
+                                        th:style="|background-color:#${cls.id};border:3px solid rgba(5, 168, 68, 0.877);|"></span>
+                                    [[${cls.name}]]
+                                </label>
+                                <span
+                                    class="badge border font-weight-normal mb-1">[[${cls.productdetail.size()}]]</span>
+                            </div>
+                            <!-- Filter Type Colors item -->
+                            <!-- Filter Type Colors -->
+                        </form>
+                    </div>
+                    <!-- Color End -->
+
+                    <!-- Size Start -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc
+                            theo
+                            kích thước</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form>
+                            <!-- Filter Type Sizes -->
+                            <div th:each="siz:${sizes}"
+                                class="mb-0 custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input th:if="${sizeid == null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='size'+${siz.id},value='?sizeid='+${siz.id}"
+                                    th:checked="${sizeid != null?sizeid == siz.id:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+                                <input th:if="${sizeid != null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='size'+${siz.id},value=${sizeid == siz.id?'/DTNsBike/shop.html':'?sizeid='+siz.id}"
+                                    th:checked="${sizeid != null?sizeid == siz.id:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+                                <label class="custom-control-label" th:attr="for='size'+${siz.id}">
+                                   Size [[${siz.id}]]
+                                </label>
+                                <span
+                                    class="badge border font-weight-normal mb-1">[[${siz.productdetail.size()}]]</span>
+                            </div>
+                            <!-- Filter Type Sizes item -->
+                            <!-- Filter Type Sizes -->
+                        </form>
+                    </div>
+                    <!-- Size End -->
+                    <!-- Brand Start -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc
+                            theo
+                            thương hiệu</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form>
+                            <!-- Filter Type Brands -->
+                            <div th:each="brand:${brands}"
+                                class="mb-0 custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input th:if="${brandid == null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='brand'+${brand.brandid},value='?brandid='+${brand.brandid}"
+                                    th:checked="${brandid != null?brandid == brand.brandid:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+                                <input th:if="${brandid != null}" type="checkbox" class="custom-control-input"
+                                    th:attr="id='brand'+${brand.brandid},value=${brandid == brand.brandid?'/DTNsBike/shop.html':'?brandid='+brand.brandid}"
+                                    th:checked="${brandid != null?brandid == brand.brandid:'false'}"
+                                    onchange="if (this.value) window.location.href=this.value">
+                                <label class="custom-control-label" th:attr="for='brand'+${brand.brandid}">
+                                    <img th:src="@{|/upload/blogs_img/${brand.image!=null?brand.image:'default.jpg'}|}"
+                                        alt="ag" class="img-fluid" width="120px" height="72px">
+                                </label>
+                                <span class="badge border font-weight-normal mb-1">[[${brand.products.size()}]]</span>
+                            </div>
+                            <!-- Filter Type Brands item -->
+                            <!-- Filter Type Brands -->
+                        </form>
+                    </div>
+                    <!-- Brand End -->
+                    <!-- Price Start -->
+                    <!-- <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc
+                            Theo
+                            giá</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" checked id="price-all">
+                                <label class="custom-control-label" for="price-all">Tất cả</label>
+                                <span class="badge border font-weight-normal">1000</span>
+                            </div>
+                        </form>
+                    </div> -->
+                    <!-- Price End -->
+                </div>
+                <!-- Shop Sidebar End -->
+
+
+                <!-- Shop Product Start -->
+                <div class="col-lg-9 col-md-8">
+                    <div class="row pb-3">
+                        <div class="col-12 pb-1">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div>
+                                    <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                                    <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                                </div>
+                                <div class="ml-2">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                            data-toggle="dropdown">Sắp xếp theo</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" th:classappend="${field2=='id'?'active':''}"
+                                                th:href="@{|/shop.html?field=id&sort=${sort}&p=${number}&show=${show}|}">Mã
+                                                sản phẩm</a>
+                                            <a class="dropdown-item" th:classappend="${field2=='name'?'active':''}"
+                                                th:href="@{|/shop.html?field=name&sort=${sort}&p=${number}&show=${show}|}">Tên
+                                                sản phẩm</a>
+                                            <a class="dropdown-item" th:classappend="${field2=='price'?'active':''}"
+                                                th:href="@{|/shop.html?field=price&sort=${sort}&p=${number}&show=${show}|}">Đơn
+                                                giá</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group ml-2">
+                                        <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                            data-toggle="dropdown">Thứ tự</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" th:classappend="${sort==0?'active':''}"
+                                                th:href="@{|/shop.html?field=${field2}&sort=0&p=${number}&show=${show}|}">Tăng
+                                                dần</a>
+                                            <a class="dropdown-item" th:classappend="${sort==1?'active':''}"
+                                                th:href="@{|/shop.html?field=${field2}&sort=1&p=${number}&show=${show}|}">Giảm
+                                                dần</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group ml-2">
+                                        <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                            data-toggle="dropdown">Hiển thị</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" th:classappend="${show==9?'active':''}"
+                                                th:href="@{|/shop.html?field=${field2}&sort=${sort}&p=${number}&show=9|}">09</a>
+                                            <a class="dropdown-item" th:classappend="${show==12?'active':''}"
+                                                th:href="@{|/shop.html?field=${field2}&sort=${sort}&p=${number}&show=12|}">12</a>
+                                            <a class="dropdown-item" th:classappend="${show==20?'active':''}"
+                                                th:href="@{|/shop.html?field=${field2}&sort=${sort}&p=${number}&show=20|}">20</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Products Start -->
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1" th:each="p,i: ${products.content}" >
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <div class="d-flex flex-row mt-2 ml-2 ">
+                                        <span class="badge badge-pill badge-info ">Mới</span>
+                                        <span th:if="${session.account != null?check.checkProFav(session.account, p):false}"
+                                            class="ml-1 badge badge-pill badge-danger">Yêu thích</span>
+                                    </div>
+                                    <img class="img-fluid w-100"
+                                        th:src="@{|/upload/product_single_img/${p.img==null?'default.jpg':p.img}|}"
+                                        alt="">
+                                    <div class="product-action">
+                                        <a class="btn btn-primary btn-square" th:href="${session.account == null?'cart.html':null}"
+                                            title="Thêm vào giỏ hàng"><i class="text-white fa fa-shopping-cart"></i></a>
+                                        <a th:if="${check != null}" class="btn btn-danger btn-square"
+                                            th:href="@{|/favorite.html/${check.checkProFav(session.account, p)?'remove':'add'}/${p.id}|}"
+                                            title="Yêu thích"><i class="text-white"
+                                                th:classappend="${check.checkProFav(session.account, p)?'fa fa-heart':'far fa-heart'}"></i></a>
+                                        <a th:if="${check == null}" class="btn btn-danger btn-square"
+                                            th:href="@{|/favorite.html/add/${p.id}|}" title="Yêu thích"><i
+                                                class="text-white far fa-heart"></i></a>
+
+                                        <a class="btn btn-dark btn-square" th:href="@{|/detail.html?id=${p.id}|}"
+                                            title="Chi tiết sản phẩm"><i class="text-white fa fa-eye"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center py-4">
+                                    <div class="text-truncate p-1">
+                                        <a class="h5 text-decoration-none text-uppercase"
+                                            th:href="@{|/detail.html?id=${p.id}|}">
+                                            [[${p.name}]]
+                                        </a>
+                                    </div>
+                                    <div class="mt-1">
+                                        <style>
+                                            .price {
+                                                margin-top: 2rem
+                                            }
+
+                                            label.radio span {
+                                                padding: 2px 25px 2px 25px;
+                                                border: 2px solid black;
+                                                color: rgb(0, 0, 0);
+                                                display: inline-block;
+                                                margin-right: 10px;
+                                            }
+
+                                            label.radio input:checked+span {
+                                                border: 2px solid rgba(5, 168, 68, 0.877);
+                                                padding: 2px 25px 2px 25px;
+                                                margin-right: 10px;
+                                                display: inline-block;
+                                            }
+
+                                            label.radio input {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                visibility: hidden;
+                                                pointer-events: none
+                                            }
+
+                                            label.radio {
+                                                cursor: pointer
+                                            }
+                                        </style>
+                                        <div th:if="${p.productDetail.size() < 1}" class="row price justify-content-center mt-0">
+                                            <label class="radio" th:each="pd: ${p.productDetail}">
+                                                <input type="radio" th:attr="name=${pd.colorid.name}" th:value="${pd.colorid.id}">
+                                                <span>
+                                                    <div class="row">[[${pd.colorid.name}]]</div>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div th:if="${p.productDetail.size() < 1}" class="row price justify-content-center mt-0">
+                                            <label class="radio" th:each="pd: ${p.productDetail}">
+                                                <input type="radio" th:attr="name=${pd.sizeid.id}" th:value="${pd.sizeid.id}">
+                                                <span>
+                                                    <div class="row">Size [[${pd.sizeid.id}]]</div>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5 class="text-danger" th:if="${p.discountid != null}">
+                                            [[${#numbers.formatInteger(p.price+(p.price*p.vat/100)-((p.price+(p.price*p.vat/100))*p.discountid.value/100),3,'COMMA')}]]
+                                            VNĐ</h5>
+                                        <h5 class="text-danger" th:if="${p.discountid == null}">
+                                            [[${#numbers.formatInteger(p.price+(p.price*p.vat/100),3,'COMMA')}]]
+                                            VNĐ</h5>
+                                        <h6 th:if="${p.discountid != null && p.discountid.value > 0}"
+                                            class="ml-2 mb-2"><span class="badge badge-pill badge-danger  ">Giảm
+                                                [[${#numbers.formatInteger(p.discountid.value,0,'POINT')}]]%
+                                            </span></h6>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-warning mr-1"></small>
+                                        <small class="fa fa-star text-warning mr-1"></small>
+                                        <small class="fa fa-star text-warning mr-1"></small>
+                                        <small class="fa fa-star text-warning mr-1"></small>
+                                        <small class="fa fa-star text-warning mr-1"></small>
+                                        <small>(99)</small>
+                                    </div>
+                                    <!--  <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <a href="cart.html" class="btn btn-primary">
+                                            <strong class="text-white">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Giỏ hàng
+                                            </strong>
+                                        </a>
+                                        <a href="cart.html" class="ml-1 btn btn-danger">
+                                            <strong class="text-white">
+                                                <i class="fa fa-heart"></i>
+                                                Yêu thích
+                                            </strong>
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Products End -->
+                        <div class="col-12 row justify-content-center" th:if="${products.content.isEmpty()}">
+                            <div class="col-6">
+                                <img th:src="@{/users/img/undraw_empty_cart_co35.svg}" class="img-fluid"
+                                    alt="Không có sản phẩm nào">
+                                <h6 class="text-center text-uppercase mt-2">Không tìm thấy sản phẩm phù hợp...</h6>
+                            </div>
+                        </div>
+                        <div class="col-12" th:if="${!products.content.isEmpty()}">
+                            <nav>
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" th:classappend="${products.number-1 < 0?'disabled':''}"><a
+                                            class="page-link"
+                                            th:href="@{|/shop.html?field=${field2}&sort=${sort}&p=${products.number-1 < 0?'0':products.number-1}&show=${show}|}">Trước</span></a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link"
+                                            href="#">[[${products.number+1}]]</a></li>
+                                    <li class="page-item"
+                                        th:classappend="${products.number+1 > products.totalPages - 1 ?'disabled':''}">
+                                        <a class="page-link"
+                                            th:href="@{|/shop.html?field=${field2}&sort=${sort}&p=${products.number+1}&show=${show}|}">Tiếp</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Shop Product End -->
+            </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>

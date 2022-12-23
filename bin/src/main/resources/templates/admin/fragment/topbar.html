@@ -1,0 +1,45 @@
+<html xmlns="https://www.thymeleaf.org">
+<div th:fragment="top-bar" class="topbar">
+   <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="full">
+         <button type="button" id="sidebarCollapse" class="sidebar_toggle bg-success"><i
+               class="fa fa-bars"></i></button>
+         <!-- <div class="logo_section">
+                 <a href="index.html"><img class="img-responsive" src="logo/icon2.png" alt="#" /></a>
+              </div> -->
+         <div class="right_topbar">
+            <div class="icon_info">
+               <ul>
+                  <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge bg-success">2</span></a>
+                  </li>
+                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge bg-success">3</span></a></li>
+               </ul>
+               <ul class="user_profile_dd">
+                  <li class="bg-success">
+                     <a th:if="${session.account == null}" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="img-responsive rounded-circle" th:src="@{/admin/images/layout_img/user_img.jpg}"
+                           alt="#" />
+                        <span class="name_user ">DatLoa@123</span>
+                     </a>
+                     <a th:if="${session.account != null}" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="img-responsive rounded-circle" th:src="@{|/rest/upload/accounts_img/${session.account.photo!=null && session.account.photo.length() > 0?session.account.photo:'default.jpg'}|}"
+                           alt="#" />
+                        <span class="name_user ">[[${session.account.username}]]</span>
+                     </a>
+                     <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/update_profile/account}"><span>Thông tin tài
+                              khoản</span></a>
+                        <a class="dropdown-item" th:href="@{/index.html}"><span>Về trang chủ</span></a>
+                        <a class="dropdown-item" th:href="@{/logout.html}"><span>Đăng xuất</span> <i
+                              class="fa fa-sign-out"></i></a>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </nav>
+</div>
+
+</html>

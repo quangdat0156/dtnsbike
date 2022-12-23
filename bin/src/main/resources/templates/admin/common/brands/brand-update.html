@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý thương hiệu| DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <style>
+         .erros_mess {
+            color: red;
+         }
+      </style>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật thương hiệu sản phẩm</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="brand-list.html" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách thương hiệu</strong>
+                  </a>
+                  <!-- Button effect -->
+
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body row">
+                  <form class=" col-8 row p-3" th:object="${brandModel}" th:method="POST">
+                     <div class="col-12">
+                        <!-- Form item input -->
+                        <div class="col-12 mb-0">
+                           <label for="exampleInputEmail1" class="form-label h6"><span class="text-danger">*</span> Tên
+                              thương hiệu:</label>
+                           <input th:field="*{brand}" type="text" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" placeholder="Nhập tên thương hiệu...">
+                           <span class="erros_mess" th:if="${session.errorBrand!=null}"
+                              th:text="${session.errorBrand!=null?session.errorBrand.getFieldError('brand').getDefaultMessage():''}"></span>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="col-12 mb-2">
+                           <label for="mota" class="form-label h6"><span class="text-danger">*</span>Mô
+                              tả (Nếu có): </label>
+                           <textarea style="height: 300px;" class="form-control" id="mota" th:field="*{description}"
+                              placeholder="Nhập mô tả thương hiệu ...."></textarea>
+                        </div>
+                     </div>
+
+                     <div class="col-12 text-right">
+                        <button th:if="${editBrandId!=null}" class="btn btn-primary"
+                           th:formaction="@{/admin/brand-update/update}">
+                           <i class="fa fa-save"></i>
+                           Cập Nhật
+                        </button>
+
+                        <button th:unless="${editBrandId!=null}" class="btn btn-success"
+                           th:formaction="@{/admin/brand-update/add}">
+                           <i class="fa fa-save"></i>
+                           Thêm mới
+                        </button>
+                        <button class="btn btn-danger" th:formaction="@{/admin/brand-update/reset}">
+                           <i class="fa fa-refresh"></i>
+                           Làm Mới
+                        </button>
+                        <script th:inline="javascript">
+                           // Check add
+                           var check2 = /*[[${ session.checks2 }]]*/'';
+                           if (check2 == true) {
+                              Swal.fire(
+                                 'Thông báo !',
+                                 'Đã thêm thương hiệu thành công!',
+                                 'success'
+                              )
+                           }
+                           // Check update
+                           var check = /*[[${ session.checks }]]*/'';
+                           var name = /*[[${ session.brandModel != null ? session.brandModel.brand : '' }]]*/'';
+                           if (check == true) {
+                              Swal.fire(
+                                 'Thông báo !',
+                                 'Cập nhật thương hiệu <b class="text-primary"><u>' + name + '</u></b> thành công!',
+                                 'success'
+                              )
+                           }
+                        </script>
+                     </div>
+                  </form>
+                  <!-- Form item input -->
+                  <div class="mb-3 col-4 justify-content-center">
+                     <div for="exampleInputConfirmPass" class="form-label h6"><span class="text-danger">*</span> Hình
+                        ảnh thương hiệu</div>
+                     <div
+                        th:with="imgUrl=(${imgBrand == null}? '/upload/brands_img/default.jpg' : '/rest/upload/brands_img/'+${imgBrand})">
+                        <img th:src="@{${imgUrl}}" class="img-fluid w-100 h-100">
+                     </div>
+                     <form id="save" th:action="@{/admin/brands/upload/img}" enctype="multipart/form-data"
+                        th:object="${uploadImgBrand}" method="post">
+                        <label class="btn btn-dark mt-2 w-100">
+                           <i class="fa fa-upload"></i> Tải ảnh lên
+                           <input type="file" name="file" hidden multiple="multiple" onchange="oWhichSubmit()">
+                        </label>
+                     </form>
+                     <script type="text/javascript">
+                        function oWhichSubmit() {
+                           document.getElementById('save').submit()
+                        }
+                     </script>
+                  </div>
+                  <!-- Form item input -->
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

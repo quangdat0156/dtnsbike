@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <title>Quản lý sản phẩm | DTNsBike</title>
+</head>
+
+<body>
+   <main>
+      <div class="modal" th:classappend="${message} ? show : hiden" id="message" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onChangeModal()">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <span th:text="${message}"></span>
+                  <span th:each="items:${msgUdt}" th:text="${items}"></span>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                     onclick="onChangeModal()">Đóng</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid">
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2 th:if="${#strings.equals(param.types, '1')}">Thêm Xe Đạp</h2>
+                  <h2 th:if="${#strings.equals(param.types, '2')}">Thêm Phụ Tùng</h2>
+                  <h2 th:if="${#strings.equals(param.types, '3')}">Thêm Phụ Kiện</h2>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <a th:href="@{/admin/product-list.html}" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách sản phẩm</strong>
+                  </a>
+                  <a th:href="@{/admin/cate-update/reset}" class="btn btn-success btn-rounded text-white mb-1">
+                     <i class="fa fa-plus-circle"></i>
+                     <strong class="mt-1 ms-1">Thêm danh mục</strong>
+                  </a>
+                  <a th:href="@{/admin/brand-update/reset}" class="btn btn-dark btn-rounded text-white mb-1">
+                     <i class="fa fa-plus-circle"></i>
+                     <strong class="mt-1 ms-1">Thêm thương hiệu</strong>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <span th:text="${param.type}"></span>
+                  <form id="form_data" class="row p-3" th:object="${productModel}" method="post"
+                     enctype="multipart/form-data">
+                     <div class="col-9">
+                        <div class="row">
+                           <div class="mb-3 col-8">
+                              <label for="name" class="form-label h6"><span class="text-danger">*</span> Tên sản phẩm</label>
+                              <input type="text" class="form-control" th:field="*{name}" placeholder="Nhập tên sản phẩm...">
+                              <span class="hasErrors" th:errors="*{name}"></span>
+                           </div>
+                           <div class="mb-3 col-4">
+                              <label for="avaliable" class="form-label h6"><span class="text-danger">*</span> Trạng thái</label>
+                              <select class="custom-select" th:field="*{avaliable}">
+                                 <option value="1">Đang kinh doanh</option>
+                                 <option value="0">Ngừng kinh doanh</option>
+                              </select>
+                              <span class="hasErrors" th:errors="*{avaliable}"></span>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <th:block th:if="${#strings.equals(param.types, '1')}">
+                              <div class="mb-3 col-4">
+                                 <label for="categoriesID" class="form-label h6"><span class="text-danger">*</span> Loại sản phẩm</label>
+                                 <select class="custom-select" th:field="*{categoriesID}">
+                                    <option value="" selected="selected" th:text="'[Chọn loại sản phẩm]'"></option>
+                                    <option th:each="items : ${listCategories1}" th:value="${items.id}"
+                                       th:text="${items.name}"></option>
+                                 </select>
+                                 <span class="hasErrors" th:errors="*{categoriesID}"></span>
+                              </div>
+                           </th:block>
+                           <th:block th:if="${#strings.equals(param.types, '2')}">
+                              <div class="mb-3 col-4">
+                                 <label for="categoriesID" class="form-label h6"><span class="text-danger">*</span> Loại sản phẩm</label> <select
+                                    class="custom-select" th:field="*{categoriesID}">
+                                    <option value="" selected="selected" th:text="'[Chọn loại sản phẩm]'"></option>
+                                    <option th:each="items : ${listCategories2}" th:value="${items.id}"
+                                       th:text="${items.name}"></option>
+                                 </select>
+                                 <span class="hasErrors" th:errors="*{categoriesID}"></span>
+                              </div>
+                           </th:block>
+                           <th:block th:if="${#strings.equals(param.types, '3')}">
+                              <div class="mb-3 col-4">
+                                 <label for="categoriesID" class="form-label h6"><span class="text-danger">*</span> Loại sản phẩm</label>
+                                 <select class="custom-select" th:field="*{categoriesID}">
+                                    <option value="" selected="selected" th:text="'[Chọn loại sản phẩm]'"></option>
+                                    <option th:each="items : ${listCategories3}" th:value="${items.id}"
+                                       th:text="${items.name}"></option>
+                                 </select>
+                                 <span class="hasErrors" th:errors="*{categoriesID}"></span>
+                              </div>
+                           </th:block>
+                           <div class="mb-3 col-4">
+                              <label for="brandsID" class="form-label h6"><span class="text-danger">*</span> Thương hiệu</label>
+                              <select class="custom-select" th:field="*{brandsID}">
+                                 <option value="" selected="selected" th:text="'[Chọn thương hiệu]'"></option>
+                                 <option th:each="items : ${listBrands}" th:value="${items.brandid}"
+                                    th:text="${items.brand}"></option>
+                              </select>
+                              <span class="hasErrors" th:errors="*{brandsID}"></span>
+                           </div>
+                           <div class="mb-3 col-4">
+                              <label for="originsID" class="form-label h6"><span class="text-danger">*</span> Xuất xứ</label>
+                              <select class="custom-select" th:field="*{originsID}">
+                                 <option value="" selected="selected" th:text="'[Chọn xuất xứ]'"></option>
+                                 <option th:each="items : ${listOrigins}" th:value="${items.id}"
+                                    th:text="${items.madein}">
+                                 </option>
+                              </select>
+                              <span class="hasErrors" th:errors="*{originsID}"></span>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="mb-3 col-4">
+                              <label for="vat" class="form-label h6"><span class="text-danger">*</span> Thuế (VAT)</label>
+                              <input type="number" class="form-control number" th:field="*{vat}" placeholder="Nhập thuế sản phẩm...">
+                              <span class="hasErrors" th:errors="*{vat}"></span>
+                           </div>
+                           <div class="mb-3 col-4">
+                              <label for="discountsID" class="form-label h6"><span class="text-danger">*</span> Giảm giá</label>
+                              <select class="custom-select" th:field="*{discountsID}">
+                                 <option th:each="items:${listDiscounts}" th:value="${items.id}"
+                                    th:text="${items.value == 0}?'0%': 'Giảm '+${T(Math).round(items.value) == items.value ? #numbers.formatDecimal(items.value, 0,0) : items.value}+'%'">
+                                 </option>
+                              </select>
+                              <span class="hasErrors" th:errors="*{discountsID}"></span>
+                           </div>
+                           <div class="mb-3 col-4">
+                              <label for="price" class="form-label h6"><span class="text-danger">*</span> Số ngày bảo hành</label>
+                              <input type="number" class="form-control number" th:field="*{warrantyPeriod}" placeholder="Nhập số ngày bảo hành...">
+                              <span class="hasErrors" th:errors="*{warrantyPeriod}"></span>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="mb-3 col-4">
+                              <label for="price" class="form-label h6"><span class="text-danger">*</span> Giá bán</label>
+                              <input type="number" class="form-control number" th:field="*{price}" placeholder="Nhập giá bán...">
+                              <span class="hasErrors" th:errors="*{price}"></span>
+                           </div>
+                           <div class="mb-3 col-4" th:unless="${#strings.equals(param.types, '1')}">
+                              <label for="sl" class="form-label h6">Số lượng</label>
+                              <input type="text" class="form-control number" th:field="*{sl}">
+                              <span class="hasErrors" th:errors="*{sl}"></span>
+                           </div>
+                        </div>
+                        <div class="mb-3 row">
+                           <div class="col-12">
+                              <label for="description" class="form-label h6"><span class="text-danger">*</span> Mô tả sản phẩm</label>
+                              <textarea class="form-control" th:field="*{description}" rows="5" placeholder="Nhập mô tả..."></textarea>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <label class="form-label h6 col-12" th:if="${#strings.equals(param.types, '1')}">Chi tiết sản
+                              phẩm (Màu/Size/Số Lượng Size)</label>
+                           <span class="hasErrors col-12" th:errors="*{color}"
+                              th:if="${#strings.equals(param.types, '1')}"></span>
+                        </div>
+                        <div class="mb-3 row" style="height: 300px; overflow: auto;" id="style-16"
+                           th:if="${#strings.equals(param.types, '1')}">
+                           <div class="col-12">
+                              <th:block th:each="items, target : ${listColors}">
+                                 <div class="pretty p-icon p-smooth ml-3 mt-3 col-8">
+                                    <input type="checkbox" th:id="'objectcolor'+${items.id}" th:value="${items.id}"
+                                       th:field="*{color[__${target.index}__].colorID}" data-toggle="collapse"
+                                       th:attr="onclick='hey('+|'${items.id}'|+')'" aria-expanded="false"
+                                       aria-controls="collapseExample" />
+                                    <div class="state p-success" style="margin-top:-1.9px; ">
+                                       <i class="icon fa fa-check"></i>
+                                       <label>
+                                          <span class="border"
+                                             th:attr="style='background-color:#'+|${items.id}|+'; color:#'+|${items.id}|+';'">&nbsp;</span>
+                                          Màu [[${items.name}]]
+                                       </label>
+                                       <span class="hasErrors" th:errors="*{color[__${target.index}__].colorID}"></span>
+                                    </div>
+                                 </div>
+                                 <div>
+                                    <div class="collapse width col-12 mt-3" th:id="'collapse'+${items.id}">
+                                       <div class="card card-body">
+                                          <div class="row">
+                                             <div class="mb-3 col-4" th:each="listSize,sizeT:${listSizes}"
+                                                th:with="a=${items.id},b='err_'+${a}+'_'+${listSize.id},idspan='err_span_'+${a}+'_'+${listSize.id},idinput='err_input_'+${a}+'_'+${listSize.id}">
+                                                <div class="pretty p-icon p-smooth mt-3 col-8">
+                                                   <input type="checkbox" th:value="${listSize.id}"
+                                                      th:field="*{color[__${target.index}__].sizes[__${sizeT.index}__].size}"
+                                                      th:id="|${items.id}_${listSize.id}|"
+                                                      th:attr="onclick='unDisInput('+|'${items.id}_${listSize.id}'|+')'" />
+                                                   <div class="state p-success" style="margin-top:-1.9px; ">
+                                                      <i class="icon fa fa-check"></i>
+                                                      <label th:for="|${items.id}_${listSize.id}|" class="form-label h6"
+                                                         th:text="'Size '+${listSize.id}"
+                                                         style="margin-left: -10px;"></label>
+                                                   </div>
+                                                </div>
+                                                <input type="text" class="form-control number"
+                                                   th:name="|${items.id}_${listSize.id}|"
+                                                   th:id="|ip_${items.id}_${listSize.id}|"
+                                                   th:field="*{color[__${target.index}__].sizes[__${sizeT.index}__].sl}"
+                                                   placeholder="Số lượng. . ."
+                                                   th:disabled="*{color[__${target.index}__].sizes[__${sizeT.index}__].size}==null">
+                                                <span class="hasErrors"
+                                                   th:errors="*{color[__${target.index}__].sizes[__${sizeT.index}__].sl}"></span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th:block>
+                           </div>
+                        </div>
+                        <div class="row mt-2">
+                           <div class="col-12" th:if="${session.proEdit==null}">
+                              <button class="btn btn-success"
+                                 th:formaction="@{/admin/product/form/add(types=${param.types})}">Lưu Sản Phẩm</button>
+                              <button class="btn btn-warning"
+                                 th:formaction="@{/admin/product/form/reset(types=${param.types})}">Làm Mới</button>
+                           </div>
+                           <div class="col-12" th:if="${session.proEdit!=null}">
+                              <button class="btn btn-success"
+                                 th:formaction="@{/admin/product/form/update/{id}(id=${session.proEdit},types=${param.types})}">Cập
+                                 Nhật Sản Phẩm</button>
+                              <button class="btn btn-danger"
+                                 th:formaction="@{/admin/product/form/edit/{pro}(pro=${session.proEdit},types=${param.types})}">Hủy
+                                 Bỏ</button>
+                              <button class="btn btn-warning"
+                                 th:formaction="@{/admin/product/form/reset(types=${param.types})}">Làm Mới</button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-3 col-3">
+                        <div class="form-label h6 text-center">
+                           <label for="price" class="form-label h6"><span class="text-danger">*</span> Ảnh đại diện sản phẩm</label>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                           <div
+                              th:with="imgUrl=(${session.productImgs == null}? '/admin/images/default.jpg' : '/rest/upload/product_single_img/'+${session.productImgs})">
+                              <img th:src="@{${imgUrl}}" class="img-fluid w-100 h-100">
+                           </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                           <label class="text-center mt-2 btn btn-dark w-100">
+                              <i class="fa fa-upload"></i>
+                              Tải ảnh đại diện chính
+                              <input type="file" th:field="*{file}" onchange="uploadImg()" hidden
+                                 accept=".png,.jpg,.jpge">
+                           </label>
+                        </div>
+                        <div class="form-label h6 text-center mt-5">
+                           <label for="price" class="form-label h6"><span class="text-danger">*</span> Ảnh sản phẩm bổ sung</label>
+                        </div>
+                        <div class="row d-flex" th:classappend="${#lists.isEmpty(session.productImgLst)}?'justify-content-center':'justify-content-left'">
+                           <label class="mt-2 col-4">  
+                                 <img th:src="@{/admin/images/img-add.png}" class="img-thumbnail">
+                                 <input type="file" th:field="*{file2}" hidden onchange="uploadImgDetails()" accept=".png,.jpg,.jpge">
+                           </label>
+                           <label th:each="imgs:${session.productImgLst}" class="mt-2 col-4 img-wraps">
+                              <span class="closes" title="Delete" th:attr="onclick='deleteImg('+|'${imgs}'|+')'">×</span>
+                              <span class="img-thumbnail h-100 d-flex align-items-center">
+                                 <img class="img-responsive " th:src="@{|/rest/upload/products_img/${imgs}|}">
+                              </span>
+                           </label>
+                        </div>
+                        <div class="text-center"
+                           th:classappend="${#strings.equals(param.error,'File size exceeds the allowed limit')}?'hasErrors':''">
+                           Dung lượng file tối đa 2MB</div>
+                        <div class="text-center"
+                           th:classappend="${#strings.equals(param.error, 'Wrong image format')}?'hasErrors':''">Định
+                           dạng: JPG, PNG, JPEG</div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
+      <script>
+      window.onload = function () {
+    	    var okl = $("input:checkbox:checked");
+    	    for (var i = 0; i < okl.length; i++) {
+    	        var coll = String(okl[i].id);
+    	        var name = coll.replace("objectcolor", "collapse");
+    	        $("#" + name).show();
+    	    }
+
+    	};
+    	function hey(i) {
+    	    console.log(i);
+    	    var check = $("#objectcolor" + i);
+    	    if ($("#objectcolor" + i + ":checkbox:checked").length > 0) {
+    	        $("#collapse" + i).show();
+    	    } else {
+    	        $("#collapse" + i).hide();
+    	    }
+    	}
+    	function unDisInput(i) {
+    	    if ($("#" + i + ":checkbox:checked").length > 0) {
+    	        $("#ip_" + i).prop('disabled', false);
+    	    } else {
+    	        $("#ip_" + i).prop('disabled', true);
+    	        /* $("#ip_" + i).val(''); */
+    	    }
+    	}
+    	function onChangeModal() {
+    	    document.getElementById('message').classList.add('hiden');
+    	    document.getElementById('message').classList.remove('show');
+    	}
+    	function uploadImg() {
+    	    var proEdit = '[[${session.proEdit}]]';
+    	    var type = '[[${param.types}]]';
+    	    if (proEdit != null && proEdit != '') {
+    	        document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/" + proEdit + "?types=" + type;
+    	        document.getElementById("form_data").submit();
+    	    } else {
+    	        document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/insert?types=" + type;
+    	        document.getElementById("form_data").submit();
+    	    }
+    	}
+    	function uploadImgDetails() {
+    	    var proEdit = '[[${session.proEdit}]]';
+    	    var type = '[[${param.types}]]';
+    	    if (proEdit != null && proEdit != '') {
+    	        document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/details/" + proEdit + "?types=" + type;
+    	        document.getElementById("form_data").submit();
+    	    } else {
+    	        document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/insert/details?types=" + type;
+    	        document.getElementById("form_data").submit();
+    	    }
+    	}
+    	function deleteImg(x) {
+    	    var proEdit = '[[${session.proEdit}]]';
+    	    var type = '[[${param.types}]]';
+    	    var imgDelete = x;
+    	    console.log(x);
+    	    if (proEdit != null && proEdit != '') {
+    	    	if (x != null) {
+    	            document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/delete/update/" + proEdit + "?imgs=" + imgDelete + "&types=" + type;
+    	            document.getElementById("form_data").submit();
+    	        }
+    	    } else {
+    	        if (x != null) {
+    	            document.getElementById("form_data").action = "/DTNsBike/admin/product/upload/img/delete/add?imgs=" + imgDelete + "&types=" + type;
+    	            document.getElementById("form_data").submit();
+    	        }
+    	    }
+    	}
+      </script>
+   </main>
+</body>
+
+</html>

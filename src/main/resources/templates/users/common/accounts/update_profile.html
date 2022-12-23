@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Cập nhật tài khoản</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid mt-3">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="#">Trang chủ</a>
+                        <a class="breadcrumb-item text-dark" href="#">Hồ sơ của tôi</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+
+        <!-- Shop Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        <div class="card-body p-0">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="list-group list-group-flush account-settings-links">
+                                        <a th:class="|list-group-item list-group-item-action ${accPage}|"
+                                            th:href="@{/update_profile/account}">Thông tin cá nhân</a>
+                                        <a th:class="|list-group-item list-group-item-action ${changePassPage}|"
+                                            th:href="@{/update_profile/changePass}">Đổi mật khẩu</a>
+                                        <a th:class="|list-group-item list-group-item-action ${addressPage}|"
+                                            th:href="@{/update_profile/address}">Quản lí địa chỉ</a>
+                                        <a th:class="|list-group-item list-group-item-action ${orderPage}|"
+                                            th:href="@{/update_profile/orders}">Đơn hàng</a>
+                                        <a th:class="|list-group-item list-group-item-action ${voucherPage}|"
+                                            th:href="@{/update_profile/voucher}">Mã giảm giá</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content position-relative">
+                        <div th:class="|tab-pane fade ${accPage} show|" id="account-general">
+                            <div class='loading-gem'>
+                                <div class='row'>
+                                    <div class='m-auto'>
+                                        <div class='spinner-border text-primary' role='status'><span
+                                                class='sr-only'>Loading...</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body ">
+                                    <div class="row ">
+                                        <div class="col-12">
+                                            <h5>Thông tin cá nhân </h5>
+                                            <h6>Quản lí thông tin cá nhân để bảo mật tài khoản</h6>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex flex-row-reverse " ng-controller="updateProfileCtrl">
+                                        <div class="col-md-5 col-12">
+                                            <div class="mb-3 d-flex justify-content-center">
+                                                <img ng-src="{{url(account.photo)}}" class="rounded-circle avt-md" />
+                                            </div>
+                                            <div class="mb-3 d-flex justify-content-center">
+                                                <input type="file" accept="image/*" hidden
+                                                    onchange="angular.element(this).scope().upload(this.files)"
+                                                    ng-model="pic" id="ava" name="file">
+                                                <button class="btn btn-secondary" ng-click="choose()">Chọn
+                                                    ảnh</button>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <small class="text-muted">Dung lượng file tối đa 2MB</small>
+                                            </div>
+                                            <div class="d-flex justify-content-center ">
+                                                <small>Định dạng: PNG,JPEG</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-12">
+                                            <form method="post" name="mf">
+                                                <div class="row spell">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="lastname"
+                                                            class="font-weight-bold text-dark">*Họ</label>
+                                                        <input type="text" class="form-control" name="lastname"
+                                                            id="lastname" aria-describedby="fullnameHelp"
+                                                            ng-model="account.lastname" required>
+                                                        <span class="require" ng-show="mf.lastname.$error.required">Vui
+                                                            lòng nhập họ </span>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="middlename" class="font-weight-bold text-dark">*Tên
+                                                            đệm</label>
+                                                        <input type="text" class="form-control" name="middlename"
+                                                            id="middlename" aria-describedby="fullnameHelp"
+                                                            ng-model="account.middlename">
+
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="firstname"
+                                                            class="font-weight-bold text-dark">*Tên</label>
+                                                        <input type="text" class="form-control" name="firstname"
+                                                            id="firstname" aria-describedby="fullnameHelp"
+                                                            ng-model="account.firstname" required>
+                                                        <span class="require" ng-show="mf.firstname.$error.required">Vui
+                                                            lòng nhập tên</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fullname font-weight-bold mb-2">
+                                                    Họ và tên: {{account.fullname}}
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="email" class="font-weight-bold text-dark">*Email</label>
+                                                    <input type="email" class="form-control" name="email" id="email"
+                                                        aria-describedby="fullnameHelp" ng-model="account.email" email
+                                                        required>
+                                                    <span class="require" ng-show="mf.email.$error.required">Vui lòng
+                                                        nhập email</span>
+                                                    <span class="require" ng-show="mf.email.$error.email">Email không
+                                                        đúng định dạng</span>
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="phone" class="font-weight-bold text-dark">*Số điện
+                                                        thoại</label>
+                                                    <input type="text" class="form-control" name="phone" id="phone"
+                                                        aria-describedby="fullnameHelp" ng-model="account.phone" phone
+                                                        required maxlength="10">
+                                                    <span class="require" ng-show="mf.phone.$error.required">Vui lòng
+                                                        nhập số điện thoại</span>
+                                                    <span class="require" ng-show="mf.phone.$error.phone">Số điện thoại
+                                                        không đúng định dạng</span>
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="phone" class="font-weight-bold text-dark">*Giới
+                                                        tính</label>
+                                                    <div class="form-inline">
+                                                        <div class="ml-2 form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="gender"
+                                                                id="male" value="1" ng-model="account.gender">
+                                                            <label class="form-check-label" for="male">Nam</label>
+                                                        </div>
+                                                        <div class="ml-2 form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="gender"
+                                                                id="female" value="2" ng-model="account.gender">
+                                                            <label class="form-check-label" for="female">Nữ</label>
+                                                        </div>
+                                                        <div class="ml-2 form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="gender"
+                                                                id="orther" value="3" ng-model="account.gender">
+                                                            <label class="form-check-label" for="orther">Khác</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="phone" class="font-weight-bold text-dark">*Ngày
+                                                            sinh</label>
+                                                        <div class="form-inline ">
+                                                            <select class="form-control mb-1 mr-3" id="day" name="day"
+                                                                ng-model="account.day">
+
+                                                            </select>
+                                                            <select class="form-control mb-1 mr-3" id="month"
+                                                                ng-model="account.month" aria-valuetext="3">
+                                                            </select>
+                                                            <select class="form-control mb-1 mr-3" id="year"
+                                                                ng-model="account.year">
+                                                            </select>
+                                                            <!-- {{account.day}}{{account.month}}{{account.year}} -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" ng-click="update()"
+                                                    ng-disabled="mf.$invalid">Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div th:class="|tab-pane fade ${changePassPage} show|" id="account-change-password">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-12">
+                                            <h5>Đổi mật khẩu</h5>
+                                            <h6>Thay đổi mật khẩu với tính bảo mật cao hơn</h6>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-12" th:if="${changePassForm!= null}">
+                                            <div class="alert alert-success" th:if="${success}">Đổi mật khẩu thành công
+                                            </div>
+                                            <form th:object="${changePassForm}" method="post"
+                                                th:action="@{/update_profile/changePass}">
+                                                <div class="form-group">
+                                                    <label><span class="require">*</span> Mật khẩu cũ</label>
+                                                    <input type="password" name="passOld" placeholder="Nhập mật khẩu cũ"
+                                                        id="input-password-old" class="form-control w-100"
+                                                        th:value="*{passOld}">
+                                                    <span class="require" th:errors="*{passOld}"></span>
+                                                    <span class="require">[[${errorPassOld}]]</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><span class="require">*</span> Mật khẩu mới</label>
+                                                    <input type="password" name="passNew" th:value="*{passNew}"
+                                                        placeholder="Nhập mật khẩu mới" id="input-password"
+                                                        class="form-control w-100">
+                                                    <span class="require" th:errors="*{passNew}"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><span class="require">*</span> Nhập lại mật khẩu</label>
+                                                    <input type="password" name="passRe" th:value="*{passRe}"
+                                                        placeholder="Nhập lại mật khẩu" id="input-password-new"
+                                                        class="form-control w-100">
+                                                    <span class="require" th:errors="*{passRe}"></span>
+                                                    <span class="require">[[${errorPassRe}]]</span>
+                                                </div>
+                                                <button class="btn btn-primary w-100 btn-sm">
+                                                    <h6 class="text-white pt-2 text-uppercase">Xác nhận</h6>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:class="|tab-pane fade ${addressPage} show|" id="account-address"
+                            ng-controller="updateAddressCtrl">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-12">
+                                            <div class="clearfix">
+                                                <div class="float-left">
+                                                    <h5>Quản lí địa chỉ</h5>
+                                                    <h6>Quản lí thông tin đại chỉ nhận hàng</h6>
+                                                </div>
+                                                <button class="btn btn-outline-primary float-right shadow-none"
+                                                    data-toggle="modal" data-target="#addressModal"
+                                                    ng-click="addModel()"> <i class="fas fa-plus pr-1"></i>Thêm địa chỉ
+                                                    mới</button>
+                                            </div>
+                                            <hr>
+                                            <h5 class="mb-4">Địa chỉ</h5>
+                                        </div>
+                                    </div>
+                                    <div class="address-man" ng-repeat="list in addressList"
+                                        ng-if="addressList.length >0">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="mb-2 d-flex justify-content-start">
+                                                    <h6>{{list.fullname}} |&nbsp;</h6><small>{{list.phone}} </small>
+                                                </div>
+                                                <div class="mb-2 d-flex justify-content-start">
+                                                    <small>{{list.address}}</small>
+                                                </div>
+                                                <!-- <div class="mb-2 ">
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary btn-sm shadow-none">Mặc
+                                                        định</button>
+                                                    <button type="button"
+                                                        class="btn btn-outline-dark btn-sm shadow-none">Địa
+                                                        chỉ lấy hàng hàng</button>
+                                                </div> -->
+                                            </div>
+                                            <div class="col-12 col-md-6 ">
+                                                <div class=" d-flex justify-content-end">
+                                                    <a href="" class="btn btn-primary mr-2"
+                                                        ng-click="updateModel($index)">Cập nhật</a>
+                                                    <a href="" class=" btn btn-danger align-middle"
+                                                        ng-show="addressList.length>1"
+                                                        ng-click="confirmRemove($index)">Xóa</a>
+                                                </div>
+                                                <!-- <div class="mb-2  d-flex justify-content-end">
+                                                    <button class="btn btn-outline-dark float-right shadow-none"> Thiết
+                                                        lập
+                                                        mặc
+                                                        định</button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="row px-xl-5" ng-if="addressList.length == 0">
+
+                                        <div class="col-md-4 m-auto col-12 text-center ">
+                                            <img th:src="@{/users/img/undraw_Address_re_yaoj.png}" class="img-fluid"
+                                                alt="Không có đơn hàng nào">
+                                            <strong class="fs-1 ">Chưa có địa chỉ</strong>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal" id="addressDel" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered ">
+                                    <div class="modal-content shadow border-0 rounded">
+                                        <div class="modal-body text-center ">
+                                            <i class="far fa-question-circle text-warning" style='font-size: 60px;'></i>
+                                            <p class='py-1'>Bạn có chắc chắn xóa địa chỉ này ?</p>
+                                            <div class='d-flex justify-content-end'><button
+                                                    class='btn btn-outline-primary mr-3'
+                                                    ng-click="delAddress()">Có</button><button
+                                                    class='btn btn-outline-dark mr-3' data-dismiss='modal'>Trở
+                                                    lại</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="addressModal" tabindex="-1" data-backdrop="static"
+                                data-keyboard="false" aria-hidden="true">
+                                <div class="modal-dialog  modal-lg modal-dialog-scrollable ">
+                                    <div class="modal-content ">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" ng-show="add">Tạo địa chỉ
+                                            </h5>
+                                            <h5 class="modal-title" id="exampleModalLabel" ng-show="update">Cập nhật địa
+                                                chỉ</h5>
+                                        </div>
+                                        <div class="modal-body ">
+                                            <div class="container">
+                                                <form method="post" class="position-relative" name="af">
+                                                    <div class='loading-gem' ng-show="update">
+                                                        <div class='row'>
+                                                            <div class='m-auto'>
+                                                                <div class='spinner-border text-primary' role='status'>
+                                                                    <span class='sr-only'>Loading...</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="lastname"
+                                                                class="font-weight-bold text-dark">*Họ</label>
+                                                            <input type="text" class="form-control" name="fullname"
+                                                                id="fullname" aria-describedby="fullnameHelp"
+                                                                ng-model="address.fullname" ng-required="reqFullname">
+                                                            <span class="require"
+                                                                ng-show="af.fullname.$error.required">Vui
+                                                                lòng nhập họ và tên </span>
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-2">
+                                                            <label for="phone" class="font-weight-bold text-dark">*Số
+                                                                điện
+                                                                thoại</label>
+                                                            <input type="text" class="form-control" name="phone"
+                                                                id="phone" aria-describedby="fullnameHelp"
+                                                                ng-model="address.phone" maxlength="10"
+                                                                ng-required="reqPhone" ng-attr-phone="reqPhone">
+                                                            <span class="require" ng-show="af.phone.$error.required">Vui
+                                                                lòng
+                                                                nhập số điện thoại</span>
+                                                            <span class="require" ng-show="af.phone.$error.phone">Số
+                                                                điện thoại
+                                                                không đúng định dạng</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12"> <span type="button"
+                                                                class="font-weight-bold text-dark" ng-show="update">Địa
+                                                                chỉ: {{updateForm.address}}</spna>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="form-group col-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="font-weight-bold text-dark">*Tỉnh/Thành
+                                                                    phố</label>
+                                                                <select class="selectpicker form-control"
+                                                                    title="Chọn Tỉnh" name="province" id="province"
+                                                                    data-live-search="true" data-size="5"
+                                                                    ng-model="selectProvince"
+                                                                    ng-options="y.code as y.name for y in provinceList"
+                                                                    ng-change="getdistrict()"
+                                                                    ng-required="reqProvince"></select>
+                                                                <span class="require"
+                                                                    ng-show="af.province.$error.required">Vui
+                                                                    lòng chọn tỉnh</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    class="font-weight-bold text-dark">*Huyện/Quận</label>
+                                                                <select class="selectpicker form-control"
+                                                                    title="Chọn Huyện" ng-model="selectDistrict"
+                                                                    data-live-search="true" data-size="5"
+                                                                    ng-options="y.code as y.name for y in districtList"
+                                                                    ng-change="getward()" name="district" id="district"
+                                                                    ng-required="reqDistrict">
+                                                                </select>
+                                                                <span class="require"
+                                                                    ng-show="af.district.$error.required">Vui
+                                                                    lòng chọn Huyện</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    class="font-weight-bold text-dark">*Xã/Phường</label>
+                                                                <select class="selectpicker form-control"
+                                                                    title="Chọn Xã" ng-model="selectWard"
+                                                                    data-live-search="true" data-size="5"
+                                                                    ng-options="y.code as y.name for y in wardList"
+                                                                    name="ward" id="ward" ng-required="reqWard"
+                                                                    ng-change="refeshList()">
+                                                                </select>
+                                                                <span class="require"
+                                                                    ng-show="af.ward.$error.required">Vui
+                                                                    lòng chọn Xã</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label class="font-weight-bold text-dark">*Địa chỉ cụ
+                                                                thể</label>
+                                                            <textarea class="form-control " placeholder="Địa chỉ cụ thể"
+                                                                ng-model="address.adr" name="adr" id="adr"
+                                                                ng-required="reqAdr"></textarea>
+                                                            <span class="require" ng-show="af.adr.$error.required">Vui
+                                                                lòng nhập địa chỉ cụ thể</span>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" ng-click="back()"
+                                                data-dismiss="modal">Trở
+                                                lại</button>
+                                            <button type="button" class="btn btn-primary" ng-show="add"
+                                                ng-click="addAddress()">Thêm
+                                                địa chỉ</button>
+                                            <button type="button" class="btn btn-primary" ng-show="update"
+                                                ng-click="updateAddress()">Cập nhật</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:class="|tab-pane fade ${orderPage} show|" id="account-orders">
+                            <div class="row px-xl-5">
+                                <div class="col-md-12">
+                                    <nav class="bg-white mb-3">
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link "
+                                                th:classappend="${activeNav == 'all'} ? active :' '" id="nav-all-tab"
+                                                th:href="@{/update_profile/orders?p=all}">Tất cả</a>
+                                            <a class="nav-item nav-link" id="nav-confirm-tab"
+                                                th:classappend="${activeNav=='confirm'} ? active :''"
+                                                th:href="@{/update_profile/orders?p=confirm}">Chờ xác nhận</a>
+                                            <!-- <a class="nav-item nav-link" id="nav-receive-tab"
+                                                th:classappend="${activeNav == 'receive'} ? active :' '"
+                                                th:href="@{/update_profile/orders?p=receive}">Chờ lấy hàng</a>
+                                            <a class="nav-item nav-link" id="nav-deliver-tab"
+                                                th:classappend="${activeNav == 'deliver'} ? active :' '"
+                                                th:href="@{/update_profile/orders?p=deliver}">Đang giao</a> -->
+                                            <a class="nav-item nav-link" id="nav-delivered-tab"
+                                                th:classappend="${activeNav == 'delivered'} ? active :' '"
+                                                th:href="@{/update_profile/orders?p=delivered}">Đã giao</a>
+                                            <a class="nav-item nav-link" id="nav-cancel-tab"
+                                                th:classappend="${activeNav == 'cancel'} ? active :' '"
+                                                th:href="@{/update_profile/orders?p=cancel}">Đã hủy</a>
+                                        </div>
+                                    </nav>
+                                    <form th:action="@{/update_profile/orders}" method="get">
+                                        <div class="input-group mb-3 search" th:if="${order!=null}">
+                                            <div class="input-group-prepend ">
+                                                <button class="btn input-group-text bg-light border-0 ">
+                                                    <span class="fa fa-search form-control-feedback "></span>
+                                                </button>
+                                            </div>
+                                            <input type="text" class="form-control border-0 px-0 "
+                                                placeholder="Tìm kiếm" name="keyword">
+                                        </div>
+                                    </form>
+                                    <div class="tab-content " id="nav-tabContent">
+                                        <div class="tab-pane fade show active" th:if="${order!=null}"
+                                            th:classappend="${activeNav=='all'} ? 'show active' :''" id="nav-all"
+                                            role="tabpanel" aria-labelledby="nav-all-tab">
+                                            <!-- tất cả đơn hàng -->
+                                            <!-- chưa có đơn hàng -->
+                                            <div class="card mb-4" th:hidden="${!order.isEmpty()}">
+                                                <div class="card-body p-4">
+                                                    <div class="row">
+                                                        <div class="col-md-6 m-auto col-12 text-center ">
+                                                            <img th:src="@{/users/img/undraw_empty_cart_co35.svg}"
+                                                                class="img-fluid" alt="Không có đơn hàng nào">
+                                                            <strong class="fs-1 ">Không có đơn hàng nào</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- chưa có đơn hàng end-->
+                                            <div class="card mb-4 text-decoration-none text-dark"
+                                                th:each="o,tag: ${order}">
+                                                <div class="card-body p-4">
+                                                    <div class="row ">
+                                                        <div class="col-md-6 d-flex justify-content-start ">
+                                                            HD00[[${o.id}]]
+                                                        </div>
+                                                        <div class="col-md-6 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0">Trạng thái :
+                                                                <strong
+                                                                    th:class="${o.statusId.id == 'dh'?'text-danger':'text-primary'}">[[${o.statusId.name}]]</strong>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <a th:href="@{|/order_details.html?id=${o.id}|}"
+                                                        class="row align-items-center text-decoration-none"
+                                                        th:each="os: ${o.orderdetail}">
+                                                        <div class="col-md-1">
+                                                            <img th:src="@{|/upload/product_single_img/${os.productsId.productid.img}|}"
+                                                                class="img-fluid">
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <p class="lead fw-normal mb-0">
+                                                                    [[${os.productsId.productid.name}]]</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 d-flex justify-content-end">
+                                                            <div>
+                                                                <p class="lead fw-normal mb-0"
+                                                                    th:with="totalPrice=${os.price+(os.price*os.vat/100)}">
+                                                                    [[${#numbers.formatInteger((totalPrice-(totalPrice*os.discount/100))*os.amount,3,'COMMA')}]]
+                                                                    VNĐ
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <hr>
+                                                    <div class="row ">
+                                                        <div class="col-md-12 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0"
+                                                                th:with="totalPrice=${#aggregates.sum(o.orderdetail.![(price+(price*vat/100)-((price+(price*vat/100))*discount/100))*amount])},sale=${o.saleId != null ? o.salevalue : 0}">Tổng
+                                                                tiền :
+                                                                [[${#numbers.formatInteger(totalPrice-(totalPrice*sale/100),3,'COMMA')}]]
+                                                                VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 d-flex justify-content-start ">
+                                                            <small class="text-muted font-weight-bold align-middle">Ngày
+                                                                đặt hàng:
+                                                                <i>[[${#dates.format(o.date,"dd-MM-yyyy")}]]</i></small>
+                                                        </div>
+                                                        <div class="col-md-9 d-flex justify-content-end ">
+                                                            <a class="btn btn-outline-primary shadow-none mr-1 "
+                                                                data-toggle="modal"
+                                                                th:attr="data-target='#acceptOrderModal'+${tag.index}"
+                                                                th:if="*{o.statusId.id=='dagi'}">Xác
+                                                                nhận đã nhận hàng</a>
+                                                            <a class="btn btn-outline-primary shadow-none mr-1"
+                                                                th:if="*{o.statusId.id=='dh'||o.statusId.id=='dnh'}"
+                                                                th:href="@{|/update_profile/orders/rebuy/*{o.id}|}">Mua
+                                                                lại</a>
+                                                            <button class="btn btn-outline-danger shadow-none mr-1"
+                                                                data-toggle="modal"
+                                                                th:attr="data-target='#Cancel'+${tag.index}"
+                                                                th:if="*{o.statusId.id=='cxn'}">Hủy
+                                                                hàng</button>
+                                                            <a th:href="@{/contact.html}"
+                                                                class="btn btn-outline-dark shadow-none  mr-1">Liên
+                                                                hệ</a>
+                                                            <!-- <button class="btn btn-outline-primary shadow-none mr-1"
+                                                                th:if="*{o.statusId.id=='dnh' }">Đánh giá</button> -->
+                                                            <a class="btn btn-outline-dark shadow-none "
+                                                                th:href="@{|/order_details.html?id=${o.id}|}"
+                                                                th:if="*{o.statusId.id=='dh'}">Chi tiết đơn hủy</a>
+                                                            <div class="modal fade" th:attr="id='Cancel'+${tag.index}"
+                                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            Bạn chắc chắn muốn hủy đơn hàng?
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Đóng</button>
+                                                                            <a th:href="@{|/update_profile/orders/cancel/${o.id}?p=all|}"
+                                                                                class="btn btn-primary">Hủy hàng</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal fade show" tabindex="-1"
+                                                        th:id="acceptOrderModal+${tag.index}" aria-modal="false"
+                                                        th:if="*{o.statusId.id=='dagi'}">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Xác
+                                                                        nhận
+                                                                        đơn hàng</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Bạn chắc chắn đã nhận hàng?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Đóng</button>
+                                                                    <a th:href="'/DTNsBike/update_profile/orders/accept/'+${o.id}"
+                                                                        class="btn btn-primary" id="acceptLink">xác
+                                                                        nhận</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- tất cả đơn hàng end-->
+                                        </div>
+                                        <!-- chờ xác nhận -->
+                                        <div class="tab-pane fade show" th:if="${xacnhan!=null}"
+                                            th:classappend="${activeNav=='confirm'} ? 'show active' :''"
+                                            id="nav-confirm" role="tabpanel" aria-labelledby="nav-confirm-tab">
+                                            <!-- chưa có đơn hàng -->
+                                            <div class="card mb-4" th:hidden="${!xacnhan.isEmpty()}">
+                                                <div class="card-body p-4">
+                                                    <div class="row">
+                                                        <div class="col-md-4 m-auto col-12 text-center ">
+                                                            <img th:src="@{/users/img/undraw_empty_cart_co35.svg}"
+                                                                class="img-fluid" alt="Không có đơn hàng nào">
+                                                            <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- chưa có đơn hàng end -->
+                                            <div class="card mb-4 text-decoration-none text-dark"
+                                                th:each="tp,p: ${xacnhan}">
+                                                <div class="card-body p-4">
+                                                    <div class="row ">
+                                                        <div class="col-md-6 d-flex justify-content-start ">
+                                                            HD00[[${tp.id}]]
+                                                        </div>
+                                                        <div class="col-md-6 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0">Trạng thái :
+                                                                <strong
+                                                                    class="text-primary">[[${tp.statusId.name}]]</strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <a class="text-decoration-none"
+                                                        th:href="@{|/order_details.html?id=${tp.id}|}"
+                                                        th:each="tpdt: ${tp.orderdetail}">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-md-1">
+                                                                <img th:src="@{|/upload/product_single_img/${tpdt.productsId.productid.img}|}"
+                                                                    class="img-fluid">
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0">
+                                                                        [[${tpdt.productsId.productid.name}]]</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 d-flex justify-content-end">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0"
+                                                                        th:with="totalPrice=${tpdt.price+(tpdt.price*tpdt.vat/100)}">
+                                                                        [[${#numbers.formatInteger((totalPrice-(totalPrice*tpdt.discount/100))*tpdt.amount,3,'COMMA')}]]
+                                                                        VNĐ
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+
+                                                    <hr>
+                                                    <div class="row ">
+                                                        <div class="col-md-12 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0"
+                                                                th:with="totalPrice=${#aggregates.sum(tp.orderdetail.![(price+(price*vat/100)-((price+(price*vat/100))*discount/100))*amount])},sale=${tp.salevalue != null?tp.salevalue:0}">Tổng
+                                                                tiền :
+                                                                [[${#numbers.formatInteger(totalPrice-(totalPrice*sale/100),3,'COMMA')}]]
+                                                                VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 d-flex justify-content-start ">
+                                                            <small class="text-muted font-weight-bold align-middle">Ngày
+                                                                đặt hàng:
+                                                                <i>[[${#dates.format(tp.date,"dd-MM-yyyy")}]]</i></small>
+                                                        </div>
+                                                        <div class="col-md-9 d-flex justify-content-end ">
+                                                            <button class="btn btn-outline-danger shadow-none mr-1"
+                                                                data-toggle="modal"
+                                                                th:attr="data-target='#exampleModal'+${p.index}">Hủy
+                                                                hàng</button>
+                                                            <a th:href="@{/contact.html}"
+                                                                class="btn btn-outline-dark shadow-none  mr-1">Liên
+                                                                hệ</a>
+
+                                                            <!-- Modal -->
+                                                            <div class="modal fade"
+                                                                th:attr="id='exampleModal'+${p.index}" tabindex="-1"
+                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            Bạn chắc chắn muốn hủy đơn hàng?
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Đóng</button>
+                                                                            <a th:href="@{|/update_profile/orders/cancel/${tp.id}?p=confirm|}"
+                                                                                class="btn btn-primary">Hủy hàng</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade show" th:if="${dagiao!=null}"
+                                            th:classappend="${activeNav=='delivered'} ? 'show active' :''"
+                                            id="nav-delivered" role="tabpanel" aria-labelledby="nav-delivered-tab">
+                                            <!-- Đơn hàng đã giao -->
+                                            <!-- chưa có đơn hàng -->
+                                            <div class="card mb-4" th:hidden="${!dagiao.isEmpty()}">
+                                                <div class="card-body p-4">
+                                                    <div class="row">
+                                                        <div class="col-md-4 m-auto col-12 text-center ">
+                                                            <img th:src="@{/users/img/undraw_empty_cart_co35.svg}"
+                                                                class="img-fluid" alt="Không có đơn hàng nào">
+                                                            <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- chưa có đơn hàng end-->
+                                            <div class="card mb-4  " th:each="dg,i: ${dagiao}">
+                                                <div class="card-body p-4">
+                                                    <div class="row ">
+                                                        <div class="col-md-6 d-flex justify-content-start ">
+                                                            HD00[[${dg.id}]]
+                                                        </div>
+                                                        <div class="col-md-6 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0">Trạng thái :
+                                                                <strong
+                                                                    class="text-primary">[[${dg.statusId.name}]]</strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <a class="align-items-center text-decoration-none "
+                                                        th:href="@{|/order_details.html?id=${dg.id}|}">
+                                                        <div class="row align-items-center"
+                                                            th:each="dgdt: ${dg.orderdetail}">
+                                                            <div class="col-md-1">
+                                                                <img th:src="@{|/upload/product_single_img/${dgdt.productsId.productid.img}|}"
+                                                                    class="img-fluid">
+                                                            </div>
+                                                            <div class="col-md-8 d-flex ">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0">
+                                                                        [[${dgdt.productsId.productid.name}]]</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 d-flex justify-content-end">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0"
+                                                                        th:with="totalPrice=${dgdt.price+(dgdt.price*dgdt.vat/100)}">
+                                                                        [[${#numbers.formatInteger((totalPrice-(totalPrice*dgdt.discount/100))*dgdt.amount,3,'COMMA')}]]
+                                                                        VNĐ
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <hr>
+                                                    <div class="row ">
+                                                        <div class="col-md-12 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0"
+                                                                th:with="totalPrice=${#aggregates.sum(dg.orderdetail.![(price+(price*vat/100)-((price+(price*vat/100))*discount/100))*amount])},sale=${dg.salevalue != null?dg.salevalue:0}">Tổng
+                                                                tiền :
+                                                                [[${#numbers.formatInteger(totalPrice-(totalPrice*sale/100),3,'COMMA')}]]
+                                                                VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 d-flex justify-content-start ">
+                                                            <small class="text-muted font-weight-bold align-middle">Ngày
+                                                                đặt hàng
+                                                                <i>[[${#dates.format(dg.date,"dd-MM-yyyy")}]]</i></small>
+                                                        </div>
+                                                        <div class="col-md-9 d-flex justify-content-end ">
+                                                            <a class="btn btn-outline-primary shadow-none mr-1 "
+                                                                data-toggle="modal"
+                                                                th:attr="data-target='#acceptOrderModal'+${i.index}">Xác
+                                                                nhận đã nhận hàng</a>
+                                                            <a th:href="@{/contact.html}"
+                                                                class="btn btn-outline-dark shadow-none  mr-1">Liên
+                                                                hệ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade show" tabindex="-1"
+                                                    th:id="acceptOrderModal+${i.index}" aria-modal="false">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận
+                                                                    đơn hàng</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Bạn chắc chắn đã nhận hàng?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Đóng</button>
+                                                                <a th:href="'/DTNsBike/update_profile/orders/accept/'+${dg.id}+'?p=delivered'"
+                                                                    class="btn btn-primary" id="acceptLink">xác nhận</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Đã giao end-->
+                                        <!-- Đã hủy -->
+                                        <div class="tab-pane fade show" th:if="${dahuy!=null}"
+                                            th:classappend="${activeNav=='cancel'} ? 'show active' :''" id="nav-cancel"
+                                            role="tabpanel" aria-labelledby="nav-cancel-tab">
+                                            <!-- chưa có đơn hàng -->
+                                            <div class="card mb-4" th:hidden="${!dahuy.isEmpty()}">
+                                                <div class="card-body p-4">
+                                                    <div class="row">
+                                                        <div class="col-md-4 m-auto col-12 text-center ">
+                                                            <img th:src="@{/users/img/undraw_empty_cart_co35.svg}"
+                                                                class="img-fluid" alt="Không có đơn hàng nào">
+                                                            <strong class="fs-1 ">Chưa có đơn hàng nào</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- chưa có đơn hàng end-->
+                                            <div class="card mb-4 " th:each="ca: ${dahuy}">
+                                                <div class="card-body p-4">
+                                                    <div class="row ">
+                                                        <div class="col-md-6 d-flex justify-content-start ">
+                                                            HD00[[${ca.id}]]
+                                                        </div>
+                                                        <div class="col-md-6 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0">Trạng thái :
+                                                                <strong
+                                                                    class="text-primary text-danger">[[${ca.statusId.name}]]</strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <a class="text-decoration-none "
+                                                        th:href="@{|/order_details.html?id=${ca.id}|}">
+                                                        <div class="row align-items-center"
+                                                            th:each="cancel: ${ca.orderdetail}">
+                                                            <div class="col-md-1">
+                                                                <img th:src="@{|/upload/product_single_img/${cancel.productsId.productid.img}|}"
+                                                                    class="img-fluid">
+                                                            </div>
+                                                            <div class="col-md-8 d-flex ">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0">
+                                                                        [[${cancel.productsId.productid.name}]]</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 d-flex justify-content-end">
+                                                                <div>
+                                                                    <p class="lead fw-normal mb-0"
+                                                                        th:with="totalPrice=${cancel.price+(cancel.price*cancel.vat/100)}">
+                                                                        [[${#numbers.formatInteger((totalPrice-(totalPrice*cancel.discount/100))*cancel.amount,3,'COMMA')}]]
+                                                                        VNĐ
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <hr>
+                                                    <div class="row ">
+                                                        <div class="col-md-12 d-flex justify-content-end ">
+                                                            <span class="lead fw-normal mb-0"
+                                                                th:with="totalPrice=${#aggregates.sum(ca.orderdetail.![(price+(price*vat/100)-((price+(price*vat/100))*discount/100))*amount])},sale=${ca.salevalue != null?ca.salevalue:0}">Tổng
+                                                                tiền :
+                                                                [[${#numbers.formatInteger(totalPrice-(totalPrice*sale/100),3,'COMMA')}]]
+                                                                VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3  d-flex justify-content-start ">
+                                                            <small class="text-muted font-weight-bold align-middle">Ngày
+                                                                đặt hàng:
+                                                                <i>[[${#dates.format(ca.date,"dd-MM-yyyy")}]]</i></small>
+                                                        </div>
+                                                        <div class="col-md-9  d-flex justify-content-end ">
+                                                            <a class="btn btn-outline-primary shadow-none mr-1 "
+                                                                th:href="@{|/update_profile/orders/rebuy/*{ca.id}|}">Mua
+                                                                Lại</a>
+                                                            <a th:href="@{/contact.html}"
+                                                                class="btn btn-outline-dark shadow-none  mr-1">Liên
+                                                                hệ</a>
+                                                            <a class="btn btn-outline-dark shadow-none "
+                                                                th:href="@{|/order_details.html?id=${ca.id}|}">Chi tiết
+                                                                đơn hủy</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Đã hủy end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:class="|tab-pane fade ${voucherPage} show|" id="account-voucher">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-12">
+                                            <h5>Mã giảm giá</h5>
+                                            <h6>Quản lí các voucher</h6>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <nav class="bg-white mb-3">
+                                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" id="nav-new-tab"
+                                                        data-toggle="tab" href="#nav-new" role="tab"
+                                                        aria-controls="nav-new" aria-selected="true">Tất cả</a>
+                                                    <a class="nav-item nav-link" id="nav-popular-tab" data-toggle="tab"
+                                                        href="#nav-popular" role="tab" aria-controls="nav-popular"
+                                                        aria-selected="false">Mới nhất</a>
+                                                    <!-- <a class="nav-item nav-link" id="nav-expire-tab" data-toggle="tab"
+                                                        href="#nav-expire" role="tab" aria-controls="nav-expire"
+                                                        aria-selected="false">Phổ biến</a> -->
+                                                </div>
+                                            </nav>
+                                            <div class="input-group mb-3 search">
+                                                <!-- <div class="input-group-prepend ">
+                                                    <span class="input-group-text bg-secondary border-0 ">
+                                                        <span class="fa fa-search form-control-feedback "></span>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control border-0 px-0 bg-secondary"
+                                                    placeholder="Tìm kiếm"> -->
+                                            </div>
+                                            <div class="tab-content " id="nav-tabContent">
+                                                <div class="tab-pane fade show active" id="nav-new" role="tabpanel"
+                                                    aria-labelledby="nav-new-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6" th:each="sale : ${voucherList}"
+                                                            th:if="${#dates.format(sale.startdate,'yyyy-MM-dd') <= #calendars.format(#calendars.createNow(), 'yyyy-MM-dd') && #dates.format(sale.enddate,'yyyy-MM-dd') > #calendars.format(#calendars.createNow(), 'yyyy-MM-dd') && sale.amount > 0}">
+                                                            <div class="card mb-3">
+
+                                                                <div class="row no-gutters ">
+                                                                    <div class="col-md-4 col-lg-4 col-xl-4">
+                                                                        <div class="position-absolute">
+                                                                            <span
+                                                                                class="badge badge-pill badge-warning text-white">Số
+                                                                                lượng có hạn</span>
+
+                                                                        </div>
+                                                                        <img th:src="@{/users/img/sale.webp}"
+                                                                            class="img-fluid" alt="...">
+                                                                    </div>
+
+                                                                    <div class="col-md-8 col-lg-8  col-xl-8 voucher">
+                                                                        <div class="card-body pb-0">
+                                                                            <div class="clearfix">
+                                                                                <h6 class="card-title float-left ">Giảm
+                                                                                    [[${sale.value}]]%
+                                                                                </h6>
+                                                                                <a class="text-primary float-right showSale"
+                                                                                    th:id="${sale.id}">[[${sale.id}]]</a>
+                                                                            </div>
+                                                                            <p
+                                                                                class="card-text align-middle text-nowrap text-truncate mb-1">
+                                                                                [[${sale.description}]]</p>
+                                                                            <span class="card-text align-middle">Còn:
+                                                                                [[${sale.amount}]]</span>
+                                                                            <p
+                                                                                class="card-text text-danger align-bottom">
+                                                                                <small
+                                                                                    th:text="'HSD: ' + ${#dates.format(sale.enddate,'dd-MM-yyyy')}">HSD
+                                                                                </small>
+                                                                                <!-- <small><a
+                                                                                        class="text-info float-right ">điệu
+                                                                                        kiện</a></small> -->
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="tab-pane fade show" id="nav-popular" role="tabpanel"
+                                                    aria-labelledby="nav-popular-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6" th:each="sale : ${voucherList}"
+                                                            th:if="${#dates.format(sale.startdate,'yyyy-MM-dd') == #calendars.format(#calendars.createNow(), 'yyyy-MM-dd') && #dates.format(sale.enddate,'yyyy-MM-dd') > #calendars.format(#calendars.createNow(), 'yyyy-MM-dd') && sale.amount > 0}">
+                                                            <div class="card mb-3">
+
+                                                                <div class="row no-gutters ">
+                                                                    <div class="col-md-4 col-lg-4 col-xl-4">
+                                                                        <div class="position-absolute">
+                                                                            <span
+                                                                                class="badge badge-pill badge-warning text-white">Số
+                                                                                lượng có hạn</span>
+
+                                                                        </div>
+                                                                        <img th:src="@{/users/img/sale.webp}"
+                                                                            class="img-fluid" alt="...">
+                                                                    </div>
+
+                                                                    <div class="col-md-8 col-lg-8  col-xl-8 voucher">
+                                                                        <div class="card-body pb-0">
+                                                                            <div class="clearfix">
+                                                                                <h6 class="card-title float-left ">Giảm
+                                                                                    [[${sale.value}]]%
+                                                                                </h6>
+                                                                                <a class="text-primary float-right showSale"
+                                                                                    th:id="${sale.id}">[[${sale.id}]]</a>
+                                                                            </div>
+                                                                            <p
+                                                                                class="card-text align-middle text-nowrap text-truncate mb-1">
+                                                                                [[${sale.description}]]</p>
+                                                                            <span class="card-text align-middle">Còn:
+                                                                                [[${sale.amount}]]</span>
+                                                                            <p
+                                                                                class="card-text text-danger align-bottom">
+                                                                                <small
+                                                                                    th:text="'HSD: ' + ${#dates.format(sale.enddate,'dd-MM-yyyy')}">HSD
+                                                                                </small>
+                                                                                <!-- <small><a
+                                                                                        class="text-info float-right ">điệu
+                                                                                        kiện</a></small> -->
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="tab-pane fade show" id="nav-expire" role="tabpanel"
+                                                    aria-labelledby="nav-expire-tab">
+
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <!-- Shop End -->
+        <!-- main item end -->
+
+        <!-- Modal -->
+
+
+    </main>
+    <!-- Content main  -->
+
+
+</body>
+
+
+</html>

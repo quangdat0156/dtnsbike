@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="dynamic(title,header,view)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <title th:replace="${title}"></title>
+
+    <!-- Head Content -->
+    <!-- Favicon -->
+    <link th:href="@{/users/logo/icon.png}" rel="icon" width="64px">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/users/lib/animate/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/users/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/users/css/style.css}" rel="stylesheet">
+    <!-- DTN Css style -->
+    <link th:href="@{/users/css/dtn-style.css}" rel="stylesheet">
+    <!-- Customized CSS by Gemlove -->
+    <link th:href="@{/users/css/GemStyle.css}" rel="stylesheet">
+    <link th:href="@{/users/vendor/dist/rcrop.min.css}" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+   
+</head>
+
+<body ng-app="GemApp">
+    <!-- tron tron -->
+    <div class="cta-lptech">
+        <li><a aria-label="Gửi mail cho chúng tôi" href="mailto:dtnsoftware2022@gmail.com" title="Đăng ký">
+                <i><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                        class="bi bi-envelope-fill" viewBox="0 0 18 20">
+                        <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+                    </svg>
+                </i>
+            </a>
+        </li>
+        <li><a class="call" aria-label="gọi điện thoại cho LPTech" href="tel:0944694449" title="Liên hệ" rel="noopener">
+                <i class="fa fa-phone-alt"></i>
+                <div class="animated infinite zoomIn mypage-alo-ph-circle"></div>
+                <div class="animated infinite pulse mypage-alo-ph-circle-fill"></div>
+            </a></li>
+        <li><a href="https://zalo.me/0946492294" title="Chat zalo" rel="noopener" class="zalo"
+                aria-label="gọi zalo cho LPTech"><img
+                    src="https://webkhoinghiep.net/wp-content/uploads/2020/12/zalo.png" alt="zalo"></a></li>
+    </div>
+
+    <!-- Header top -->
+    <div th:insert="~{/users/fragment/header-top::headers}"></div>
+
+    <header th:replace="${header}"></header>
+
+    <main th:replace="${view}"></main>
+
+    <!-- middle - content -->
+    <div th:insert="~{/users/fragment/middle-content::middle}"></div>
+    <!-- Footer -->
+    <footer th:insert="~{/users/fragment/footer::footers}"></footer>
+
+    <!-- Footer Content -->
+
+    <div class="modal" id="message" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content shadow border-0 rounded">
+                <div class="modal-body text-center ">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up text-white"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/users/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/users/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+    <!-- Contact Javascript File -->
+    <script th:src="@{/users/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/users/mail/contact.js}"></script>
+
+    <!-- Angularjs vendor -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- Custom Javascript By Gemlove -->
+    <script th:src="@{/users/js/gemCustom.js}"></script>
+    <script th:src="@{/users/js/product.js}"></script>
+    <script th:src="@{/users/js/main.js}"></script>
+    <script th:src="@{/users/js/console.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(window).on('load', function (event) {
+            $('.load').delay(3000).fadeOut('fast');
+            $('body').removeClass('load');
+            // $('.loader').delay(1000).fadeOut('fast');
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý bài viết | DTNsBike</title>
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <style>
+         .erros_mess {
+            color: red;
+         }
+      </style>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật tin tức - bài viết</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="blog-list.html" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách bài viết</strong>
+                  </a>
+                  <!-- Button effect -->
+
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body row">
+                  <!-- Form item input -->
+                  <div class="mb-3 col-3 justify-content-center text-center pt-4 mt-5">
+                     <div for="exampleInputConfirmPass" class="form-label h6 text-dark"> Hình
+                        ảnh bài viết</div>
+                     <div
+                        th:with="imgUrl=(${imgBlogs == null}? '/upload/blogs_img/default.jpg' : '/rest/upload/blogs_img/'+${imgBlogs})">
+                        <img th:src="@{${imgUrl}}" class="img-fluid w-100 h-100">
+                     </div>
+                     <div th:if="${imgBlogs==null}" class="text-center">Dung lượng file tối đa 2MB</div>
+                     <div th:if="${imgBlogs==null}" class="text-center">Định dạng: JPG, PNG, JPEG</div>
+                     <form id="save" th:action="@{/admin/blogs/upload/img}" enctype="multipart/form-data"
+                        th:object="${uploadImgBlogs}" method="post">
+                        <label class="btn btn-dark mt-2 w-100">
+                           <i class="fa fa-upload"></i> Tải ảnh lên
+                           <input type="file" name="file" hidden multiple="multiple" onchange="oWhichSubmit()">
+                        </label>
+                     </form>
+                     <script type="text/javascript">
+                        function oWhichSubmit() {
+                           document.getElementById('save').submit()
+                        }
+                     </script>
+                  </div>
+                  <!-- Form item input -->
+                  <form class="col-9 row p-3" th:object="${blogsModel}" th:method="POST">
+                     <div class="col-12 row ">
+                        <div class="col-12 text-left mb-2">
+                           <button th:if="${editBlogId!=null}" class="btn btn-primary"
+                              th:formaction="@{/admin/blog-update/update}">
+                              <i class="fa fa-save"></i>
+                              Cập Nhật
+                           </button>
+
+                           <button th:unless="${editBlogId!=null}" class="btn btn-success"
+                              th:formaction="@{/admin/blog-update/add}">
+                              <i class="fa fa-save"></i>
+                              Thêm mới
+                           </button>
+                           <button class="btn btn-danger" th:formaction="@{/admin/blog-update/reset}">
+                              <i class="fa fa-refresh"></i>
+                              Làm Mới
+                           </button>
+                           <script th:inline="javascript">
+                              // Check add
+                              var check2 = /*[[${ session.checks2 }]]*/'';
+                              if (check2 == true) {
+                                 Swal.fire(
+                                    'Thông báo !',
+                                    'Thêm bài viết thành công!',
+                                    'success'
+                                 )
+                              }
+                              // Check update
+                              var check = /*[[${ session.checks }]]*/'';
+                              var name = /*[[${ session.blogsModel != null ? session.blogsModel.title : '' }]]*/'';
+                              if (check == true) {
+                                 Swal.fire(
+                                    'Thông báo !',
+                                    'Cập nhật bài viết <b class="text-primary"><u>' + name + '</u></b> thành công!',
+                                    'success'
+                                 )
+                              }
+                           </script>
+                        </div>
+                        <!-- Form item input -->
+                        <div class="col-6 mb-2" th:hidden="${editBlogId != null}">
+                           <label for="exampleInputEmail1" class="form-label h6"><span class="text-danger">*</span> Mã
+                              bài viết:</label>
+                           <input th:field="*{blogid}" type="number" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" placeholder="Nhập mã bài viết...">
+                           <span class="erros_mess" th:if="${session.errorBlogs!=null}"
+                              th:text="${session.errorBlogs.hasFieldErrors('blogid')?session.errorBlogs.getFieldError('blogid').getDefaultMessage():''}"></span>
+                           <span class="erros_mess" th:if="${session.blog_mess!=null}"
+                              th:text="${session.blog_mess}"></span>   
+                           </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="col-6 mb-0">
+                           <label for="exampleInputEmail1" class="form-label h6"><span class="text-danger">*</span> Chế
+                              độ hiển thị:</label>
+                           <div class="mt-2">
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input" id="active1" type="radio" th:field="*{status}"
+                                    value="1">
+                                 <label class="form-check-label h6" for="active1">Công Khai</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input" id="active2" type="radio" th:field="*{status}"
+                                    value="0">
+                                 <label class="form-check-label h6" for="active2">Riêng Tư</label>
+                              </div>
+                           </div>
+                           <span class="erros_mess" th:if="${session.errorBlogs!=null}"
+                              th:text="${session.errorBlogs.hasFieldErrors('status')?session.errorBlogs.getFieldError('status').getDefaultMessage():''}"></span>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="col-12 mb-2">
+                           <label for="exampleInputEmail1" class="form-label h6"><span class="text-danger">*</span> Tiêu
+                              đề:</label>
+                           <input th:field="*{title}" type="text" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" placeholder="Nhập tiêu đề bài viết...">
+                           <span class="erros_mess" th:if="${session.errorBlogs!=null}"
+                              th:text="${session.errorBlogs.hasFieldErrors('title')?session.errorBlogs.getFieldError('title').getDefaultMessage():''}"></span>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="col-12 mb-2">
+                           <label for="mota" class="form-label h6"><span class="text-danger">*</span>Mô
+                              tả ngắn: </label>
+                           <textarea class="form-control" id="mota" th:field="*{description}"
+                              placeholder="Nhập mô tả ngắn ...."></textarea>
+                           <span class="erros_mess" th:if="${session.errorBlogs!=null}"
+                              th:text="${session.errorBlogs.hasFieldErrors('description')?session.errorBlogs.getFieldError('description').getDefaultMessage():''}"></span>
+                        </div>
+                        <!-- Form item input -->
+
+                        <!-- Form item input -->
+                        <div class="col-12 mb-2">
+                           <label for="mota" class="form-label h6"><span class="text-danger">*</span>Nội dung bài viết:
+                           </label>
+                           <div>
+                              <span class="erros_mess" th:if="${session.errorBlogs!=null}"
+                                 th:text="${session.errorBlogs.hasFieldErrors('content')?session.errorBlogs.getFieldError('content').getDefaultMessage():''}"></span>
+                           </div>
+                           <textarea style="height: 300px;" class="form-control" id="editor" th:field="*{content}"
+                              placeholder="Bắt đầu nội dung bài viết ....">
+                              
+                           </textarea>
+
+                        </div>
+                        <!-- Form item input -->
+                     </div>
+
+                  </form>
+
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+      <script src="//cdn.ckeditor.com/4.20.0/full/ckeditor.js"></script>
+      <script>
+         CKEDITOR.replace('editor');
+         CKEDITOR.config.uiColor = '#ffffff';
+         CKEDITOR.config.language = 'vi';
+      </script>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

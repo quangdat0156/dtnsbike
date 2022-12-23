@@ -1,0 +1,163 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<!-- Navbar Start -->
+<div th:fragment="header-menu" class="sidebar_blog_2">
+   <h4 class="text-uppercase bg-success text-white">Hệ thống quản trị</h4>
+   <ul class="list-unstyled components">
+      <!-- Menu item start-->
+      <li><a th:href="@{/admin/index.html}"><i class="fa fa-dashboard yellow_color"></i> <span>Bảng điều khiển</span></a>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#account-staff" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-user text-primary"></i> <span>Quản lý tài khoản</span></a>
+         <ul class="collapse list-unstyled" id="account-staff">
+            <li>
+               <a th:href="@{/admin/account-list.html}">> <span>Danh sách tài khoản</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/account/form/reset}">> <span>Thêm mới tài khoản</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/account/form/resetpass}">> <span>Đặt lại mật khẩu cho tài khoản</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item start-->
+      <li class="active" hidden>
+         <a href="#account" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-users green_color"></i> <span>Quản lý khách hàng</span></a>
+         <ul class="collapse list-unstyled" id="account">
+            <li>
+               <a th:href="@{/admin/customer-list.html}">> <span>Danh sách khách hàng</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/customer-update.html}">> <span>Cập nhật</span></a>
+            </li>
+            
+         </ul>
+      </li>
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#product" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-inbox"></i> <span>Quản lý sản phẩm</span></a>
+         <ul class="collapse list-unstyled" id="product">
+            <li>
+               <a th:href="@{/admin/product-list.html}">> <span>Danh sách sản phẩm</span></a>
+            </li>
+            <li th:each="items:${session.listTypes}">
+               <a th:href="@{/admin/product/form/add(types=${items.id})}">> <span th:text="|Thêm ${items.name}|"></span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#blogs" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-newspaper-o"></i> <span>Quản lý bài viết</span></a>
+         <ul class="collapse list-unstyled" id="blogs">
+            <li>
+               <a th:href="@{/admin/blog-list.html}">> <span>Danh sách bài viết</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/blog-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#category" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-navicon text-danger"></i> <span>Quản lý danh mục</span></a>
+         <ul class="collapse list-unstyled" id="category">
+            <li>
+               <a th:href="@{/admin/category-list.html}">> <span>Danh sách</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/category-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#tag" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-tag text-success"></i> <span>Quản lý mã giảm giá</span></a>
+         <ul class="collapse list-unstyled" id="tag">
+            <li>
+               <a th:href="@{/admin/voucher-list.html}">> <span>Danh sách</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/voucher-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#color" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-paint-brush text-warning"></i> <span>Quản lý màu sắc</span></a>
+         <ul class="collapse list-unstyled" id="color">
+            <li>
+               <a th:href="@{/admin/colors-list.html}">> <span>Danh sách</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/colors-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#brand" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-star text-primary"></i> <span>Quản lý thương hiệu</span></a>
+         <ul class="collapse list-unstyled" id="brand">
+            <li>
+               <a th:href="@{/admin/brand-list.html}">> <span>Danh sách</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/brand-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#size" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-crop text-dark"></i> <span>Quản lý kích thước</span></a>
+         <ul class="collapse list-unstyled" id="size">
+            <li>
+               <a th:href="@{/admin/size-list.html}">> <span>Danh sách</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/size-update/reset}">> <span>Cập nhật</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+      <!-- Menu item start-->
+      <li class="active">
+         <a href="#orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+               class="fa fa-shopping-cart red_color"></i> <span>Đơn hàng</span></a>
+         <ul class="collapse list-unstyled" id="orders">
+            <li>
+               <a th:href="@{/admin/orders-list/all-list}">> <span>Tất cả đơn hàng</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/orders-list/wait-list}">> <span>Đang chờ</span></a>
+            </li>
+            <li>
+               <a th:href="@{/admin/orders-list/cancel-list}">> <span>Đã hủy</span></a>
+            </li>
+         </ul>
+      </li>
+      <!-- Menu item end -->
+
+      <!-- Menu item start-->
+      <li><a th:href="@{/admin/reports.html}"><i class="fa fa-bar-chart text-danger"></i> <span>Thống kê doanh thu</span></a></li>
+      <!-- Menu item end -->
+
+   </ul>
+</div>
+
+</html>

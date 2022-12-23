@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Cập Nhật Đơn Hàng | DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Cập nhật thông tin đơn hàng</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <!-- Button effect -->
+                  <a href="orders-list.html" class="btn btn-primary btn-rounded text-white mb-1">
+                     <i class="fa fa-list"></i>
+                     <strong class="mt-1 ms-1">Danh sách đơn hàng</strong>
+                  </a>
+                  <!-- Button effect -->
+                  <!-- Button effect -->
+                  <a href="category-update.html" class="btn btn-success btn-rounded text-white mb-1">
+                     <i class="fa fa-plus-circle"></i>
+                     <strong class="mt-1 ms-1">Thêm danh mục</strong>
+                  </a>
+                  <!-- Button effect -->
+                   <!-- Button effect -->
+                  <a href="brand-update.html" class="btn btn-dark btn-rounded text-white mb-1">
+                     <i class="fa fa-plus-circle"></i>
+                     <strong class="mt-1 ms-1">Thêm thương hiệu</strong>
+                  </a>
+                  <!-- Button effect -->
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <form class="row p-3">
+                     <div class="col-9 row">
+                        <!-- Form item input -->
+                        <div class="mb-3 col-8">
+                           <label for="exampleInputID" class="form-label h6"><span class="text-danger">*</span>
+                              Tên sản phẩm</label>
+                           <input type="text" class="form-control" id="exampleInputID"
+                              aria-describedby="emailHelp" placeholder="Nhập tên sản phẩm...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputName" class="form-label h6"><span
+                                 class="text-danger">*</span> Danh mục</label>
+                           <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>--Chọn danh mục--</option>
+                              <option value="1">Xe đạp</option>
+                              <option value="2">Phụ tùng</option>
+                           </select>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputEmail" class="form-label h6"><span
+                                 class="text-danger">*</span> Thương hiệu</label>
+                           <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>--Chọn thương hiệu--</option>
+                              <option value="1">GIANZ</option>
+                              <option value="2">VINBIKE</option>
+                           </select>
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputAddress" class="form-label h6"><span
+                                 class="text-danger">*</span> Số lượng</label>
+                           <input type="number" class="form-control" id="exampleInputAddress"
+                              aria-describedby="emailHelp" placeholder="Nhập số lượng..." value="0" min="0" max="999999999">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputPhone" class="form-label h6"><span
+                                 class="text-danger">*</span> Giá nhập</label>
+                           <input type="number" class="form-control" id="exampleInputPhone"
+                              aria-describedby="emailHelp" placeholder="Nhập giá nhập..." value="0" min="0" max="999999999">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputBirth" class="form-label h6"><span
+                                 class="text-danger">*</span> Giá bán</label>
+                           <input type="number" class="form-control" id="exampleInputBirth" min="0" max="99999999" value="0" 
+                              aria-describedby="emailHelp">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputBirth" class="form-label h6"><span
+                                 class="text-danger">*</span> Giá giảm</label>
+                           <input type="number" class="form-control" id="exampleInputBirth" min="0" max="99999999" value="0" 
+                              aria-describedby="emailHelp">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputPass" class="form-label h6"><span
+                                 class="text-danger">*</span> Xuất xứ</label>
+                           <input type="text" class="form-control" id="exampleInputPass"
+                              aria-describedby="emailHelp" placeholder="Nhập xuất xứ...">
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <label for="exampleInputConfirmPass" class="form-label h6"><span
+                                 class="text-danger">*</span> Trạng thái</label>
+                          <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>--Chọn trạng thái--</option>
+                              <option value="1">Còn hàng</option>
+                              <option value="2">Hết hàng</option>
+                           </select>
+                        </div>
+                        <!-- Form item input -->
+                         <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <div>
+                              <label for="exampleInputConfirmPass" class="form-label h6"><span
+                                 class="text-danger">*</span> Kích thước</label>
+                           </div>
+                          <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox1">SIZE L</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                           <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox2">SIZE M</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                            <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox3">SIZE XL</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                            <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox4">SIZE XXL</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                        </div>
+                        <!-- Form item input -->
+                        <!-- Form item input -->
+                        <div class="mb-3 col-4">
+                           <div>
+                              <label for="exampleInputConfirmPass" class="form-label h6"><span
+                                 class="text-danger">*</span> Màu sắc</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox8">XANH </label>
+                           </div>
+                           <!-- Form checkbok item -->
+                           <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox7">ĐỎ</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                            <!-- Form checkbok item -->
+                          <div class="form-check form-check-inline ml-3">
+                             <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1">
+                             <label class="form-check-label h5" for="inlineCheckbox6">TÍM VÀNG</label>
+                           </div>
+                           <!-- Form checkbok item -->
+                        </div>
+                        <!-- Form item input -->
+                        <div class="mb-3 col-12">
+                           <label for="exampleInputConfirmPass" class="form-label h6"><span
+                                 class="text-danger">*</span>Mô tả sản phẩm</label>
+                           <textarea name="editor1"></textarea>
+                        </div>
+                     </div>
+
+
+                     <!-- Form item input -->
+                     <div class="mb-3 col-3">
+                        <div for="exampleInputConfirmPass" class="form-label h6"><span
+                              class="text-danger">*</span> Ảnh sản phẩm</div>
+                        <div>
+                           <img src="images/default.jpg" class="img-fluid w-100 h-100">
+                        </div>
+                        <label class="btn btn-dark mt-2 w-100">
+                           <i class="fa fa-upload"></i> Tải ảnh lên
+                           <input type="file" name="file" hidden>
+                        </label>
+
+                        <!-- Img product extra -->
+                        <div for="exampleInputConfirmPass" class="form-label h6"><span
+                              class="text-danger">*</span> Ảnh sản phẩm bổ sung</div>
+                        <div class="row">
+                            <label class="mt-2 col-4">
+                              <img src="images/img-add.png" class="img-thumbnail">
+                              <input type="file" name="file" hidden>
+                           </label>
+                           <img src="images/default.jpg" class="col-4 img-fluid w-50 h-50">
+                           <img src="images/default.jpg" class="col-4 img-fluid w-50 h-50">
+                           <img src="images/default.jpg" class="col-4 img-fluid w-50 h-50">
+                           <img src="images/default.jpg" class="col-4 img-fluid w-50 h-50">
+                           <img src="images/default.jpg" class="col-4 img-fluid w-50 h-50">
+                        </div>
+
+                        <div class="col-12 text-center mt-2">
+                              <button type="submit" class="btn btn-success">
+                                 <i class="fa fa-save"></i>
+                                 Lưu lại
+                              </button>
+                              <button class="btn btn-danger" formaction="product-list.html">
+                                 <i class="fa fa-cancel"></i>
+                                 Hủy bỏ</button>
+                        </div>
+                     </div>
+                     <!-- Form item input -->
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!-- thân end -->
+      </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

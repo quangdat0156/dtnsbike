@@ -1,0 +1,87 @@
+<html xmlns="https://www.thymeleaf.org">
+	<!-- Footer Start -->
+    <div th:fragment="footers" class="container-fluid text-secondary pt-5" style="background-color: black;border-top: 18px solid rgba(5, 168, 68, 0.877);">
+        <div class="row px-xl-5 pt-1">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4">THÔNG TIN DOANH NGHIỆP</h5>
+                <p class="mb-4">CÔNG TY TNHH THƯƠNG MẠI VÀ DỊCH VỤ XE ĐẠP DTNsBIKE</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>ĐỊA CHỈ: 288 NGUYỄN VĂN LINH, AN
+                    KHÁNH, NINH KIỀU, CẨN THƠ</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>dtnsoftware2022@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>LIÊN HỆ SDT: +012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">HƯỚNG DẪN CƠ BẢN</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>HD KĨ
+                                THUẬT</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>HD TÁI SẢN
+                                PHẨM</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>HD CẬP NHẬT
+                                SẢN PHẨM</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>YÊU CẦU SẢN
+                                PHẨM MỚI</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>TIN CẬP
+                                NHẬT</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">HỖ TRỢ KHÁCH HÀNG</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>HƯỚNG DẪN MUA
+                                HÀNG</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>HÌNH THỨC
+                                THANH TOÁN</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>QUY ĐỊNH ĐỔI
+                                SẢN PHẨM</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>CÂU HỎI THƯỜNG
+                                GẶP</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>YÊU CẦU ĐỔI
+                                SẢN PHẨM</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">TẠO TÀI KHOẢN</h5>
+                        <p>Đăng ký ngay để nhận nhiều ưu đãi hấp dẫn</p>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Địa chỉ email của bạn">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">
+                                        <span class="text-white text-uppercase">Đăng ký</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <h6 class="text-secondary text-uppercase mt-4 mb-3">THEO DÕI</h6>
+                        <div class="d-flex">
+                            <a class="btn btn-primary btn-square mr-2" href="#"
+                                style="background-color: rgb(0, 140, 255);"><i
+                                    class="text-white fab fa-twitter"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#" style="background-color: blue;"><i
+                                    class="text-white fab fa-facebook-f"></i></a>
+                            <a class="btn btn-danger btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-warning btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <div class="col-md-6 px-xl-0 text-center text-md-left">
+                <img class="img-fluid" th:src="@{/users/img/payments.png}" alt="">
+            </div>
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-right text-secondary">Copyright 2022
+                    &copy; <a class="text-primary" href="#">DTN Team</a>. All Rights Reserved. Designed
+                    by
+                    <a class="text-primary" href="#">@DTN Team</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+</html>

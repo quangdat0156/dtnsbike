@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý chi tiết đơn hàng| DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Chi tiết đơn hàng</h2>
+               </div>
+            </div>
+         </div>
+         <!-- row -->
+         <div class="row">
+            <!-- invoice section -->
+            <div class="col-md-12">
+               <div class="white_shd full margin_bottom_30">
+                  <div class="full graph_head">
+                     <div class="heading1 margin_0">
+                        <h2><i class="fa fa-file-text-o"></i> Chi tiết đơn hàng</h2>
+                     </div>
+                  </div>
+                  <div class="full">
+                     <div class="invoice_inner">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="full invoice_blog padding_infor_info padding-bottom_0">
+                                 <h4>Gửi bởi</h4>
+                                 <p><strong>Huỳnh Đạt Lỏ</strong><br>    
+                                    <strong>Số điện thoại : </strong><a href="tel:9876543210">9876 543 210</a><br>  
+                                    <strong>Email : </strong><a href="mailto:yourmail@gmail.com">datlo@gmail.com</a>
+                                 </p>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="full invoice_blog padding_infor_info padding-bottom_0">
+                                 <h4>Nhận bởi</h4>
+                                 <p><strong>Lộc sa đô</strong><br>    
+                                    <strong>Số điện thoại : </strong><a href="tel:9876543210">9876 543 210</a><br>  
+                                    <strong>Email : </strong><a href="mailto:yourmail@gmail.com">loc@gmail.com</a>
+                                 </p>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="full invoice_blog padding_infor_info padding-bottom_0">
+                                 <h4>Thông tin đơn hàng </h4>
+                                 <p><strong>Mã đơn hàng : </strong>5b6R9C<br> 
+                                    <strong>Ngày xác nhận : </strong>03/10/2022<br> 
+                                    <strong>Xác nhận bởi : </strong>teonv
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="full padding_infor_info">
+                     <div class="table_row">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Màu sắc</th>
+                                    <th>Kích thước</th>
+                                    <th>Số lượng </th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>001</td>
+                                    <td>Xe đạp lăn bánh</td>
+                                    <td>Vàng</td>
+                                    <td>M</td>
+                                    <td>01</td>
+                                    <td>12.000.000</td>
+                                    <td>12.000.000</td>
+                                 </tr>
+                                 <tr>
+                                    <td>001</td>
+                                    <td>Xe đạp lăn bánh</td>
+                                    <td>Vàng</td>
+                                    <td>M</td>
+                                    <td>01</td>
+                                    <td>12.000.000</td>
+                                    <td>12.000.000</td>
+                                 </tr>
+                                 <tr>
+                                    <td>001</td>
+                                    <td>Xe đạp lăn bánh</td>
+                                    <td>Vàng</td>
+                                    <td>M</td>
+                                    <td>01</td>
+                                    <td>12.000.000</td>
+                                    <td>12.000.000</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- row -->
+         <div class="row">
+            <div class="col-md-6">
+               <div class="full white_shd">
+                  <div class="full graph_head">
+                     <div class="heading1 margin_0">
+                        <h2>Payment Methods</h2>
+                     </div>
+                  </div>
+                  <div class="full padding_infor_info">
+                     <ul class="payment_option">
+                        <li><img src="images/layout_img/visa.png" alt="#" /></li>
+                        <li><img src="images/layout_img/mastercard.png" alt="#" /></li>
+                        <li><img src="images/layout_img/american-express.png" alt="#" /></li>
+                        <li><img src="images/layout_img/paypal.png" alt="#" /></li>
+                     </ul>
+                     <p class="note_cont">If you use this site regularly and would like to help keep the site on the Internet.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="full white_shd">
+                  <div class="full graph_head">
+                     <div class="heading1 margin_0">
+                        <h2>Tiền hàng:</h2>
+                     </div>
+                  </div>
+                  <div class="full padding_infor_info">
+                     <div class="price_table">
+                        <div class="table-responsive">
+                           <table class="table">
+                              <tbody>
+                                 <tr>
+                                    <th style="width:50%">Tổng tiền hàng:</th>
+                                    <td>36.000.000</td>
+                                 </tr>
+                                 <tr>
+                                    <th>Phí vận chuyển</th>
+                                    <td>Miễn phí</td>
+                                 </tr>
+                                 <tr>
+                                    <th>Thuế GTGT:</th>
+                                    <td>1.000.000</td>
+                                 </tr>
+                                 <tr>
+                                    <th>Tổng tiền hàng:</th>
+                                    <td>35.000.000</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+   </div>
+   </main>
+   <!-- Content  -->
+</body>
+
+</html>

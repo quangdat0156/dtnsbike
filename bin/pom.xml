@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!--Start Tag Parent-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<!--End Tag Parent-->
+	<groupId>com.poly.datn.dtnsbike</groupId>
+	<artifactId>DTNsBike2022</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>DTNsBike2022v1.0.1</name>
+	<description>DuAnTotNghiepNhomDTN2022</description>
+	<!--Start Tag Properties-->
+	<!--End Tag Properties-->
+
+	<!--Start Tag Developers-->
+	<developers>
+		<developer>
+			<id>dathvpc01684</id>
+			<name>Huynh Van Dat</name>
+			<email>dathvpc01684@fpt.edu.vn</email>
+			<url>https://haidangmedia.net/</url>
+			<organization>FPT Polytechnic</organization>
+			<organizationUrl>https://caodang.fpt.edu.vn/</organizationUrl>
+			<roles>
+				<role>Leader</role>
+				<role>Developers</role>
+			</roles>
+			<timezone>UTC+07:00</timezone>
+		</developer>
+		<developer>
+			<id>thucndcpc01573</id>
+			<name>Nguyen Doan Chi Thuc</name>
+			<email>thucndcpc01573@fpt.edu.vn</email>
+			<url>http://thucnguyen.byethost10.com/?i=1</url>
+			<organization>FPT Polytechnic</organization>
+			<organizationUrl>https://caodang.fpt.edu.vn/</organizationUrl>
+			<roles>
+				<role>Deputy group</role>
+				<role>Developers</role>
+			</roles>
+			<timezone>UTC+07:00</timezone>
+		</developer>
+		<developer>
+			<id>linhvlpc01785</id>
+			<name>Vo Le Nhat Linh</name>
+			<email>linhvlpc01785@fpt.edu.vn</email>
+			<url>none</url>
+			<organization>FPT Polytechnic</organization>
+			<organizationUrl>https://caodang.fpt.edu.vn/</organizationUrl>
+			<roles>
+				<role>Developers</role>
+			</roles>
+			<timezone>UTC+07:00</timezone>
+		</developer>
+		<developer>
+			<id>locttpc01615</id>
+			<name>Truong Tan Loc</name>
+			<email>locttpc01615@fpt.edu.vn</email>
+			<url>none</url>
+			<organization>FPT Polytechnic</organization>
+			<organizationUrl>https://caodang.fpt.edu.vn/</organizationUrl>
+			<roles>
+				<role>Developers</role>
+			</roles>
+			<timezone>UTC+07:00</timezone>
+		</developer>
+		<developer>
+			<id>phuchtpc01818</id>
+			<name>Ho Thanh Phuc</name>
+			<email>phuchtpc01818@fpt.edu.vn</email>
+			<url>none</url>
+			<organization>FPT Polytechnic</organization>
+			<organizationUrl>https://caodang.fpt.edu.vn/</organizationUrl>
+			<roles>
+				<role>Developers</role>
+			</roles>
+			<timezone>UTC+07:00</timezone>
+		</developer>
+	</developers>
+	<!--End Tag Developers-->
+
+	<!--Star Tag Dependencies-->
+	<dependencies>
+
+		<!--Lib Starter Web-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!--Lib Devtools-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!--Lib Mssql Jdbc-->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!--Lib Starter Data JPA-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!--Lib Lombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!--Lib Starter Tomcat-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--Lib Starter Test-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--Lib Starter Validation-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!--Lib Starter Thymefeaf-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Lib Starter Mail-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Lib Starter Security-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Lib Commons Lang3 (Check Number)-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+	</dependencies>
+	<!--End Tag Dependencies-->
+
+	<!--Start Tag Build-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!--End Tag Build-->
+</project>

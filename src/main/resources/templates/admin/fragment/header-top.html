@@ -1,0 +1,33 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- Topbar Start -->
+<div th:fragment="header-top" class="sidebar_blog_1">
+   <div class="sidebar-header">
+      <div class="logo_section">
+         <a th:href="@{/admin/index.html}"><img class="logo_icon img-responsive" th:src="@{|/rest/upload/accounts_img/${accountProfile.photo!=null?accountProfile.photo:'default.jpg'}|}" alt="#" /></a>
+      </div>
+   </div>
+   <div class="sidebar_user_info">
+      <div class="icon_setting"></div>
+      <div th:if="${session.account == null}" class="user_profle_side">
+         <div class="user_img"><img class="img-responsive" th:src="@{/admin/images/layout_img/user_img.jpg}" alt="#" />
+         </div>
+         <div class="user_info">
+            <h6>DatLoa@123</h6>
+            <p><span class="online_animation"></span> Online</p>
+         </div>
+      </div>
+      <div th:if="${session.account != null}" class="user_profle_side">
+         <div class="user_img"><img class="img-responsive" th:src="@{|/rest/upload/accounts_img/${accountProfile.photo!=null?accountProfile.photo:'default.jpg'}|}" alt="#" />
+         </div>
+         <div class="user_info" th:object="${accountProfile}">
+            <h6>TK: [[*{username}]]</h6>
+            <h6>[[*{lastname +" "+middlename+" "+firstname}]]</h6>
+            <p><span class="online_animation"></span> Online</p>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Topbar End -->
+
+</html>

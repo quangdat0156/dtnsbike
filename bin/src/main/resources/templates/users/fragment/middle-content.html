@@ -1,0 +1,58 @@
+<html xmlns="https://www.thymeleaf.org">
+<div th:fragment="middle">
+			 <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check m-0 mr-3" style="color: blue;"></h1>
+                    <h6 class="font-weight-semi-bold m-0">SẢN PHẨM CHẤT LƯỢNG</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
+                    <h6 class="font-weight-semi-bold m-0">MIỄN PHÍ GIAO HÀNG</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-danger m-0 mr-3"></h1>
+                    <h6 class="font-weight-semi-bold m-0">NHANH CHÓNG - TIỆN LỢI</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h6 class="font-weight-semi-bold m-0">HỖ TRỢ KHÁCH HÀNG 24/7</h6>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Featured End -->
+
+    <!-- Content item avor -->
+    <div class="container-fluid">
+        <div class="row px-xl-5 bg-light">
+            <div class="col-12 p-5">
+                <h3 class="text-center text-uppercase">Tạo tài khoản</h3>
+                <p class="text-center text-small">Tạo tài khoản ngay để nhận nhiều ưu đãi hấp dẫn</p>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6 form-group d-flex">
+                        <input type="email" name="username" placeholder="Nhập địa chỉ email của bạn..." id="input-email"
+                            class="form-control">
+                        <a th:href="@{/register.html}" class="form-control btn btn-primary w-50 rounded-right">
+                            <h6 class="text-white text-uppercase pt-1">Đăng ký ngay</h6>
+                        </a>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content item avor -->
+	</div>
+</html>

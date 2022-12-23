@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <title>DTNsBike | Trang chủ</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+
+    <main>
+        <!-- banner menu -->
+        <div th:insert="~{/users/fragment/banner::banner}"></div>
+        <!-- TIN TỨC MỚI NHẤT :)) -->
+        <!-- Products Start -->
+        <div class="container-fluid pt-5 pb-3" th:if="${!blogs.isEmpty()}">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">TIN
+                    TỨC
+                    MỚI NHẤT</span></h2>
+            <div class="row px-xl-5">
+                <div class="col-lg-4 col-md-6 col-sm-6 pb-1" th:each="b: ${blogs}">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden text-center">
+                            <a th:href="@{|/blog_details.html?id=${b.blogid}|}">
+                                <img class="img-fluid w-50"
+                                    th:src="@{|/upload/blogs_img/${b.images==null?'default.jpg':b.images}|}" alt="">
+                                <div class="product-action">
+                                    <img class="img-fluid w-50"
+                                        th:src="@{|/upload/blogs_img/${b.images==null?'default.jpg':b.images}|}" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                            <a class="h6 text-decoration-none" th:href="@{|/blog_details.html?id=${b.blogid}|}">
+                                <h5>[[${b.title}]]</h5>
+                            </a>
+                            <p class="text-dark text-left mr-2">
+                                <!-- <span>
+                                    <i class="fa fa-user"></i> [[${b.accounts.username}]]
+                                </span> -->
+                                <span class="ml-3">
+                                    <i class="fa fa-eye"></i> [[${b.views}]] lượt xem
+                                </span>
+                                <span class="ml-3">
+                                    <i class="fa fa-calendar"></i> [[${#dates.format(b.createdate,'dd-MM-yyyy')}]]
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center justify-content-center">
+                <a class="col-3 btn btn-info h5 text-uppercase" href="blogs.html" style="text-decoration: none;">Xem
+                    Thêm ...</a>
+            </div>
+        </div>
+        <!-- Products End -->
+
+        <!-- DANH MỤC SẢN PHẨM  -->
+        <!-- Categories Start -->
+        <div class="container-fluid pt-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">DANH
+                    MỤC</span></h2>
+            <div class="row px-xl-5 pb-3">
+                <!-- CATEGORIES ITEM START -->
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1" th:each="t:${types}">
+                    <a class="text-decoration-none text-dark" href="">
+                        <div class="cat-item d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" th:src="@{/users/img/offer-3.jpg}" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6 class="text-uppercase">[[${t.name}]]</h6>
+                                <strong class="text-body">[[${t.categorie.size()}]] LOẠI</strong>
+                                <br>
+                                <small class="text-body">[[${checkk.getCount(t)}]] SẢN PHẨM</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- CATEGORIES ITEM END -->
+            </div>
+        </div>
+        <!-- Categories End -->
+
+
+        <!-- SẢN PHẨM NỔI BẬT :)) -->
+        <!-- Products Start -->
+        <div class="container-fluid pt-5 pb-3">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">NỔI
+                    BẬT</span></h2>
+            <div class="row px-xl-5">
+                <!-- Products Start -->
+                <div class="col-lg-3 col-md-6 col-sm-6 pb-1" th:each="p,i: ${products}">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <div class="d-flex flex-row mt-2 ml-2 ">
+                                <span class="badge badge-pill badge-info ">Mới</span>
+                            </div>
+                            <img class="img-fluid w-100"
+                                th:src="@{|/upload/product_single_img/${p.img==null?'default.jpg':p.img}|}" alt="">
+                            <div class="product-action">
+                                <!-- <a class="btn btn-primary btn-square" href="cart.html" title="Thêm vào giỏ hàng"><i
+                                        class="text-white fa fa-shopping-cart"></i></a> -->
+
+                                <a th:if="${check != null}" class="btn btn-danger btn-square"
+                                    th:href="@{|/favorite.html/${check.checkProFav(session.account, p)?'remove':'add'}/${p.id}|}"
+                                    title="Yêu thích"><i class="text-white"
+                                        th:classappend="${check.checkProFav(session.account, p)?'fa fa-heart':'far fa-heart'}"></i></a>
+                                <a th:if="${check == null}" class="btn btn-danger btn-square"
+                                    th:href="@{|/favorite.html/add/${p.id}|}" title="Yêu thích"><i
+                                        class="text-white far fa-heart"></i></a>
+
+                                <a class="btn btn-dark btn-square" th:href="@{|/detail.html?id=${p.id}|}"
+                                    title="Chi tiết sản phẩm"><i class="text-white fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <div class="text-truncate p-1">
+                                <a class="h5 text-decoration-none text-uppercase"
+                                    th:href="@{|/detail.html?id=${p.id}|}">
+                                    [[${p.name}]]
+                                </a>
+                            </div>
+                            <div class="mt-1">
+                               
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5 class="text-danger" th:if="${p.discountid != null}">
+                                    [[${#numbers.formatInteger(p.price+(p.price*p.vat/100)-((p.price+(p.price*p.vat/100))*p.discountid.value/100),3,'COMMA')}]]
+                                    VNĐ</h5>
+                                <h5 class="text-danger" th:if="${p.discountid == null}">
+                                    [[${#numbers.formatInteger(p.price+(p.price*p.vat/100),3,'COMMA')}]]
+                                    VNĐ</h5>
+                                <h6 th:if="${p.discountid != null && p.discountid.value > 0}" class="ml-2 mb-2">
+                                    <span class="badge badge-pill badge-danger  ">Giảm
+                                        [[${#numbers.formatInteger(p.discountid.value,0,'POINT')}]]%
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <div class="mr-2" th:if="${#lists.size(p.productReview)>0}"
+                                    th:with="st=${(#aggregates.sum(p.productReview.![stars])+0.0)/#lists.size(p.productReview)}">
+                                    <i th:class="'fas '+${st-i > 0 &&  1 > st-i?'fa-star-half-alt text-warning '+st:st >= i+1 ?'fa-star text-warning':'fa-star' }"
+                                        th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                </div>
+                                <div class="mr-2" th:if=" ${#lists.size(p.productReview)==0}">
+                                    <i class="fas fa-star" th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                </div>
+                                <div class="font-weight-bold "> ([[${#lists.size(p.productReview)}]])
+                                </div>
+                            </div>
+                            <!--  <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <a href="cart.html" class="btn btn-primary">
+                                            <strong class="text-white">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Giỏ hàng
+                                            </strong>
+                                        </a>
+                                        <a href="cart.html" class="ml-1 btn btn-danger">
+                                            <strong class="text-white">
+                                                <i class="fa fa-heart"></i>
+                                                Yêu thích
+                                            </strong>
+                                        </a>
+                                    </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Products End -->
+            </div>
+            <div class="row text-center justify-content-center">
+                <a class="col-3 btn btn-info h5 text-uppercase" th:href="@{/shop.html}" style="text-decoration: none;">Xem Thêm
+                    ...</a>
+            </div>
+        </div>
+        <!-- Products End -->
+
+        <!-- SẢN PHẨM THEO DANH MỤC :)) -->
+        <!-- Products Start -->
+        <div class="container-fluid pt-5 pb-3">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">THEO DANH MỤC</span></h2>
+            <div class="row px-xl-5">
+                <ul class="col-12 d-flex justify-content-start align-items-start nav nav-pills mb-3 " id="pills-tab"
+                    role="tablist">
+                    <!-- Tabab nav item 1 -->
+                    <li class="nav-item bg-light mr-2 mb-2 ml-3" th:each="tt:${cate}">
+                        <a class="nav-link" th:classappend="${tt.id == 1?'active':''}" id="pills-home-tab"
+                            data-toggle="pill" th:attr="href='#cate'+${tt.id}" role="tab" aria-controls="pills-home"
+                            aria-selected="true">[[${tt.name}]]</a>
+                    </li>
+                    <!-- Tabab nav item 1 -->
+                </ul>
+            </div>
+            <div class="row px-xl-5 tab-content" id="pills-tabContent">
+                <!-- Sản phẩm theo loại nhà bạn :)) -->
+                <div th:each="t2:${cate}" class="col-12 tab-pane fade " th:classappend="${t2.id == 1?'show active':''}"
+                    th:attr="id='cate'+${t2.id}" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="row">
+                        <!-- Products Start -->
+                        <div class="col-lg-3 col-md-6 col-sm-6 pb-1" th:each="p,i: ${t2.products}">
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <div class="d-flex flex-row mt-2 ml-2 ">
+                                        <span class="badge badge-pill badge-info ">Mới</span>
+                                    </div>
+                                    <img class="img-fluid w-100"
+                                        th:src="@{|/upload/product_single_img/${p.img==null?'default.jpg':p.img}|}"
+                                        alt="">
+                                    <div class="product-action">
+                                        <!-- <a class="btn btn-primary btn-square" href="cart.html"
+                                            title="Thêm vào giỏ hàng"><i class="text-white fa fa-shopping-cart"></i></a> -->
+
+                                        <a th:if="${check != null}" class="btn btn-danger btn-square"
+                                            th:href="@{|/favorite.html/${check.checkProFav(session.account, p)?'remove':'add'}/${p.id}|}"
+                                            title="Yêu thích"><i class="text-white"
+                                                th:classappend="${check.checkProFav(session.account, p)?'fa fa-heart':'far fa-heart'}"></i></a>
+                                        <a th:if="${check == null}" class="btn btn-danger btn-square"
+                                            th:href="@{|/favorite.html/add/${p.id}|}" title="Yêu thích"><i
+                                                class="text-white far fa-heart"></i></a>
+
+                                        <a class="btn btn-dark btn-square" th:href="@{|/detail.html?id=${p.id}|}"
+                                            title="Chi tiết sản phẩm"><i class="text-white fa fa-eye"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center py-4">
+                                    <div class="text-truncate p-1">
+                                        <a class="h5 text-decoration-none text-uppercase"
+                                            th:href="@{|/detail.html?id=${p.id}|}">
+                                            [[${p.name}]]
+                                        </a>
+                                    </div>
+                                    <div class="mt-1">
+                                        
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5 class="text-danger" th:if="${p.discountid != null}">
+                                            [[${#numbers.formatInteger(p.price+(p.price*p.vat/100)-((p.price+(p.price*p.vat/100))*p.discountid.value/100),3,'COMMA')}]]
+                                            VNĐ</h5>
+                                        <h5 class="text-danger" th:if="${p.discountid == null}">
+                                            [[${#numbers.formatInteger(p.price+(p.price*p.vat/100),3,'COMMA')}]]
+                                            VNĐ</h5>
+                                        <h6 th:if="${p.discountid != null && p.discountid.value > 0}"
+                                            class="ml-2 mb-2"><span class="badge badge-pill badge-danger  ">Giảm
+                                                [[${#numbers.formatInteger(p.discountid.value,0,'POINT')}]]%
+                                            </span></h6>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <div class="mr-2" th:if="${#lists.size(p.productReview)>0}"
+                                            th:with="st=${(#aggregates.sum(p.productReview.![stars])+0.0)/#lists.size(p.productReview)}">
+                                            <i th:class="'fas '+${st-i > 0 &&  1 > st-i?'fa-star-half-alt text-warning '+st:st >= i+1 ?'fa-star text-warning':'fa-star' }"
+                                                th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                        </div>
+                                        <div class="mr-2" th:if=" ${#lists.size(p.productReview)==0}">
+                                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                        </div>
+                                        <div class="font-weight-bold "> ([[${#lists.size(p.productReview)}]])
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Products End -->
+                    </div>
+                </div>
+                <div class="col-12 row text-center justify-content-center">
+                    <a class="col-3 btn btn-info h5 text-uppercase" th:href="@{/shop.html}" style="text-decoration: none;">Xem Thêm ...</a>
+                </div>
+            </div>
+        </div>
+        <!-- Products End -->
+
+        <!-- Offer Start -->
+        <div class="container-fluid pt-5 pb-3">
+            <div class="row px-xl-5">
+                <div class="col-md-6">
+                    <div class="product-offer mb-30" style="height: 300px;">
+                        <img class="img-fluid" th:src="@{/users/img/offer-1.jpg}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">GIẢM GIÁ 10%</h6>
+                            <h3 class="text-white mb-3">ƯU ĐÃI ĐẶC BIỆT</h3>
+                            <a th:href="@{/shop.html}" class="btn btn-primary">Mua Ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-offer mb-30" style="height: 300px;">
+                        <img class="img-fluid" th:src="@{/users/img/offer-2.jpg}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">GIẢM GIÁ 20%</h6>
+                            <h3 class="text-white mb-3">ƯU ĐÃI ĐẶC BIỆT</h3>
+                            <a th:href="@{/shop.html}" class="btn btn-primary">Mua Ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Offer End -->
+
+
+        <!-- SẢN PHẨM KHUYẾN MÃI :V -->
+        <!-- Products Start -->
+        <div class="container-fluid pt-5 pb-3" th:if="${!sales.isEmpty()}">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
+                    class="bg-secondary pr-3">KHUYẾN
+                    MÃI</span></h2>
+            <div class="row px-xl-5">
+                <!-- Products Start -->
+                <div class="col-lg-3 col-md-6 col-sm-6 pb-1" th:each="p,i: ${sales}">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <div class="d-flex flex-row mt-2 ml-2 ">
+                                <span class="badge badge-pill badge-info ">Mới</span>
+                            </div>
+                            <img class="img-fluid w-100"
+                                th:src="@{|/upload/product_single_img/${p.img==null?'default.jpg':p.img}|}" alt="">
+                            <div class="product-action">
+                                <!-- <a class="btn btn-primary btn-square" href="cart.html" title="Thêm vào giỏ hàng"><i
+                                        class="text-white fa fa-shopping-cart"></i></a> -->
+
+                                <a th:if="${check != null}" class="btn btn-danger btn-square"
+                                    th:href="@{|/favorite.html/${check.checkProFav(session.account, p)?'remove':'add'}/${p.id}|}"
+                                    title="Yêu thích"><i class="text-white"
+                                        th:classappend="${check.checkProFav(session.account, p)?'fa fa-heart':'far fa-heart'}"></i></a>
+                                <a th:if="${check == null}" class="btn btn-danger btn-square"
+                                    th:href="@{|/favorite.html/add/${p.id}|}" title="Yêu thích"><i
+                                        class="text-white far fa-heart"></i></a>
+
+                                <a class="btn btn-dark btn-square" th:href="@{|/detail.html?id=${p.id}|}"
+                                    title="Chi tiết sản phẩm"><i class="text-white fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <div class="text-truncate p-1">
+                                <a class="h5 text-decoration-none text-uppercase"
+                                    th:href="@{|/detail.html?id=${p.id}|}">
+                                    [[${p.name}]]
+                                </a>
+                            </div>
+                            <div class="mt-1">
+                          
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5 class="text-danger" th:if="${p.discountid != null}">
+                                    [[${#numbers.formatInteger(p.price+(p.price*p.vat/100)-((p.price+(p.price*p.vat/100))*p.discountid.value/100),3,'COMMA')}]]
+                                    VNĐ</h5>
+                                <h5 class="text-danger" th:if="${p.discountid == null}">
+                                    [[${#numbers.formatInteger(p.price+(p.price*p.vat/100),3,'COMMA')}]]
+                                    VNĐ</h5>
+                                <h6 th:if="${p.discountid != null && p.discountid.value > 0}" class="ml-2 mb-2">
+                                    <span class="badge badge-pill badge-danger  ">Giảm
+                                        [[${#numbers.formatInteger(p.discountid.value,0,'POINT')}]]%
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <div class="mr-2" th:if="${#lists.size(p.productReview)>0}"
+                                    th:with="st=${(#aggregates.sum(p.productReview.![stars])+0.0)/#lists.size(p.productReview)}">
+                                    <i th:class="'fas '+${st-i > 0 &&  1 > st-i?'fa-star-half-alt text-warning '+st:st >= i+1 ?'fa-star text-warning':'fa-star' }"
+                                        th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                </div>
+                                <div class="mr-2" th:if=" ${#lists.size(p.productReview)==0}">
+                                    <i class="fas fa-star" th:each="i : ${#numbers.sequence(0, 4)}"></i>
+                                </div>
+                                <div class="font-weight-bold "> ([[${#lists.size(p.productReview)}]])
+                                </div>
+                            </div>
+                            <!--  <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <a href="cart.html" class="btn btn-primary">
+                                            <strong class="text-white">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Giỏ hàng
+                                            </strong>
+                                        </a>
+                                        <a href="cart.html" class="ml-1 btn btn-danger">
+                                            <strong class="text-white">
+                                                <i class="fa fa-heart"></i>
+                                                Yêu thích
+                                            </strong>
+                                        </a>
+                                    </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Products End -->
+            </div>
+            <div class="row text-center justify-content-center">
+                <a class="col-3 btn btn-info h5 text-uppercase" href="sales.html" style="text-decoration: none;">Xem
+                    Thêm
+                    ...</a>
+            </div>
+        </div>
+        <!-- Products End -->
+
+
+        <!-- THƯƠNG HIỆU :)) -->
+        <!-- Vendor Start -->
+        <div class="container-fluid py-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
+                    class="bg-secondary pr-3">THƯƠNG
+                    HIỆU</span></h2>
+            <div class="row px-xl-5">
+                <div class="col">
+                    <div class="owl-carousel vendor-carousel">
+                        <!-- Brand item start :)) -->
+                        <div class="bg-light p-4" th:each="b: ${brands}">
+                            <img th:src="@{|/upload/brands_img/${b.image==null || b.image.equals('')?'default.jpg':b.image}|}" alt="">
+                        </div>
+                        <!-- Brand item end :v -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Vendor End -->
+
+        <!-- TEAM NHÓM :)) -->
+        <!-- Vendor Start -->
+        <div class="container-fluid py-5">
+            <h2 class="section-title position-relative text-center text-uppercase mx-xl-5 mb-4"><span
+                    class="bg-secondary pr-3">NHÓM DTN</span></h2>
+            <div class="row px-xl-5">
+                <div class="col">
+                    <div class="owl-carousel vendor-carousel">
+                        <!-- Team item start :)) -->
+                        <div class="bg-light text-center p-4 border border-primary" style="width: 240px;">
+                            <img th:src="@{/users/team/dat.jpg}" alt="" class="rounded-circle">
+                            <h6 class="mt-3 text-uppercase">Huỳnh Văn Đạt</h6>
+                            <h6 class="text-uppercase text-danger">Trưởng nhóm</h6>
+                            <div class="d-flex">
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: rgb(0, 140, 255);"><i
+                                        class="text-white fab fa-twitter"></i></a>
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: blue;"><i class="text-white fab fa-facebook-f"></i></a>
+                                <a class="btn btn-danger btn-square mr-2 rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-warning btn-square rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <!-- Team item end :v -->
+                        <!-- Team item start :)) -->
+                        <div class="bg-light text-center p-4 border border-danger" style="width: 240px;">
+                            <img th:src="@{/users/team/loc.jpg}" alt="" class="rounded-circle">
+                            <h6 class="mt-3 text-uppercase">Trương Tấn Lộc</h6>
+                            <h6 class="text-uppercase text-primary">Thành viên</h6>
+                            <div class="d-flex">
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: rgb(0, 140, 255);"><i
+                                        class="text-white fab fa-twitter"></i></a>
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: blue;"><i class="text-white fab fa-facebook-f"></i></a>
+                                <a class="btn btn-danger btn-square mr-2 rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-warning btn-square rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <!-- Team item end :v -->
+                        <!-- Team item start :)) -->
+                        <div class="bg-light text-center p-4 border border-dark" style="width: 240px;">
+                            <img th:src="@{/users/team/me.jpg}" alt="" class="rounded-circle">
+                            <h6 class="mt-3 text-uppercase">Võ Lê Nhật Linh</h6>
+                            <h6 class="text-uppercase text-primary">Thành viên</h6>
+                            <div class="d-flex">
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: rgb(0, 140, 255);"><i
+                                        class="text-white fab fa-twitter"></i></a>
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: blue;"><i class="text-white fab fa-facebook-f"></i></a>
+                                <a class="btn btn-danger btn-square mr-2 rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-warning btn-square rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <!-- Team item end :v -->
+                        <!-- Team item start :)) -->
+                        <div class="bg-light text-center p-4 border border-warning" style="width: 240px;">
+                            <img th:src="@{/users/team/thuc.jpg}" alt="" class="rounded-circle">
+                            <h6 class="mt-3 text-uppercase">Nguyễn Đoàn Chí Thức</h6>
+                            <h6 class="text-uppercase text-primary">Thành viên</h6>
+                            <div class="d-flex">
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: rgb(0, 140, 255);"><i
+                                        class="text-white fab fa-twitter"></i></a>
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: blue;"><i class="text-white fab fa-facebook-f"></i></a>
+                                <a class="btn btn-danger btn-square mr-2 rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-warning btn-square rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <!-- Team item end :v -->
+                        <!-- Team item start :)) -->
+                        <div class="bg-light text-center p-4 border border-info" style="width: 240px;">
+                            <img th:src="@{/users/team/phuc.jpg}" alt="" class="rounded-circle">
+                            <h6 class="mt-3 text-uppercase">Hồ Thanh Phúc</h6>
+                            <h6 class="text-uppercase text-primary">Thành viên</h6>
+                            <div class="d-flex">
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: rgb(0, 140, 255);"><i
+                                        class="text-white fab fa-twitter"></i></a>
+                                <a class="btn btn-primary btn-square mr-2 rounded-circle" href="#"
+                                    style="background-color: blue;"><i class="text-white fab fa-facebook-f"></i></a>
+                                <a class="btn btn-danger btn-square mr-2 rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-warning btn-square rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <!-- Team item end :v -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Vendor End -->
+        <!-- Hiệu ứng load -->
+        <div class="load">
+            <img th:src="@{/users/logo/loader.gif}">
+        </div>
+    </main>
+
+
+</body>
+
+</html>

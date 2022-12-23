@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+   th:replace="~{/admin/layout/layout::dynamic(~{::title},~{::main})}">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <!-- Thay thế title tại đây -->
+   <title>Quản lý sản phẩm | DTNsBike</title>
+
+</head>
+
+<body>
+   <!-- Content  -->
+   <main>
+      <div class="container-fluid">
+         <!-- Title -->
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Danh Sách Sản Phẩm</h2>
+               </div>
+            </div>
+         </div>
+         <!-- Content -->
+         <div class="row">
+            <div class="col-12 card pt-2 pb-2 border-0">
+               <div class="card-body p-2 text-end">
+                  <div class="row">
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-success btn-rounded mb-1 mr-1">
+                        <i class="fa fa-plus-circle"></i>
+                        <strong class="mt-1 ms-1">Tạo mới</strong>
+                     </a>
+                     <!-- Button effect -->
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-warning btn-rounded mb-1 mr-1">
+                        <i class="fa fa-file"></i>
+                        <strong class="mt-1 ms-1">Tải file</strong>
+                     </a>
+                     <!-- Button effect -->
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-primary btn-rounded mb-1 mr-1">
+                        <i class="fa fa-print"></i>
+                        <strong class="mt-1 ms-1">In dữ liệu</strong>
+                     </a>
+                     <!-- Button effect -->
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-info btn-rounded mb-1 mr-1">
+                        <i class="fa fa-copy"></i>
+                        <strong class="mt-1 ms-1">Sao chép</strong>
+                     </a>
+                     <!-- Button effect -->
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-success btn-rounded mb-1 mr-1 p-2">
+                        <i class="fa fa-file-excel-o"></i>
+                        <strong class="mt-1 ms-1">Xuất Excel</strong>
+                     </a>
+                     <!-- Button effect -->
+                     <!-- Button effect -->
+                     <a href="product-update.html" class="btn btn-outline-danger btn-rounded mb-1 mr-1">
+                        <i class="fa fa-file-pdf-o"></i>
+                        <strong class="mt-1 ms-1">Xuất Pdf</strong>
+                     </a>
+                     <!-- Button effect -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Thân -->
+         <div class="row mt-2">
+            <div class="col-12 card">
+               <div class="card-body">
+                  <div class="card-header row border-0" style="background-color: white;">
+                     <div class="col-md-2">
+                        <div class="input-group mb-3">
+                           <div class="input-group-prepend">
+                              <label class="input-group-text bg-light border-0" for="inputGroupSelect01">Hiển
+                                 thị: </label>
+                           </div>
+                           <form>
+                              <select class="custom-select" id="inputGroupSelect01" th:name="size" onchange='namexxx()'>
+                                 <option value="5" th:selected="${size==5}">5</option>
+                                 <option value="10" th:selected="${size==10}">10</option>
+                                 <option value="15" th:selected="${size==15}">15</option>
+                                 <option value="20" th:selected="${size==20}">20</option>
+                              </select>
+                           </form>
+                        </div>
+                     </div>
+                     <div class="col-md-6 mb-1">
+                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                           placeholder="Tìm kiếm...">
+                        <datalist id="datalistOptions">
+                           <option value="Xe đạp địa hình">
+                           <option value="Xe đạp lạ lùng">
+                        </datalist>
+                     </div>
+                     <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>Sắp xếp theo</option>
+                           <option value="1">Họ tên</option>
+                           <option value="2">Năm sinh</option>
+                           <option value="3">Email</option>
+                           <option value="4">Vai trò</option>
+                        </select>
+                     </div>
+                     <div class="col-md-2">
+                        <select class="custom-select text-center" id="inputGroupSelect01">
+                           <option selected>Thứ tự</option>
+                           <option value="1">Tăng dần</option>
+                           <option value="2">Giảm dần</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="table-responsive">
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                              <th>
+                                 <a href="#" style="text-decoration: none;">
+                                    Tên Sản Phẩm
+                                    <i class="fa fa-long-arrow-down" style="font-size: 12px;"></i>
+                                    <i class="fa fa-long-arrow-up" style="font-size: 12px;"></i>
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" style="text-decoration: none;">
+                                    Loại
+                                    <i class="fa fa-long-arrow-down" style="font-size: 12px;"></i>
+                                    <i class="fa fa-long-arrow-up" style="font-size: 12px;"></i>
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" style="text-decoration: none;">
+                                    Thương Hiệu
+                                    <i class="fa fa-long-arrow-down" style="font-size: 12px;"></i>
+                                    <i class="fa fa-long-arrow-up" style="font-size: 12px;"></i>
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" style="text-decoration: none;">
+                                    Xuất Xứ
+                                    <i class="fa fa-long-arrow-down" style="font-size: 12px;"></i>
+                                    <i class="fa fa-long-arrow-up" style="font-size: 12px;"></i>
+                                 </a>
+                              </th>
+                              <th>
+                                 <a href="#" style="text-decoration: none;">
+                                    Trạng Thái
+                                    <i class="fa fa-long-arrow-down" style="font-size: 12px;"></i>
+                                    <i class="fa fa-long-arrow-up" style="font-size: 12px;"></i>
+                                 </a>
+                              </th>
+                              <th>Chỉnh sửa</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr th:each="list : ${listPro}" th:object="${list}">
+                              <td class="align-middle" th:text="*{name}"></td>
+                              <td class="align-middle" th:text="*{catePro.name}"></td>
+                              <td class="align-middle" th:text="*{brandPro.brand}"></td>
+                              <td class="align-middle" th:text="*{originid.madein}"></td>
+                              <td class="align-middle" th:text="*{avaliable?'Đang kinh doanh':'Đã ngừng kinh doanh'}"></td>
+                              <td class="text-center align-middle">
+                                 <a th:href="@{/admin/product/form/edit/{id}(id=*{id},types=*{catePro.typeId.id})}"
+                                    class="btn btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                 </a>
+                              </td>
+                           </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                     </table>
+                  </div>
+                  <!-- List content footer -->
+                  <div class="card-footer row mt-2 border-0" style="background-color: white;">
+                     <nav aria-label="..." class="col-4">
+                        <ul class="pagination">
+                           <li class="page-item disabled">
+                              <a class="page-link">Back</a>
+                           </li>
+                           <th:block th:each="listPage:${listPage}">
+                              <li class="page-item" th:classappend="${#lists.contains(listPage, page)} ? active : ''">
+                                 <a class="page-link"
+                                    th:href="@{/admin/product-list.html(page=${listPage},size=${size})}"
+                                    th:text="${listPage}"></a>
+                              </li>
+                           </th:block>
+                           <li class="page-item">
+                              <a class="page-link" href="#">Next</a>
+                           </li>
+                        </ul>
+                     </nav>
+                     <div class="col-4"></div>
+                     <div class="col-4 text-right text-dark">
+                        <p>Đang xem 1 đến 10 trong tổng số 10 mục.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+		function namexxx() {
+	 		var url_string = "http://localhost:8080/DTNsBike/admin/product-list.html?page=[[${page}]]&size=15"; 
+	 		var url = new URL(url_string);
+      	 	var c = url.searchParams.get("page");
+           	var page = /*[[${page}]]*/null;
+           	var e =  document.getElementById("inputGroupSelect01");
+           	var sizes = e.value;
+           	var size = e.options[e.selectedIndex].text;
+           	var url = "/DTNsBike/admin/product-list.html?page="+c+"&size="+size;
+			window.location=url;
+ 		}
+	</script>
+   </main>
+</body>
+
+</html>

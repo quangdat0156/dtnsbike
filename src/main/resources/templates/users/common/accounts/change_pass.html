@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org"
+    th:replace="~{/users/layout/layout::dynamic(~{::title},~{::.header},~{::main})}">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Thay thế title cho phù hợp -->
+    <title>DTNsBike | Đổi mật khẩu</title>
+</head>
+
+<body>
+    <!-- header menu -->
+    <div class="header" th:insert="~{/users/fragment/header-menu::header}"></div>
+    <!-- Content main  -->
+    <main>
+        <!-- main item start -->
+        <!-- Breadcrumb Start -->
+    <div class="container-fluid mt-33">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="index.html">Trang chủ</a>
+                    <a class="breadcrumb-item active" href="#">Đổi mật khẩu</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- LogIn Page Start -->
+            <!-- Returning Customer Start -->
+            <div class="col-md-3"></div>
+            <div class="col-md-6 p-5 bg-light pb-2">
+                <div class="well">
+                    <div class="return-customer">
+                        <h3 class="mb-10 custom-title">Đổi Mật Khẩu</h3>
+                        <form action="#">
+                            <div class="form-group">
+                                <label><span class="require">*</span> Mật khẩu mới</label>
+                                <input type="text" name="pass" placeholder="Nhập mật khẩu mới" id="input-password"
+                                    class="form-control w-100">
+                            </div>
+                            <div class="form-group">
+                                <label><span class="require">*</span> Nhập lại mật khẩu</label>
+                                <input type="text" name="pass-new" placeholder="Nhập lại mật khẩu"
+                                    id="input-password-new" class="form-control w-100">
+                            </div>
+                            <button class="btn btn-primary w-100 btn-sm">
+                                <h6 class="text-white pt-2 text-uppercase">Xác nhận</h6>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+            <!-- Returning Customer End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+        <!-- main item end -->
+    </main>
+    <!-- Content main  -->
+</body>
+
+</html>
