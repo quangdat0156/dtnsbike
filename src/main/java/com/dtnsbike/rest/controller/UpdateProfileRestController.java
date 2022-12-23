@@ -78,7 +78,9 @@ public class UpdateProfileRestController {
 		List<Accounts> list = account.findAll();
 		String birthPost = form.getYear() + "/" + (Integer.parseInt(form.getMonth()) + 1) + "/" + form.getDay();
 		Date birthDay = new Date(birthPost);
-		String gender = form.getGender();
+String gender = null;
+if(form.getGender() !=null){
+		 gender = form.getGender();}
 		if (form.getLastname().isBlank() || form.getFirstname().isBlank()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
