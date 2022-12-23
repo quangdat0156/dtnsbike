@@ -81,57 +81,56 @@ public class UpdateProfileRestController {
 		String gender = null;
 		if (form != null) {
 			gender = form.getGender();
-		}
-
-		if (form.getLastname().isBlank() || form.getFirstname().isBlank()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getEmail().equals(form.getEmail()) && !list.get(i).getEmail().equals(acc.getEmail())) {
-				form.setMessage("Email đã trùng! Vui lòng đổi 1 email khác");
+			if (form.getLastname().isBlank() || form.getFirstname().isBlank()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			}
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getEmail().equals(form.getEmail()) && !list.get(i).getEmail().equals(acc.getEmail())) {
+					form.setMessage("Email đã trùng! Vui lòng đổi 1 email khác");
+					return ResponseEntity.status(HttpStatus.FOUND).body(form);
+				}
+				if (list.get(i).getPhone().equals(form.getPhone()) && !list.get(i).getPhone().equals(acc.getPhone())) {
+					form.setMessage("Số điện thoại đã trùng! Vui lòng nhập số điện thoại khác");
+					return ResponseEntity.status(HttpStatus.FOUND).body(form);
+				}
+			}
+			String regNum = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+			String regEmail = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+			if (!form.getPhone().matches(regNum)) {
+				form.setMessage("Số điện thoại không đúng định dạng");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			}
+			if (!form.getEmail().matches(regEmail)) {
+				form.setMessage("Email không đúng định dạng");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			}
+			LocalDate curDate = LocalDate.now();
+			LocalDate yearO = birthDay.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			if (yearO.isAfter(curDate)) {
+				form.setMessage("Sinh nhật không hợp lệ hay bạn đến từ tương lai");
+				return ResponseEntity.status(HttpStatus.FOUND).body(form);
+			} else if (Period.between(yearO, curDate).getYears() < 18) {
+				form.setMessage("Waooo!!! Em chưa 18?");
 				return ResponseEntity.status(HttpStatus.FOUND).body(form);
 			}
-			if (list.get(i).getPhone().equals(form.getPhone()) && !list.get(i).getPhone().equals(acc.getPhone())) {
-				form.setMessage("Số điện thoại đã trùng! Vui lòng nhập số điện thoại khác");
-				return ResponseEntity.status(HttpStatus.FOUND).body(form);
+			acc.setLastname(form.getLastname());
+			acc.setMiddlename(form.getMiddlename());
+			acc.setFirstname(form.getFirstname());
+			acc.setEmail(form.getEmail());
+			if (form.getPhoto() == null) {
+				acc.setPhoto("");
+			} else {
+				acc.setPhoto(form.getPhoto());
 			}
+			acc.setPhone(form.getPhone());
+			if (gender.equals("1") || gender.equals("2")) {
+				acc.setGender(gender);
+			} else {
+				acc.setGender("3");
+			}
+			acc.setBirthday(birthDay);
+			account.update(acc);
 		}
-		String regNum = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
-		String regEmail = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-		if (!form.getPhone().matches(regNum)) {
-			form.setMessage("Số điện thoại không đúng định dạng");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		if (!form.getEmail().matches(regEmail)) {
-			form.setMessage("Email không đúng định dạng");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		LocalDate curDate = LocalDate.now();
-		LocalDate yearO = birthDay.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		if (yearO.isAfter(curDate)) {
-			form.setMessage("Sinh nhật không hợp lệ hay bạn đến từ tương lai");
-			return ResponseEntity.status(HttpStatus.FOUND).body(form);
-		} else if (Period.between(yearO, curDate).getYears() < 18) {
-			form.setMessage("Waooo!!! Em chưa 18?");
-			return ResponseEntity.status(HttpStatus.FOUND).body(form);
-		}
-		acc.setLastname(form.getLastname());
-		acc.setMiddlename(form.getMiddlename());
-		acc.setFirstname(form.getFirstname());
-		acc.setEmail(form.getEmail());
-		if (form.getPhoto() == null) {
-			acc.setPhoto("");
-		} else {
-			acc.setPhoto(form.getPhoto());
-		}
-		acc.setPhone(form.getPhone());
-		if (gender.equals("1") || gender.equals("2")) {
-			acc.setGender(gender);
-		} else {
-			acc.setGender("3");
-		}
-		acc.setBirthday(birthDay);
-		account.update(acc);
 		return ResponseEntity.ok(form);
 	}
 
