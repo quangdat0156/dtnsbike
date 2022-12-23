@@ -37,10 +37,10 @@ public class UpdateProfileRestController {
 
 	@Autowired
 	AccountsService account;
-	
+
 	@Autowired
 	ContactsDAO contactDAO;
-	
+
 	@Autowired
 	SessionService session;
 
@@ -78,9 +78,11 @@ public class UpdateProfileRestController {
 		List<Accounts> list = account.findAll();
 		String birthPost = form.getYear() + "/" + (Integer.parseInt(form.getMonth()) + 1) + "/" + form.getDay();
 		Date birthDay = new Date(birthPost);
-String gender = null;
-if(form.getGender() !=null){
-		 gender = form.getGender();}
+		String gender = null;
+		if (form != null) {
+			gender = form.getGender();
+		}
+
 		if (form.getLastname().isBlank() || form.getFirstname().isBlank()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -140,7 +142,7 @@ if(form.getGender() !=null){
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		List<Contacts> list = contactDAO.findAllByUserAr(acc.getUsername());
-		for(int i =0 ; i<list.size();i++) {
+		for (int i = 0; i < list.size(); i++) {
 			list.get(i).getUserAr().setPassword(null);
 		}
 		return ResponseEntity.ok(list);
@@ -165,10 +167,11 @@ if(form.getGender() !=null){
 
 		return ResponseEntity.ok(form);
 	}
-	
+
 	@SuppressWarnings("unused")
 	@PutMapping("/rest/update_profile/address")
-	public ResponseEntity<ContactModel> PutOne(@RequestBody ContactModel form,@RequestParam("id") String id) throws ParseException {
+	public ResponseEntity<ContactModel> PutOne(@RequestBody ContactModel form, @RequestParam("id") String id)
+			throws ParseException {
 		Accounts acc = session.get("account");
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode node = mapper.createObjectNode();
@@ -179,14 +182,14 @@ if(form.getGender() !=null){
 		if (!form.getPhone().matches(regNum)) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		if(!NumberUtils.isParsable(id)) {
+		if (!NumberUtils.isParsable(id)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Optional<Contacts> contacts = contactDAO.findContactIdByUserAr(Integer.parseInt(id), acc.getUsername());
-		if(!contacts.isPresent()) {
+		if (!contacts.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		Contacts updateC= contacts.get();
+		Contacts updateC = contacts.get();
 		updateC.setUserAr(acc);
 		updateC.setAddress(form.getAdr());
 		updateC.setFullname(form.getFullname());
@@ -194,6 +197,7 @@ if(form.getGender() !=null){
 		contactDAO.save(updateC);
 		return ResponseEntity.ok(form);
 	}
+
 	@DeleteMapping("/rest/update_profile/deleteAddress/{id}")
 	public ResponseEntity<JsonNode> deleteCartList(@PathVariable("id") String id) {
 		Accounts acc = session.get("account");
@@ -201,7 +205,7 @@ if(form.getGender() !=null){
 			return ResponseEntity.status(404).build();
 		}
 		List<Contacts> listAdr = contactDAO.findAllByUserAr(acc.getUsername());
-		if(listAdr.size()<=1) {
+		if (listAdr.size() <= 1) {
 			return ResponseEntity.status(404).build();
 		}
 		if (!NumberUtils.isParsable(id)) {
@@ -217,5 +221,5 @@ if(form.getGender() !=null){
 		}
 		return ResponseEntity.noContent().build();
 	}
-	
+
 }
