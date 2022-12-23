@@ -216,7 +216,7 @@ public class ColorsController {
 		Colors color = new Colors();
 		color = model;
 
-		if (!colorsService.findById(idd).isEmpty()) {
+		if (!colorsService.findById(idd).isPresent()) {
 			chk++;
 			session.set("color_mess", "Màu sắc này đã tồn tại !");
 		} else {

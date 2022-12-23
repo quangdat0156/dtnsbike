@@ -232,7 +232,7 @@ public class SizesController {
 			if (model.getId().length() > 10) {
 				session.set("size_mess", "Mã kích thước không được quá 10 ký tự !");
 				chk++;
-			}else if (!check.isEmpty()) {
+			}else if (!check.isPresent()) {
 				session.set("size_mess", "Kích thước đã tồn tại !");
 				chk++;
 			} else if (pattern.matcher(model.getId()).find()) {

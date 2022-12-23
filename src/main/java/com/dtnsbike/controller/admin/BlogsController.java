@@ -266,7 +266,7 @@ public class BlogsController {
 
 		int chk = 0;
 		if (model.getBlogid() != null) {
-			if (!blogs_service.findById(model.getBlogid()).isEmpty()) {
+			if (!blogs_service.findById(model.getBlogid()).isPresent()) {
 				chk++;
 				session.set("blog_mess", "Mã bài viết đã tồn tại !");
 			} else {
